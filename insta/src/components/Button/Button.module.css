@@ -13,3 +13,12 @@ button:hover {
   background-color: #434343;
   color: white;
 }
+
+button:disabled,
+button:disabled:hover {
+  /* background-color: transparent; */
+  cursor: default;
+  background-color: rgba(239, 239, 239, 0.3);
+  color: rgb(178, 178, 178);
+}
+
