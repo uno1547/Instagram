@@ -1,17 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Test() {
-  const [value, setValue] = useState("")
-  console.log('rerender');
-  const handler = (evt) => {
-    console.log(value);
-    setValue(evt.target.value)
-  }
-
   return (
     <>
-      <h1>{value}</h1>
-      <input type="text" onChange={handler}/>
+      <h1>실험실이에요</h1>
+      <input type="text" />
     </>
   )
 }
