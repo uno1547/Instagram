@@ -16,16 +16,9 @@ function TestPost() {
     evt.preventDefault()
     const form = evt.target
     const formData = new FormData(form)
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(isNaN(key))
-    //   console.log(isNaN(value));
-    // }
     const entry = Object.fromEntries(formData)
     console.log(entry);
     const json = JSON.stringify(entry)
-
-    // const obj = {"1" : 4}
-    // console.log(JSON.stringify(obj));
 
     console.log(json)
 
@@ -45,7 +38,7 @@ function TestPost() {
       <form onSubmit={fetchData}>
         <input type="number" name = "id" value={id} onChange={idHandler}/>
         <input type="text" name = "title" value={title} onChange={titleHandler}/>
-        <button type="submit">제출</button>
+        <button type="submit">생성</button>
       </form>
     </>
   )

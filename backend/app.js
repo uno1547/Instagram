@@ -89,6 +89,14 @@ app.get('/articles', function (req, res) {
 app.post('/articles', function (req, res) {
   console.log('post요청이 왔습니다');
   console.log(req.body);
+  const {id, title} = req.body
+  console.log(id, title);
+  const newArticle = {
+    id : Number(id),
+    title
+  }
+  console.log(newArticle);
+  database.push(newArticle)
   // console.log(formJson);
   // console.log(req.body);
   res.send("생성에 성공했다!")
@@ -96,14 +104,23 @@ app.post('/articles', function (req, res) {
 
 // fetch put
 app.put('/articles', function (req, res) {
+  console.log(req.body);
   console.log('put요청이 왔습니다');
+  const {id, title} = req.body
+  const originArticle = database.find(article => article.id == id)
+  originArticle.title = title
   // console.log(req.body);
-  res.send('database')
+  res.send('수정에 성공했다!!')
 })
 
 // fetch delete
 app.delete('/articles', function (req, res) {
-  res.send(database)
+  console.log('delete요청이 왔습니다');
+  const {id} = req.body
+  const idx = database.findIndex(article => article.id == id)
+  console.log(`${idx} 부터 1개자름`);
+  database.splice(idx, 1)
+  res.send(`${id}글 삭제에 성공했다!!`)
 })
 
 app.listen(4000, () => {
