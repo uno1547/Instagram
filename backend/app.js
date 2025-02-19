@@ -13,6 +13,10 @@ const database = [
   { id : 3 , title : '글3'},
 ]
 
+const users = [
+  { user_name : "peter", user_id : "uno1547", password : "cocacola10*"}
+]
+
 
 app.get('/', function (req, res) {
   // res.send('Hello World!')
@@ -122,6 +126,27 @@ app.delete('/articles', function (req, res) {
   database.splice(idx, 1)
   res.send(`${id}글 삭제에 성공했다!!`)
 })
+
+app.post('/login', function (req, res) {
+  console.log('로그인요청이 왔어요');
+  const {id, password} = req.body
+  console.log(id, password);
+  const user = users.find(user => user.user_name === id)
+  console.log(user);
+  if(!user) {
+    res.status(403).send("해당 user가 없어요")
+    return 
+  }
+
+  if(user.password !== password) {
+    res.status(403).send("비밀번호가 달라요!")
+    return
+  }
+
+  res.send("로그인완료!!")
+
+}) 
+
 
 app.listen(4000, () => {
   console.log('server running!');
