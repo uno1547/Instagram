@@ -17,7 +17,7 @@ function Test() {
     const form = evt.target
     const formData = new FormData(form)
     const entry = Object.fromEntries(formData)
-    console.log(entry);
+    // console.log(entry);
     const json = JSON.stringify(entry)
 
     console.log(json)
@@ -29,8 +29,14 @@ function Test() {
         'Content-Type' : 'application/json'
       },
       body : json
-    }).then(response => response.text())
+    }).then(response => response.json())
+      .then(data => {
+        localStorage.setItem('token', data.accessToken)
+        console.log('받은 토큰은', data.accessToken);
+      })
       .then(data => console.log(data))
+      .catch(err => console.log('에러발생')) // 여기서 비번 문제인지 없는 유저인지 구분해서 알려줄수있을듯??
+      // .then(data => console.log(data))
   }
   return (
     <>

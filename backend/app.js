@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const jwt = require('jsonwebtoken')
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -127,6 +128,7 @@ app.delete('/articles', function (req, res) {
   res.send(`${id}글 삭제에 성공했다!!`)
 })
 
+// 사용자 정보확인후 jwt토큰 발급(인증)
 app.post('/login', function (req, res) {
   console.log('로그인요청이 왔어요');
   const {id, password} = req.body
@@ -143,9 +145,38 @@ app.post('/login', function (req, res) {
     return
   }
 
-  res.send("로그인완료!!")
+  console.log(user.user_name);
+  // 인증 완료된 사용자에게 토큰발급
+  const accessToken = jwt.sign({ name : user.user_name}, 'secretkey')
+  res.send({accessToken})
 
 }) 
+// 특정 api요청에 대해서 jwt여부, 유효성검사과정 (인가)
+app.get('/user/hello', function (req, res) {
+  const token = req.header('Authorization')?.split(' ')[1];
+  // const token = req.header('Authorization');
+  console.log(token);
+  // res.send(token)
+  if (!token) return res.sendStatus(401); // 토큰이 없다면 오류전송
+  // 토큰 유효성 검사 with secretkey
+  jwt.verify(token, 'secretkey', (err, user) => { // 있다면 유효성 검사
+    if (err) return res.sendStatus(403);
+    console.log(user);
+    res.json({ message : `반가워요 ${user.name}`})
+  })
+  console.log('검증완료');  
+})
+
+function authenticateToken(req, res, next) {
+  const token = req.header('Authorization')?.split(' ')[1];
+  if (!token) return res.sendStatus(401);
+
+  jwt.verify(token, 'SECRET_KEY', (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    // next();
+  });
+}
 
 
 app.listen(4000, () => {

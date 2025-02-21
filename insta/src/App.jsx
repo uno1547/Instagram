@@ -10,6 +10,7 @@ import TestGet from './components/Test/TestGet'
 import TestPost from './components/Test/TestPost'
 import TestUpdate from './components/Test/TestUpdate'
 import TestDelete from './components/Test/TestDelete'
+import Hello from './components/Test/Hello'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/testpost' element = {<TestPost/>}></Route>
         <Route path='/testupdate' element = {<TestUpdate/>}></Route>
         <Route path='/testdelete' element = {<TestDelete/>}></Route>
+        <Route path='/hello' element = {<Hello/>}></Route>
       </Routes>
     </Router>
     
