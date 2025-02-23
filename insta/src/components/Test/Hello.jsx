@@ -4,7 +4,7 @@ function Hello() {
   const [word, setWord] = useState("빈문자")
   const requestAPI = async () => {
     const response = await fetch("http://localhost:4000/hello-cookie", {
-      credentials : 'include'
+      credentials : 'include' //자동
     })
     const { message } = await response.json()
     // .then(response => {

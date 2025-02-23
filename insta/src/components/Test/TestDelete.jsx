@@ -24,7 +24,7 @@ function TestDelete() {
         'Content-Type' : 'application/json'
       },
       body : json
-    }).then(response => response.text())
+    }).then(response => response.text()) 
       .then(data => console.log(data))
   }
   return (
