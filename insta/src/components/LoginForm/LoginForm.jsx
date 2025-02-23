@@ -11,7 +11,7 @@ function LoginForm() {
   const [password, setPassword] = useState("")
   const [isValid, setisValid] = useState(false)
   const navigate = useNavigate()
-  
+
   // console.log(userName, password);
   const isValidateForm = (userValue, password) => {
     // console.log(userValue.length && password.length ? "적절" : "부적절")
@@ -44,12 +44,14 @@ function LoginForm() {
     const json = JSON.stringify(entry)
     console.log(json);
     // console.log('submit!!');
-    fetch("http://localhost:4000/login-response", {
+    fetch("http://localhost:4000/login-cookie", {
+      // mode : 'no-cors',
       method : "POST",
       headers : {
         'Content-Type' : 'application/json'
       },
-      body : json // 1. 서버에 사용자 정보를 전송, 로그인요청
+      body : json, // 1. 서버에 사용자 정보를 전송, 로그인요청
+      credentials : 'include' //애초에 이 Fetch에는 이 옵션이 필요없는것같은데???
     })
     .then(response => {
       console.log('response 가 왔어요');
@@ -61,9 +63,7 @@ function LoginForm() {
       return response.json()
     })
     .then(data => {
-      localStorage.setItem('token', data.accessToken)
-      console.log(data.message);
-      console.log('토큰은',data.accessToken);
+      console.log(data);
       navigate('/hello')
     })
     .catch(err => {

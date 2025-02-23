@@ -27,10 +27,10 @@ function App() {
         {/* <Route path='/testupdate' element = {<TestUpdate/>}></Route> */}
         {/* <Route path='/testdelete' element = {<TestDelete/>}></Route> */}
         <Route path='/hello' element = {<Hello/>}></Route>
-        <Route path='/login-response' element = {<TestLogin1/>}></Route>
-        <Route path='/login-cookie' element = {<TestLogin2/>}></Route>
-        <Route path='/hello-response' element = {<Hello1/>}></Route>
-        <Route path='/hello-cookie' element = {<Hello2/>}></Route>
+        {/* <Route path='/login-response' element = {<TestLogin1/>}></Route> */}
+        {/* <Route path='/login-cookie' element = {<TestLogin2/>}></Route> */}
+        {/* <Route path='/hello-response' element = {<Hello1/>}></Route> */}
+        {/* <Route path='/hello-cookie' element = {<Hello2/>}></Route> */}
       </Routes>
     </Router>
     
