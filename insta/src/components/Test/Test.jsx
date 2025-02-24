@@ -36,7 +36,7 @@ function Test() {
   */
   const fetchData = async () => {
     // console.log('hdy');
-    const response = await fetch("http://localhost:4000/login-response", {
+    const response = await fetch("http://localhost:4000/login-cookie", {
       method : "POST",
       headers : {
         'Content-Type' : 'application/json'

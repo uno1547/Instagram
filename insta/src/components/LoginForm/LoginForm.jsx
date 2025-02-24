@@ -6,11 +6,15 @@ import Button from "../Button/Button"
 
 import styles from "./LoginForm.module.css"
 
-function LoginForm() {
+function LoginForm({ setIsAuth }) {
   const [userValue, setuserValue] = useState("")
   const [password, setPassword] = useState("")
   const [isValid, setisValid] = useState(false)
   const navigate = useNavigate()
+
+  const tokenAtClient = () => {
+    return localStorage.getItem("access_token")
+  }
 
   // console.log(userName, password);
   const isValidateForm = (userValue, password) => {
@@ -44,14 +48,14 @@ function LoginForm() {
     const json = JSON.stringify(entry)
     console.log(json);
     // console.log('submit!!');
-    fetch("http://localhost:4000/login-cookie", {
+    fetch("http://localhost:4000/login-response", {
       // mode : 'no-cors',
       method : "POST",
       headers : {
         'Content-Type' : 'application/json'
       },
       body : json, // 1. 서버에 사용자 정보를 전송, 로그인요청
-      credentials : 'include' //애초에 이 Fetch에는 이 옵션이 필요없는것같은데???
+      // credentials : 'include' //애초에 이 Fetch에는 이 옵션이 필요없는것같은데???
     })
     .then(response => {
       console.log('response 가 왔어요');
@@ -63,8 +67,10 @@ function LoginForm() {
       return response.json()
     })
     .then(data => {
+      localStorage.setItem("access_token", data.accessToken)
       console.log(data);
-      navigate('/hello')
+      // navigate('/')
+      setIsAuth(tokenAtClient())
     })
     .catch(err => {
       console.log('catch블럭임');

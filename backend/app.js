@@ -91,6 +91,42 @@ app.delete('/articles', function (req, res) {
   res.send(`${id}글 삭제에 성공했다!!`)
 })
 
+
+/*
+사용자가 홈페이지접속('/'라우트) > 서버에 GET '/home' 
+사용자의 토큰여부에 따라 응답 1. 사용자 정보(token O ) 2. 에러? (token X)
+받은 응답에따라 사용자정보로 홈페이지 랜더링 or login페이지 랜더링
+
+
+*/
+app.get('/home', (req, res) => {
+  const accessToken = req.cookies.access_token
+  // 토큰이 없다면 '로그인랜더링해' 응답
+  // 토큰이 있다면 인스타 유저인지 판단후 '여기로가라' 응답
+  if (!accessToken) { // 토큰이없음
+    res.json(false)
+    return
+  }
+  // res.send("hi") // 문자열 보내면 클라에서 response.text()로 받아야함
+  // res.send("false") //얘는 아마 자동 형변환이 이루어져서 response.json()으로 받을수 있는듯
+  // res.send(true) 
+  // res.send({"result" : true})
+  // res.send({message : true})
+  res.json(true) //????얘는 뭐임
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 사용자 정보확인후 jwt토큰 발급(인증)
 app.post('/login', function (req, res) {
   console.log('로그인요청이 왔어요');
