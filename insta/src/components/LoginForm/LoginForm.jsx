@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import Input from "../Input/Input"
 import Button from "../Button/Button"
@@ -31,7 +31,7 @@ function LoginForm({ setIsAuth }) {
   const passwordInputHandler = (evt) => {
     const newPassword = evt.target.value
     setPassword(newPassword)
-    setisValid(isValidateForm(newPassword, newPassword))
+    setisValid(isValidateForm(userValue, newPassword))
   }
 
   const submitHandler = (evt) => {
@@ -82,7 +82,7 @@ function LoginForm({ setIsAuth }) {
   }
 
   const signupHandler = () => {
-    console.log("회원가입 요청할게요");
+    navigate('/signup')
   }
   return (
     <div className={styles.container}>

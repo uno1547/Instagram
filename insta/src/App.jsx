@@ -1,17 +1,19 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-import HomePage from './pages/HomePage'
-import LoginPage from './pages/LoginPage'
+import Home from './pages/Home'
+import SignupForm from './components/SignupForm/SignupForm'
 import DashboardPage from './pages/DashboardPage'
 import Test from './components/Test/Test'
+import ProfilePage from './pages/ProfilePage'
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element = {<HomePage/>}></Route>
-        <Route path='/test' element = {<Test/>}></Route>
+        <Route path='/' element = {<Home/>}></Route>
+        <Route path='/signup' element = {<SignupForm/>}></Route>
+        <Route path='/profile' element = {<ProfilePage/>}></Route>
       </Routes>
     </Router>
     
