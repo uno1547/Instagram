@@ -11,16 +11,15 @@ app.use(cors({
 }))
 // app.use(cors())
 app.use(express.json())
-app.use(express.urlencoded({extended : false}))
+app.use(express.urlencoded({extended : true}))
 app.use(cookieParser())
 
 
-
 const database = [
-  { id : 1 , title : '글1'},
-  { id : 2 , title : '글2'},
-  { id : 3 , title : '글3'},
+  { id : 1, name : "yongjun", nickName : "dbdydwns", password : "$argon2id$v=19$m=65536,t=3,p=4$pAGSgdBaJaEcCCoZ7x0Whw$6aCDGgQQKxlNU3m5vU3p8Pg0f26ZvX/a5C9Ff//ctPo", contact : '010-1234-5678'},
+  { id : 2, name : "uno", nickName : "yuno4034", password : "$argon2id$v=19$m=65536,t=3,p=4$1J2KAfMmP2Lv2LDF6MWD7Q$woVh4pQdjniEvaKvJZP64EUTwy9sKBfE9AWIShPyVHU", contact : 'unoei@naver.com'}  
 ]
+let idx = database.length
 // const hased = async () => {
 
 //   const hash1 = await argon2.hash("yongjunpassword")
@@ -153,15 +152,39 @@ app.post('/login', function (req, res) {
 }) 
 
 app.post('/signup', async function(req, res) {
-  const { name, nickName, password, email, phoneNum } = req.body
+  // 데이터 저장 형태는 나중에 생각해보기로
+  const { contact, password, name, nickName } = req.body
+  // const { name, nickName, password, email, phoneNum } = req.body
   const hashedPassword = await argon2.hash(password)
+  idx = idx + 1
+  // 데이터 베이스에 추가
   database.push({
+    id : idx, 
     name,
     nickName,
     password : hashedPassword,
-    email,
-    phoneNum
+    contact
   })
+  console.log(database, idx);
+  res.json({message : true})
+})
+// 중복닉네임을 검증함
+app.post('/signup/duplicate-id', function(req, res) {
+  const { nickName } = req.body
+  console.log(nickName);
+  const dupUser = users.find(user => {
+    return user.nickName == nickName
+  })
+  console.log(dupUser);
+  // 중복 유저가있을경우
+  if(dupUser) {
+    console.log('중복유저가 있어요');
+    res.json({message : false})
+    return
+  }
+  // 사용가능한 아이디인경우
+  console.log('사용가능한 id에요');
+  res.json({message : true})
 })
 
 
@@ -290,4 +313,5 @@ function authenticateToken(req, res, next) {
 
 app.listen(4000, () => {
   console.log('server running!');
+  console.log(database);
 })
