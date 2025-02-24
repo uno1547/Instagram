@@ -29,7 +29,7 @@ const tokenAtClient = () => {
 }
 function Home() {
   const [isAuth, setIsAuth] = useState(tokenAtClient())
-
+  
   return (
     <>
       <h1>홈라우트</h1>

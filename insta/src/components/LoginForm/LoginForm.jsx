@@ -69,8 +69,8 @@ function LoginForm({ setIsAuth }) {
     .then(data => {
       localStorage.setItem("access_token", data.accessToken)
       console.log(data);
-      // navigate('/')
       setIsAuth(tokenAtClient())
+      // navigate('/')
     })
     .catch(err => {
       console.log('catch블럭임');

@@ -32,10 +32,10 @@ let idx = database.length
 
 // console.log(hased);
 
-const users = [
-  { id : 1, name : "yongjun", nickName : "dbdydwns", password : "$argon2id$v=19$m=65536,t=3,p=4$pAGSgdBaJaEcCCoZ7x0Whw$6aCDGgQQKxlNU3m5vU3p8Pg0f26ZvX/a5C9Ff//ctPo"},
-  { id : 2, name : "uno", nickName : "yuno4034", password : "$argon2id$v=19$m=65536,t=3,p=4$1J2KAfMmP2Lv2LDF6MWD7Q$woVh4pQdjniEvaKvJZP64EUTwy9sKBfE9AWIShPyVHU"}
-]
+// const users = [
+//   { id : 1, name : "yongjun", nickName : "dbdydwns", password : "$argon2id$v=19$m=65536,t=3,p=4$pAGSgdBaJaEcCCoZ7x0Whw$6aCDGgQQKxlNU3m5vU3p8Pg0f26ZvX/a5C9Ff//ctPo"},
+//   { id : 2, name : "uno", nickName : "yuno4034", password : "$argon2id$v=19$m=65536,t=3,p=4$1J2KAfMmP2Lv2LDF6MWD7Q$woVh4pQdjniEvaKvJZP64EUTwy9sKBfE9AWIShPyVHU"}
+// ]
 
 app.get('/', function (req, res) {
   // res.send('Hello World!')
@@ -98,6 +98,8 @@ app.delete('/articles', function (req, res) {
 
 
 */
+
+// 얜 아직 필요할지 모르겠음
 app.get('/home', (req, res) => {
   const accessToken = req.cookies.access_token
   // 토큰이 없다면 '로그인랜더링해' 응답
@@ -126,7 +128,7 @@ app.get('/home', (req, res) => {
 
 
 
-// 사용자 정보확인후 jwt토큰 발급(인증)
+// 사용자 정보확인후 jwt토큰 발급 cookie방식
 app.post('/login', function (req, res) {
   console.log('로그인요청이 왔어요');
   const {id, password} = req.body
@@ -148,7 +150,6 @@ app.post('/login', function (req, res) {
   const accessToken = jwt.sign({ name : user.user_name}, 'secretkey')
   res.cookie('accessToken', accessToken)
   res.send({accessToken})
-
 }) 
 
 app.post('/signup', async function(req, res) {
@@ -168,11 +169,12 @@ app.post('/signup', async function(req, res) {
   console.log(database, idx);
   res.json({message : true})
 })
+
 // 중복닉네임을 검증함
 app.post('/signup/duplicate-id', function(req, res) {
   const { nickName } = req.body
   console.log(nickName);
-  const dupUser = users.find(user => {
+  const dupUser = database.find(user => {
     return user.nickName == nickName
   })
   console.log(dupUser);
@@ -187,13 +189,17 @@ app.post('/signup/duplicate-id', function(req, res) {
   res.json({message : true})
 })
 
-
 // jwt를 response에 담는 방법
 app.post('/login-response', async function (req, res) {
   console.log('로그인요청이 왔어요');
   const {userValue, password} = req.body
+  // userValue는 전번, 사용자이름, 이메일임 
   console.log(userValue, password);
-  const user = users.find(user => user.nickName === userValue)
+  // 1. DB랑 비교
+  const user = database.find(user => {
+    return (user.nickName == userValue) || (user.contact == userValue)
+  })
+  // const user = users.find(user => user.nickName === userValue)
   console.log(user);
   // 2. 사용자 검증
   if(!user) {
