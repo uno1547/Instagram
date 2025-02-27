@@ -10,15 +10,16 @@ function LoginForm({ setIsAuth }) {
   const [userValue, setuserValue] = useState("")
   const [password, setPassword] = useState("")
   const [isValid, setisValid] = useState(false)
+  const [alert, setAlert] = useState("")
+
   const navigate = useNavigate()
 
   const tokenAtClient = () => {
-    return localStorage.getItem("access_token")
+    return localStorage.getItem("access_token") // 루트 라우팅일때 토큰 여부 바꿔서 홈페이지 보이게 하려는 건데...
   }
 
   // console.log(userName, password);
   const isValidateForm = (userValue, password) => {
-    // console.log(userValue.length && password.length ? "적절" : "부적절")
     return userValue.length && password.length >= 6
   }
 
@@ -34,21 +35,43 @@ function LoginForm({ setIsAuth }) {
     setisValid(isValidateForm(userValue, newPassword))
   }
 
-  const submitHandler = (evt) => {
+  const submitHandler = async (evt) => {
     evt.preventDefault()
     if(!isValid) { // 부적절한 형식일경우 리턴
       return
     }
-    // 적절한 형식일경우 로그인요청
-    // console.log("적절해요 로그인 요청할게요")
-    // console.log(userValue, password); // userValue마다 다르게 처리해줘야하는데, 일단은 nickName이라가정
+
     const form = evt.target
     const formData = new FormData(form)
     const entry = Object.fromEntries(formData)
     const json = JSON.stringify(entry)
     console.log(json);
-    // console.log('submit!!');
-    fetch("http://localhost:4000/login-response", {
+
+    try {
+      const response = await fetch("http://localhost:4000/api/login", {
+        method : "POST",
+        headers : {
+          'Content-Type' : 'application/json'
+        },
+        body : json
+      })
+      console.log(response);
+      if(!response.ok) { //정상이라면
+        const { message } = await response.json()
+        setAlert(message)
+        return
+      }
+
+      const { message, accessToken } = await response.json()
+      localStorage.setItem('access_token', accessToken)
+      setAlert(message)
+      setIsAuth(tokenAtClient())
+      // console.log(message);      
+    } catch (error) {
+      setAlert("알수없는 오류에요")
+    }
+    /*
+    fetch("http://localhost:4000/api/login", {
       // mode : 'no-cors',
       method : "POST",
       headers : {
@@ -69,14 +92,14 @@ function LoginForm({ setIsAuth }) {
     .then(data => {
       localStorage.setItem("access_token", data.accessToken)
       console.log(data);
-      setIsAuth(tokenAtClient())
+      setIsAuth(tokenAtClient()) // 루트라우팅에서 홈페이지를 랜더링하게
       // navigate('/')
     })
     .catch(err => {
       console.log('catch블럭임');
       console.log(err);
     })
-
+    */
     // .catch(err => console.log(err)) // 여기 catch가 실행됐다고 해서 fetch에서 오류인지 위 2개의 then에서 오류인지 알수없다!! 조심
 
   }
@@ -95,6 +118,7 @@ function LoginForm({ setIsAuth }) {
         <div className={`${styles.field} ${styles.buttonField}`}>
           <Button text="로그인" type="submit" disabled = {!isValid}/>
           <Button text="회원가입" type="button" handler={signupHandler}/>
+          <div className={styles.notice}>{alert}</div>
         </div>
       </form>
     </div>    

@@ -152,7 +152,10 @@ app.post('/login', function (req, res) {
   res.send({accessToken})
 }) 
 
-app.post('/signup', async function(req, res) {
+
+
+// 회원가입
+app.post('/api/users', async function(req, res) {
   // 데이터 저장 형태는 나중에 생각해보기로
   const { contact, password, name, nickName } = req.body
   // const { name, nickName, password, email, phoneNum } = req.body
@@ -167,11 +170,15 @@ app.post('/signup', async function(req, res) {
     contact
   })
   console.log(database, idx);
-  res.json({message : true})
+  // DB추가 과정이있다면 예외처리 해주면 될듯
+  res.json({
+    "success" : true,
+    "message" : "회원가입에 성공했습니다."
+  })
 })
 
 // 중복닉네임을 검증함
-app.post('/signup/duplicate-id', function(req, res) {
+app.post('/api/users/dup-nick', function(req, res) {
   const { nickName } = req.body
   console.log(nickName);
   const dupUser = database.find(user => {
@@ -181,19 +188,26 @@ app.post('/signup/duplicate-id', function(req, res) {
   // 중복 유저가있을경우
   if(dupUser) {
     console.log('중복유저가 있어요');
-    res.json({message : false})
+    res.status(400).json({
+      "success" : false,
+      "message" : "중복된 사용자이름입니다"
+    })
+    // res.json({message : false})
     return
   }
   // 사용가능한 아이디인경우
   console.log('사용가능한 id에요');
-  res.json({message : true})
+  // res.json({message : true})
+  res.json({
+    "success" : true,
+    "message" : "사용가능한 닉네임 이에요"
+  })
 })
 
 // jwt를 response에 담는 방법
-app.post('/login-response', async function (req, res) {
+app.post('/api/login', async function (req, res) {
   console.log('로그인요청이 왔어요');
   const {userValue, password} = req.body
-  // userValue는 전번, 사용자이름, 이메일임 
   console.log(userValue, password);
   // 1. DB랑 비교
   const user = database.find(user => {
@@ -203,12 +217,18 @@ app.post('/login-response', async function (req, res) {
   console.log(user);
   // 2. 사용자 검증
   if(!user) {
-    res.status(403).send("해당 user가 없어요")
+    res.status(404).json({
+      "success" : false,
+      "message" : "존재하지않는 사용자입니다"
+    })
     return 
   }
 
   if(!(await argon2.verify(user.password, password))) {
-    res.status(403).send("비밀번호가 달라요!")
+    res.status(401).json({
+      "success" : false,
+      "message" : "비밀번호가 틀려요"
+    })
     return
   }
 
@@ -216,8 +236,11 @@ app.post('/login-response', async function (req, res) {
   // 3. 검증 완료된 사용자에게 토큰발급 (이후 특정api호출시 사용자 인증을 위함)
   const accessToken = jwt.sign({ name : user.name}, 'secretkey')
   console.log(accessToken);
-  res.send({accessToken, message : "토큰이왔어요"})
-
+  res.json({
+    "success" : true,
+    "message" : "로그인 성공",
+    accessToken
+  })
 }) 
 
 // authorization헤더에 포함된 토큰으로 인증된 유저의 API

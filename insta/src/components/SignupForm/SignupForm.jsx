@@ -20,26 +20,21 @@ function SignupForm() {
   const contactInputHandler = (evt) => {
     const newContact = evt.target.value
     setContact(newContact)
-    // console.log(newContact);
-    // setisValid(isValidateForm(newContact, password))
   }
 
   const passwordInputHandler = (evt) => {
     const newPassword = evt.target.value
     setPassword(newPassword)
-    // setisValid(isValidateForm(newPassword, newPassword))
   }
 
   const nameInputHandler = (evt) => {
     const newName = evt.target.value
     setName(newName)
-    // setisValid(isValidateForm(newname, newname))
   }
 
   const nickNameInputHandler = (evt) => {
     const newNickName = evt.target.value
     setNickName(newNickName)
-    // setisValid(isValidateForm(newnickName, newnickName))
   }
 
   const clickHandler = () => {
@@ -60,35 +55,38 @@ function SignupForm() {
   const submitHandler = async (evt) => {
     console.log('submit핸들러');
     evt.preventDefault()
-    // 1. 유효성 검사 > 안내메세지 띄울지결정
+    // 유효성 검사 > true면 회원가입진행 문자열이면 경고메세지로 표시
     const message = await isValuesValid({ contact, password, name, nickName })
-    console.log(message);
-    // 경고창 랜더링
-    if(message != true) {
-      setWrongValue(message) // promise인데도 값으로 알아서 들어간듯??
+    // console.log(message);
+    if(message != true) { //불만족한 값이 존재하는경우
+      setWrongValue(message)
       return
     }
-    console.log('모두 true');
-    setWrongValue(null)
+    // console.log('모두 true');
+    setWrongValue(null) // 경고메세지 제거
     // 모두 유효하다면 json으로 바꿔서 fetch post 요청 전송
-    
     const form = evt.target
     const formData = new FormData(form)
     const entry = Object.fromEntries(formData)
     const json = JSON.stringify(entry)
-    console.log(json);
+    // console.log(json);
 
-    const response = await fetch("http://localhost:4000/signup", {
-      method : "POST",
-      headers : {
-        'Content-Type' : 'application/json'
-      },
-      body : json
-    })
-
-    const result = await response.json()
-    if(result) {
-      navigate('/')
+    try {
+      const response = await fetch("http://localhost:4000/api/users", {
+        method : "POST",
+        headers : {
+          'Content-Type' : 'application/json'
+        },
+        body : json
+      })      
+      const { success, message } = await response.json()
+      // console.log(result);
+      if(success == true) {
+        alert("회원가입에 성공했습니다")
+        navigate('/')
+      }
+    } catch (err) {
+      alert("알수없는 오류가 발생했어요")
     }
   }
   /*
