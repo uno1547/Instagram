@@ -4,11 +4,11 @@ import Posts from '../components/Profile/Posts'
 import { useState } from 'react'
 
 function HomePage() {
-  
+
   return(
     <>
-      <div>헤더</div>
-      <h1>안녕하세요{}</h1>
+      <Header/>
+      <h1>안녕하세요 사용자님</h1>
     </>
   )
 }

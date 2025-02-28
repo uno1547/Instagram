@@ -188,7 +188,7 @@ app.post('/api/users/dup-nick', function(req, res) {
   // 중복 유저가있을경우
   if(dupUser) {
     console.log('중복유저가 있어요');
-    res.status(400).json({
+    res.status(409).json({
       "success" : false,
       "message" : "중복된 사용자이름입니다"
     })
