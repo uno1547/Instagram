@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 const app = express()
 app.use(cors({
   origin : "http://localhost:5173",
-  credentials : true
+  // credentials : true 얜뭐지
 }))
 // app.use(cors())
 app.use(express.json())
@@ -128,7 +128,9 @@ app.get('/home', (req, res) => {
 
 
 
+
 // 사용자 정보확인후 jwt토큰 발급 cookie방식
+/*
 app.post('/login', function (req, res) {
   console.log('로그인요청이 왔어요');
   const {id, password} = req.body
@@ -151,11 +153,10 @@ app.post('/login', function (req, res) {
   res.cookie('accessToken', accessToken)
   res.send({accessToken})
 }) 
-
-
+*/
 
 // 회원가입
-app.post('/api/users', async function(req, res) {
+app.post('/api/usders', async function(req, res) {
   // 데이터 저장 형태는 나중에 생각해보기로
   const { contact, password, name, nickName } = req.body
   // const { name, nickName, password, email, phoneNum } = req.body
@@ -177,7 +178,103 @@ app.post('/api/users', async function(req, res) {
   })
 })
 
-// 중복닉네임을 검증함
+// jwt토큰 포함된 요청에서 userId반환
+// { name : user.name } 가 payload임
+app.get('/api/user', function(req, res) {
+  console.log('요청이 왔어요');
+  const token = req.header('Authorization')?.split(' ')[1];
+  console.log(token);
+  if (!token) return res.status(401).json({
+    "success" : false,
+    "message" : "토큰이 없어요"
+  }); // 무조건 올테지만 토큰이 없다면 오류전송
+
+  // 토큰 유효성 검사 with secretkey
+  jwt.verify(token, 'secretkey', (err, user) => { // 있다면 유효성 검사
+    if (err) return res.status(403).json({
+      "success" : false,
+      "message" : "알수없는 오류발생"
+    });
+    console.log(user);
+    res.json({
+      "success" : true,
+      userID : user.userId,
+      "message" : "userid에요"
+    })
+  })
+
+  console.log('검증완료');    
+})
+
+app.get('/test', function (req, res) {
+  res.send('Hello World!')
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 중복닉네임을 검증함 (폐기)
 app.post('/api/users/dup-nick', function(req, res) {
   const { nickName } = req.body
   console.log(nickName);
@@ -234,7 +331,7 @@ app.post('/api/login', async function (req, res) {
 
   // res.send({ message : "로그인완료했어요"})
   // 3. 검증 완료된 사용자에게 토큰발급 (이후 특정api호출시 사용자 인증을 위함)
-  const accessToken = jwt.sign({ name : user.name}, 'secretkey')
+  const accessToken = jwt.sign({ name : user.name }, 'secretkey')
   console.log(accessToken);
   res.json({
     "success" : true,

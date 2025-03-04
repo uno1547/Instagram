@@ -1,4 +1,4 @@
-import Posts from "../../components/Profile/Posts";
+import Posts from "../../components/Profile/UserPosts";
 
 function isContactValid(contact) {
   // 올바른 형식일때 true반환 나머지는 메세지 반환

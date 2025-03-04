@@ -1,5 +1,5 @@
 
-function Posts() {
+function UserPosts() {
   return(
     <>
       <h1>게시글들</h1>
@@ -7,4 +7,4 @@ function Posts() {
   )
 }
 
-export default Posts
+export default UserPosts

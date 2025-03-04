@@ -1,6 +1,6 @@
 import Header from '../components/Sidebar/Sidebar'
 import UserInfo from '../components/Profile/UserInfo'
-import Posts from '../components/Profile/Posts'
+import Posts from '../components/Profile/UserPosts'
 import { useState } from 'react'
 
 function HomePage() {
