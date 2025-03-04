@@ -66,6 +66,7 @@ function LoginForm({ setIsAuth }) {
       localStorage.setItem('access_token', accessToken)
       setAlert(message)
       setIsAuth(tokenAtClient())
+      navigate("/") 
       // console.log(message);      
     } catch (error) {
       setAlert("알수없는 오류에요")
