@@ -198,7 +198,7 @@ app.get('/api/user', function(req, res) {
     console.log(user);
     res.json({
       "success" : true,
-      userID : user.userId,
+      "userID" : user.nickName,
       "message" : "userid에요"
     })
   })
@@ -331,7 +331,8 @@ app.post('/api/login', async function (req, res) {
 
   // res.send({ message : "로그인완료했어요"})
   // 3. 검증 완료된 사용자에게 토큰발급 (이후 특정api호출시 사용자 인증을 위함)
-  const accessToken = jwt.sign({ name : user.name }, 'secretkey')
+  // const accessToken = jwt.sign({ name : user.name }, 'secretkey')
+  const accessToken = jwt.sign({ nickName : user.nickName }, 'secretkey')
   console.log(accessToken);
   res.json({
     "success" : true,

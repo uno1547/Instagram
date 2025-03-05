@@ -6,7 +6,8 @@ import Button from "../Button/Button"
 
 import styles from "./LoginForm.module.css"
 
-function LoginForm({ setIsAuth }) {
+function LoginForm({ /*setIsAuth*/ setUserID}) {
+  console.log(setUserID);
   const [userValue, setuserValue] = useState("")
   const [password, setPassword] = useState("")
   const [isValid, setisValid] = useState(false)
@@ -14,6 +15,7 @@ function LoginForm({ setIsAuth }) {
 
   const navigate = useNavigate()
 
+  console.log('로그인폼 랜더링');
   const tokenAtClient = () => {
     return localStorage.getItem("access_token") // 루트 라우팅일때 토큰 여부 바꿔서 홈페이지 보이게 하려는 건데...
   }
@@ -62,10 +64,15 @@ function LoginForm({ setIsAuth }) {
         return
       }
 
+      console.log('통신완료');
       const { message, accessToken } = await response.json()
       localStorage.setItem('access_token', accessToken)
-      setAlert(message)
-      setIsAuth(tokenAtClient())
+      setAlert(message) // 얘땜에 리랜더링이 발생하는건가??
+      console.log('토큰 저장완료');
+      await setUserID()
+      // setIsAuth(tokenAtClient()) //navigate로 강제 해준다면 굳이 이거 넘겨줄필요없을듯
+
+      console.log('홈으로 이동할게여');
       navigate("/") 
       // console.log(message);      
     } catch (error) {
