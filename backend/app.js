@@ -156,7 +156,7 @@ app.post('/login', function (req, res) {
 */
 
 // 회원가입
-app.post('/api/usders', async function(req, res) {
+app.post('/api/user', async function(req, res) {
   // 데이터 저장 형태는 나중에 생각해보기로
   const { contact, password, name, nickName } = req.body
   // const { name, nickName, password, email, phoneNum } = req.body
@@ -178,10 +178,10 @@ app.post('/api/usders', async function(req, res) {
   })
 })
 
-// jwt토큰 포함된 요청에서 userId반환
+// jwt토큰 포함된 요청에서 userId반환(Sidebar컴포넌트 초기화할때 사용)
 // { name : user.name } 가 payload임
 app.get('/api/user', function(req, res) {
-  console.log('요청이 왔어요');
+  console.log('닉네임 요청이 왔어요');
   const token = req.header('Authorization')?.split(' ')[1];
   console.log(token);
   if (!token) return res.status(401).json({
@@ -195,7 +195,7 @@ app.get('/api/user', function(req, res) {
       "success" : false,
       "message" : "알수없는 오류발생"
     });
-    console.log(user);
+    // console.log(user);
     res.json({
       "success" : true,
       "userID" : user.nickName,
@@ -203,11 +203,107 @@ app.get('/api/user', function(req, res) {
     })
   })
 
-  console.log('검증완료');    
+  // console.log('검증완료');    
 })
 
-app.get('/test', function (req, res) {
-  res.send('Hello World!')
+
+// 프로필 정보 조회
+app.get('/api/user/profile/:userID', (req, res) => {
+  /* 
+  받은 userID, 토큰을 통해서 
+  1) userID인 사용자가 존재하는지 검사 없다면 에러응답
+  2) userID랑 토큰 payload의 사용자가 일치하는지 판단(본인프로필 or 제3자를 판단)
+  3) 제3자라면 나(토큰사용자)랑 팔로우 여부를 확인
+  4) userID의 게시글수, 팔로워수, 팔로잉수 응답
+  반환은 아마도
+  1) 존재하지않는 사용자 2) 본인/게워잉 3) 제3자/친구/게워잉 4) 제3자/모름/게워잉
+  {
+    status : XXX,
+    success : true/false,
+    message : 알맞게,
+
+    isYou : true/false,
+    isFriend : true/false,
+    postNums : 100,
+    followers : 200,
+    followings : 100,
+    describe : "간단한 소개글"
+  }
+  */
+  const { userID } = req.params
+  console.log('URL로 넘어온 userID는',userID);
+
+  // API 에 인가된 사용자인지 확인을 위해 token검사
+  const token = req.header('Authorization')?.split(' ')[1];
+  if (!token) {
+    res.status(401).json({
+      message : "토큰이 필요해요"
+    })
+    return
+  }
+  
+  try {
+    const decoded = jwt.verify(token, "secretkey")
+    console.log('해독된 토큰은',decoded); // 여기서 해독된정보까지 알긴해 userID인사용자 존재를 파악하기전에
+  } catch(err) {
+    res.status(400).json({
+      message : "토큰이 유효하지않아요" // API접근을 자유롭게 할지말지, 정하면 될부분인가 ?하는게 좋긴할듯
+    })
+    return
+  }
+
+  // 1. userID인 사용자가 존재하는지 먼저 확인후 응답
+  const isUserExist = database.some(user => user.nickName === userID)
+  if(!isUserExist) { // 존재하는 사용자가 없다면 
+    console.log('입력한 URL의 사용자는 존재하지않아요!!');
+    res.status(401).json({
+      success : false,
+      status : 401,
+      message : "해당 아이디의 사용자는 없어요",
+    })
+    return
+  }
+
+  // 2. 토큰과 userID를 비교해서, 본인인지 아닌지 확인
+  const tokenID = jwt.verify(token, "secretkey").nickName
+  const isYou = tokenID === userID // true or false
+
+  // 3. 해당 userID의 사용자와 토큰ID를 비교해서, 팔로우관계인지 확인
+  /* 
+  정확하게는 토큰ID(나)가 userID를 팔로우하고 있는지만알면됌 (user가 나를 팔로우하는지는 중요치않음 버튼을 생각해보셈)
+  1) Follows테이블에서 followerId가 토큰ID이고 followeeID가 userID인 행찾기
+  2) Follows테이블에서 
+  */
+  const isFollowee = true
+  
+  // 4. 게시글수, 팔로워수, 팔로잉수, 설명 받기 이건 User테이블에 필드 마련해두는게 좋으려나, 
+  // 아니면 요청받으면 서버가 그때 카운트해서 알려주는게 나으려나 시간이 좀더 걸릴것같긴한데
+  const [postNums, followers, followees] = [15, 21, 30]
+
+  res.status(200).json({
+    success : true,
+    message : "여기 회원정보에요",
+    isYou,
+    isFollowee,
+    postNums,
+    followers,
+    followees,
+    article : "안녕 하세요 인사말이에요"
+  })
+
+  /*
+  const accessToken = jwt.sign({ nickName : user.nickName }, 'secretkey')
+  jwt.verify(accessToken, 'secretkey', (err, decoded) => { // 있다면 유효성 검사
+    if (err) return res.sendStatus(403);
+    console.log(decoded);
+    res.json({ message : `반가워요 ${decoded.name}`})
+  })
+  */
+
+  // res.json({
+  //   "message" : "ID에관한 프로필정보"
+  // })
+
 })
 
 

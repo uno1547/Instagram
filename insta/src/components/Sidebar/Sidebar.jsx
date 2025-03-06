@@ -22,7 +22,7 @@ function Sidebar() {
 
   const getUserId = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/user", {
+      const response = await fetch("http://localhost:8080/api/user", {
         headers : { Authorization : `Bearer ${localStorage.getItem("access_token")}`}
       })
       const data = await response.json()
@@ -63,7 +63,7 @@ function Sidebar() {
           </Link>
         </li>
         <li>
-          <Link to= {`/${userID}`} state={{auth : true}}>
+          <Link to= {`/${userID}`}>
           {/* 이렇게 한다고 의미가 없음, 주소창에 /yuno4034를 하면  */}
           <PersonOutlinedIcon fontSize="large"/>프로필
           </Link>
