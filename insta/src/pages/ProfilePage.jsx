@@ -3,11 +3,11 @@
 */
 import { useLocation, useParams } from "react-router-dom"
 
-// import UserInfo from "../components/Profile/UserInfo"
-// import UserPosts from "../components/Profile/UserPosts"
+import UserInfo from "../components/Profile/UserInfo"
+import UserPosts from "../components/Profile/UserPosts"
 
 
-function ProfilePage({ userID }) {
+function ProfilePage() {
   /*
   서버로부터 받은 userId의 사용자에 대한 정보를 토대로, UserInfo, UserPosts를 랜더링 해야한다.
   이때 UserInfo의 경우, parameter로 받은 userId와 localStorage의 토큰을 해독한 userId를 비교
@@ -15,12 +15,19 @@ function ProfilePage({ userID }) {
   다른 사용자라면 제3자의 프로필을 볼때처럼 팔로우 요청, 메세지 보내기 등이 보여야한다.
   근데 여기서 localStorge에있는 토큰 그럼 또보내야하는거임??
   */
-  console.log('profile페이지 랜더링');
-  const location = useLocation()
-  const { auth } = location.state || false // 프로필 클릭으로 온거면 state존재
+ 
+ console.log('profile페이지 랜더링');
+ const { userId } = useParams()
+ const location = useLocation()
+ const { auth } = location.state || false // 프로필 클릭으로 온거면 state존재
+  /*
+    1. url의 userId parameter로 현재 userId에 대한 사용자가 존재하는지 요청을 보내는게 먼저일듯
+    2. 
+  */
+  console.log(location.state); // {auth : true} or null
   console.log(auth);
 
-  // const { userId } = useParams()
+
   // 경로에 온 userId랑 현재 로그인한유저ID비교할라햇는데, 요청 또보내야함
   // Siderbar컴포넌트에서 가지고있는 state를 전달할수없음.
   // const isMyProfile = userId === userID  
@@ -30,9 +37,9 @@ function ProfilePage({ userID }) {
   // userId에 따라서 내프로필 창 vs 다른 사람 프로필 창
   return(
     <div>
-      {auth ? "로그인한 사용자의 프로필" : "남의 프로필"}
-      {/* 사용자 헤더 정보 컴포넌트 */}
-      {/* 사용자 게시글 정보 컴포넌트 */}
+      { auth ? `${userId} 나의 프로필` : `${userId}님의 프로필` }  
+      {<UserInfo auth = {auth} userId = {userId}/>}
+      {<UserPosts userId = {userId}/>}
     </div>
   )
 }

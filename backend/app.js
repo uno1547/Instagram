@@ -304,11 +304,11 @@ app.post('/api/users/dup-nick', function(req, res) {
 // jwt를 response에 담는 방법
 app.post('/api/login', async function (req, res) {
   console.log('로그인요청이 왔어요');
-  const {userValue, password} = req.body
-  console.log(userValue, password);
+  const {contact, password} = req.body
+  console.log(contact, password);
   // 1. DB랑 비교
   const user = database.find(user => {
-    return (user.nickName == userValue) || (user.contact == userValue)
+    return (user.nickName == contact) || (user.contact == contact)
   })
   // const user = users.find(user => user.nickName === userValue)
   console.log(user);
@@ -438,7 +438,7 @@ function authenticateToken(req, res, next) {
 }
 
 
-app.listen(4000, () => {
+app.listen(8080, () => {
   console.log('server running!');
   console.log(database);
 })

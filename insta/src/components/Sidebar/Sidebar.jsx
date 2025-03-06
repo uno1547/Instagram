@@ -64,6 +64,7 @@ function Sidebar() {
         </li>
         <li>
           <Link to= {`/${userID}`} state={{auth : true}}>
+          {/* 이렇게 한다고 의미가 없음, 주소창에 /yuno4034를 하면  */}
           <PersonOutlinedIcon fontSize="large"/>프로필
           </Link>
         </li>

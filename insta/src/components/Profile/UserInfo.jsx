@@ -1,9 +1,14 @@
 
-function UserInfo() {
+function UserInfo({ auth, userId }) {
   return(
-    <>
-      <h1>유저정보</h1>
-    </>
+    <div className="user-info-header">
+      <div className="profile">프로필 사진</div>
+      <div className="infos">
+        <div className=""></div>
+        <div className="follow-nums"></div>
+        <div className=""></div>
+      </div>
+    </div>
   )
 }
 
