@@ -1,64 +1,51 @@
 import { useState, useEffect } from "react";
+import Skeleton from "../Skeleton/Skeleton";
+import LoadingPage from "../../pages/LoadingPage";
+
 
 function Test() {
-  // gpt뭐함 ㅋㅋ
-  /*
-  const codePromiseGen = () => {
-    return new Promise((res, jej) => {
-      res('code')
-    })
-  }
-  const jsonPromiseGen = () => {
-    return new Promise((res, jej) => {
-      res('token')
-    })
-  }
-  new Promise((res, rej) => {
-    console.log('fetch완료');
-    res()
-  })
-  .then(() => {
-    if(true) {
-      return codePromiseGen().then(code => {
-        console.log('에러코드값')
-        throw new Error(code)
-      })
-    }
-    console.log('정상응답 토큰');
-    return jsonPromiseGen() 
-  })
-  .then(data => {
-    console.log(data);
-  })
-  .catch(err => {
-    console.log(err);
-  })
-  */
-  const fetchData = async () => {
-    // console.log('hdy');
-    const response = await fetch("http://localhost:4000/login-cookie", {
-      method : "POST",
-      headers : {
-        'Content-Type' : 'application/json'
-      },
-      // body : { "user_name" : "peter", "user_id" : "uno1547", "password" : "cocacola10*"} // 1. 서버에 사용자 정보를 전송, 로그인요청
-      body : JSON.stringify({ id : "peter", user_id : "uno1547", password : "cocacola10*"}) // 1. 서버에 사용자 정보를 전송, 로그인요청
-    })
-    if(!response.ok) {
-      const status = response.status
-      const code = await response.text()
-      console.log(code);
-      throw new Error(`code is ${status} message is ${code}`)
-      return
-    }
-    console.log('환영해요');
-    const token = await response.json().accessToken
-  }
-  fetchData()
+  
   return (
-    <>
-      <h1>실험실</h1>
-    </>
+    <div style={{
+      width : "1000px",
+      // height : "500px",
+      margin : "auto",
+      backgroundColor : "blue",
+      position : "relative"
+    }}>
+      <div style={{
+        // position : "relative",
+        display : "flex",
+        height : "300px",
+        border : "1px solid black",
+      }}>
+        <div style={{
+          // height : "100%",
+          backgroundColor : "red",
+          position : "relative",
+          flex : "3"
+        }}>
+          <Skeleton type = {"image"} top="0px" bottom="0px" left="0px" right="0px"/>
+        </div>
+        <div style={{
+          // height : "100%",
+          backgroundColor : "green",
+          position : "relative",
+          // display : "flex",
+          // flexDirection : "column",
+          flex : "7"
+        }}>
+          <Skeleton type = {"article"} top="10px" left="0px" right="0px"/>
+          <Skeleton type = {"article"} top="40px" left="0px" right="0px"/>
+          <Skeleton type = {"article"} top="50px" left="0px" right="0px"/>
+        </div>
+      </div>
+      {/* <div>
+        <Skeleton type = {"article"}/>
+        <Skeleton type = {"article"}/>
+        <Skeleton type = {"image"}/>
+      </div> */}
+    </div>
   )
 }
 

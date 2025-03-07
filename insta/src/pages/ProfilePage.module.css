@@ -1,0 +1,8 @@
+.inner {
+  width: 1000px;
+  margin: auto;
+  background-color:aqua;
+}
+.skeleton-wrapper {
+  position: relative;
+}
