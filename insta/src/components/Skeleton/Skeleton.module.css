@@ -2,7 +2,6 @@
   background-color: rgb(233, 233, 233);
   /* position: absolute; */
   /* margin: auto; */
-  border-radius: 12px;
   /* margin: auto; */
 }
 
@@ -14,4 +13,5 @@
 .image {
   width: 180px;
   height: 180px;
+  border-radius: 100px;
 }

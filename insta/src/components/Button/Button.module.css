@@ -1,18 +1,32 @@
 .buttons {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 10px 0px ;
+  padding: 10px 20px ;
   /* font-size: 1em; */
-  font-weight: 500;
+  font-weight: 700;
   /* background-color: #5eb4f1; */
   cursor: pointer;
   transition: .7s;
   /* transition: border-color 0.25s; */
 }
-button:hover {
+
+.default:hover {
   background-color: #434343;
   color: white;
 }
+
+.blue {
+  color: white;
+  background-color: rgb(79, 167, 255);
+}
+
+.blue:hover {
+  background-color: rgb(24, 103, 182);
+}
+
+
+
+
 
 button:disabled,
 button:disabled:hover {

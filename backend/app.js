@@ -279,7 +279,7 @@ app.get('/api/user/profile/:userID', (req, res) => {
 
   // 4. 게시글수, 팔로워수, 팔로잉수, 설명 받기 이건 User테이블에 필드 마련해두는게 좋으려나, 
   // 아니면 요청받으면 서버가 그때 카운트해서 알려주는게 나으려나 시간이 좀더 걸릴것같긴한데
-  const [postNums, followers, followees] = [15, 21, 30]
+  const [postNums, followers, followees] = [1, 108, 142]
 
   res.status(200).json({
     success : true,

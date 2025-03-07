@@ -71,9 +71,33 @@ function ProfilePage() {
       </div>
     </div> : // 로딩완료시 userData에 따라 랜더링
     userData ? (
-    <div>
-      <UserInfo/>
-      <UserPosts/>
+    <div className={style.inner}>
+      <UserInfo datas={userData} userID = {userId}/>
+      {/* <UserInfo datas={{
+        isYou : false,
+        isFollowee : true,
+        postNums : 10,
+        followers : 290,
+        followees : 246,
+        article : "유용준 스물다섯"
+      }} userID = "dydwns6837"/> */}
+      <UserInfo datas={{
+        isYou : false,
+        isFollowee : true,
+        postNums : 89,
+        followers : "110.9만",
+        followees : 1,
+        article : `이주은 LEE JUEUN`
+      }} userID = "0724.32"/>
+      <UserInfo datas={{
+        isYou : false,
+        isFollowee : false,
+        postNums : 224,
+        followers : "2392만",
+        followees : 4,
+        article : "KARINA aespa"
+      }} userID = "katarinabluu"/>
+      <UserPosts />
     </div>
     ) : (
       <>
