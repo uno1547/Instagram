@@ -274,8 +274,9 @@ app.get('/api/user/profile/:userID', (req, res) => {
   1) Follows테이블에서 followerId가 토큰ID이고 followeeID가 userID인 행찾기
   2) Follows테이블에서 
   */
-  const isFollowee = true
-  
+  const isFollowee = true // isYou가 true면 얜 무조건 false임 자기를 팔로우할순없으니까, 일단 클라에서 이 프로퍼티를 쓸까????
+  // const isFollowee = isYou ? true : DB체크 
+
   // 4. 게시글수, 팔로워수, 팔로잉수, 설명 받기 이건 User테이블에 필드 마련해두는게 좋으려나, 
   // 아니면 요청받으면 서버가 그때 카운트해서 알려주는게 나으려나 시간이 좀더 걸릴것같긴한데
   const [postNums, followers, followees] = [15, 21, 30]
