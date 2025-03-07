@@ -1,17 +1,17 @@
 .skeleton {
-  background-color: rgb(180, 180, 180);
-  position: absolute;
+  background-color: rgb(233, 233, 233);
+  /* position: absolute; */
   /* margin: auto; */
-  border-radius: 15px;
-  margin: auto;
+  border-radius: 12px;
+  /* margin: auto; */
 }
 
 .article {
   width: 500px;
-  height: 40px;
+  height: 30px;
 }
 
 .image {
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
 }

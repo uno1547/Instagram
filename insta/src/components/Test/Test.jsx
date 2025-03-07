@@ -10,34 +10,31 @@ function Test() {
       width : "1000px",
       // height : "500px",
       margin : "auto",
-      backgroundColor : "blue",
-      position : "relative"
     }}>
       <div style={{
-        // position : "relative",
         display : "flex",
-        height : "300px",
-        border : "1px solid black",
+        height : "400px",
+        alignItems : "center"
       }}>
         <div style={{
-          // height : "100%",
-          backgroundColor : "red",
-          position : "relative",
+          display : "flex",
+          justifyContent : "center",
+          alignItems : "center",
           flex : "3"
         }}>
-          <Skeleton type = {"image"} top="0px" bottom="0px" left="0px" right="0px"/>
+          <Skeleton type = {"image"} />
         </div>
         <div style={{
-          // height : "100%",
-          backgroundColor : "green",
-          position : "relative",
-          // display : "flex",
-          // flexDirection : "column",
+          display : "flex",
+          flexDirection : "column",
+          justifyContent : "space-evenly",
+          paddingLeft : "100px",
+          height : "240px",
           flex : "7"
         }}>
-          <Skeleton type = {"article"} top="10px" left="0px" right="0px"/>
-          <Skeleton type = {"article"} top="40px" left="0px" right="0px"/>
-          <Skeleton type = {"article"} top="50px" left="0px" right="0px"/>
+          <Skeleton type = {"article"} />
+          <Skeleton type = {"article"} width= "340px"/>
+          <Skeleton type = {"article"} height= "100px"/>
         </div>
       </div>
       {/* <div>
