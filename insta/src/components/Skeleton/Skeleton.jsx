@@ -1,6 +1,6 @@
 import style from './Skeleton.module.css'
 
-export default function Skeleton({ type, width, height }) {
+export default Skeleton = ({ type, width, height }) => {
   return (
     <>
       <div 

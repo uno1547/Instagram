@@ -6,8 +6,7 @@ import Button from "../Button/Button"
 
 import styles from "./LoginForm.module.css"
 
-function LoginForm({ /*setIsAuth*/ setUserID}) {
-  console.log(setUserID);
+const LoginForm = ({ setUserID }) => {
   const [userValue, setuserValue] = useState("")
   const [password, setPassword] = useState("")
   const [isValid, setisValid] = useState(false)
@@ -15,12 +14,6 @@ function LoginForm({ /*setIsAuth*/ setUserID}) {
 
   const navigate = useNavigate()
 
-  console.log('로그인폼 랜더링');
-  const tokenAtClient = () => {
-    return localStorage.getItem("access_token") // 루트 라우팅일때 토큰 여부 바꿔서 홈페이지 보이게 하려는 건데...
-  }
-
-  // console.log(userName, password);
   const isValidateForm = (userValue, password) => {
     return userValue.length && password.length >= 6
   }
@@ -47,7 +40,6 @@ function LoginForm({ /*setIsAuth*/ setUserID}) {
     const formData = new FormData(form)
     const entry = Object.fromEntries(formData)
     const json = JSON.stringify(entry)
-    console.log(json);
 
     try {
       const response = await fetch("http://localhost:4000/api/login", {
@@ -57,59 +49,23 @@ function LoginForm({ /*setIsAuth*/ setUserID}) {
         },
         body : json
       })
-      console.log(response);
+
       if(!response.ok) { //정상이라면
         const { message } = await response.json()
         setAlert(message)
         return
       }
 
-      console.log('통신완료');
       const { message, accessToken } = await response.json()
       localStorage.setItem('access_token', accessToken)
       setAlert(message) // 얘땜에 리랜더링이 발생하는건가??
-      console.log('토큰 저장완료');
-      await setUserID()
-      // setIsAuth(tokenAtClient()) //navigate로 강제 해준다면 굳이 이거 넘겨줄필요없을듯
 
-      console.log('홈으로 이동할게여');
+      await setUserID()
       navigate("/") 
-      // console.log(message);      
+
     } catch (error) {
       setAlert("알수없는 오류에요")
     }
-    /*
-    fetch("http://localhost:4000/api/login", {
-      // mode : 'no-cors',
-      method : "POST",
-      headers : {
-        'Content-Type' : 'application/json'
-      },
-      body : json, // 1. 서버에 사용자 정보를 전송, 로그인요청
-      // credentials : 'include' //애초에 이 Fetch에는 이 옵션이 필요없는것같은데???
-    })
-    .then(response => {
-      console.log('response 가 왔어요');
-      if(!response.ok) { 
-        return response.text().then(err => { //얘가 비동기적으로 동작하기때문에 아래 return response.json()이 먼저 동작
-          throw new Error(err)
-        })
-      }
-      return response.json()
-    })
-    .then(data => {
-      localStorage.setItem("access_token", data.accessToken)
-      console.log(data);
-      setIsAuth(tokenAtClient()) // 루트라우팅에서 홈페이지를 랜더링하게
-      // navigate('/')
-    })
-    .catch(err => {
-      console.log('catch블럭임');
-      console.log(err);
-    })
-    */
-    // .catch(err => console.log(err)) // 여기 catch가 실행됐다고 해서 fetch에서 오류인지 위 2개의 then에서 오류인지 알수없다!! 조심
-
   }
 
   const signupHandler = () => {

@@ -1,11 +1,9 @@
-import { data } from "react-router-dom";
 import style from './UserInfo.module.css'
 import Button from "../Button/Button";
 
-function UserInfo({ userID, datas }) {
-  // {isYou, isFollowee, postNums, folloerws, followees, article}
+const UserInfo = ({ userID, datas }) => {
   const {isYou, isFollowee, postNums, followers, followees, article} = datas
-  console.log(isYou);
+
   return(
     <div className={style["flex-container"]}>
       <div className={style["image-wrapper"]}>
@@ -37,14 +35,6 @@ function UserInfo({ userID, datas }) {
         <div className={style.introduction}>{article}</div>
       </div>
     </div>
-    // <div className="user-info-header">
-    //   <div className="profile">프로필 사진</div>
-    //   <div className="infos">
-    //     <div className=""></div>
-    //     <div className="follow-nums"></div>
-    //     <div className=""></div>
-    //   </div>
-    // </div>
   )
 }
 

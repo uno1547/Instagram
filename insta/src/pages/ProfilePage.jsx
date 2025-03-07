@@ -1,18 +1,13 @@
-/*
-
-*/
-import { useLocation, useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 
 import UserInfo from "../components/Profile/UserInfo"
 import UserPosts from "../components/Profile/UserPosts"
-import { useEffect, useState } from "react"
-// import LoadingPage from "./LoadingPage"
-// import NotFoundPage from "./NotFoundPage"
 import Skeleton from "../components/Skeleton/Skeleton"
 import style from './ProfilePage.module.css'
 
 
-function ProfilePage() {
+const ProfilePage = () => {
   /*
     params로 넘어온 userId에 대해서 정보가 필요함 1) 존재하는 사용자인지아닌지 2) 존재하는 사용자면 본인인지 제3자인지 3) 제3자면 팔로우가 되있는사람인지 아닌사람인지 4)숫자와 소개글
     서버에게 물어보자 존재하는지안하는지 res {status : 400, message : 존재하지않는 사용자} 처럼
@@ -22,16 +17,11 @@ function ProfilePage() {
     로딩중 > 없는 사용자 > 없는 사용자인것같아요
     로딩중 > 존재하는 사용자 > datas를 UserInfo컴포넌트에 전달, UserPossts데이터 요청 시작
   */
+  const {userId} = useParams()
   const [isLoading, setLoading] = useState(true) //
   const [userData, setUserData] = useState(null)
 
-
-
-  console.log('profilePage랜더링');
-  const {userId} = useParams()
-  console.log(userId);
   const getProfileInfos = async () => {
-    console.log('요청시작');
     try {
       const response = await fetch(`http://localhost:8080/api/user/profile/${userId}`, {
         headers : {
@@ -52,7 +42,6 @@ function ProfilePage() {
     }
   }
   useEffect(() => {
-    console.log('effect');
     getProfileInfos()
   }, [])
 
