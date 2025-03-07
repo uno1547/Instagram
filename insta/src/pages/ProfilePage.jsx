@@ -59,15 +59,15 @@ function ProfilePage() {
   return(
     isLoading ? // 로딩중일때 스켈레톤 표신
     <div className={style.inner}>
-      <div className={style["skeleton-wrapper"]}>
-        <Skeleton type = {"article"}/>
-        <Skeleton type = {"article"}/>
-        <Skeleton type = {"image"}/>
-      </div>
-      <div className={style["skeleton-wrapper"]}>
-        <Skeleton type = {"article"}/>
-        <Skeleton type = {"article"}/>
-        <Skeleton type = {"image"}/>
+      <div className={style["flex-container"]}>
+        <div className={style["image-wrapper"]}>
+          <Skeleton type = {"image"}/>
+        </div>
+        <div className={style["lines-wrapper"]}>
+          <Skeleton type = {"article"}/>
+          <Skeleton type = {"article"} width="340px"/>
+          <Skeleton type = {"article"} height="100px"/>
+        </div>
       </div>
     </div> : // 로딩완료시 userData에 따라 랜더링
     userData ? (
