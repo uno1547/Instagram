@@ -24,13 +24,13 @@ const Button = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const toggleFollow = async () => {
-    // setIsLoading(prev => !prev)
-    setIsLoading(!isLoading)
+    setIsLoading(prev => !prev)
+    // setIsLoading(!isLoading)
     const response = await follow()
     // setFollow(!isFollow)
     setFollow(prev => !prev)
-    setIsLoading(!isLoading)
-    // setIsLoading(prev => !prev)
+    // setIsLoading(!isLoading)
+    setIsLoading(prev => !prev)
   }
   return (
     // 버튼은 한개고, isFollow값에 따라 스타일이 다르게 랜더링
