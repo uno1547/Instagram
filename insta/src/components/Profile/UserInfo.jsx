@@ -14,11 +14,7 @@ const UserInfo = ({ userID, datas }) => {
       <div className={style["lines-wrapper"]}>
         <div className={style.buttons}>
           <span className={style.userID}>{userID}</span>
-          {isYou ? (
-            <Button text="프로필편집"/>
-          ) : (
-            isFollowee ? <Button text="팔로잉"/>: <Button text="팔로우" style="blue"/>
-          )}
+          {isYou ? <Button text="프로필편집"/> : <FollowButton isFollwee={isFollowee}/>}
         </div>
         <div className={style.nums}>
           <div className={style.group}>

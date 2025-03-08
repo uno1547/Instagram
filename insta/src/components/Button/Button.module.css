@@ -5,6 +5,7 @@
   font-weight: 700;
   cursor: pointer;
   transition: .7s;
+  min-height: 40px; /*다른 로그인폼이나 페이징에서 문제일으킬지도... 얘보다 작은 높이여야 문제생기는거임*/
 }
 
 /* 기본 버튼:hover 스타일 */

@@ -9,6 +9,7 @@ const follow = () => {
   // 실제로는 서버에 팔로우 요청을하는 코드
   return new Promise((res, rej) => {
     setTimeout(() => {
+      // rej()
       res()
     }, 2000)
   })
@@ -20,17 +21,18 @@ const FollowButton = ({ isFollwee }) => {
 
   const toggleFollow = async () => {
     setIsLoading(true)
-    const response = await follow()
-    setIsFollow(prev => !prev)
-    setIsLoading(false)
+    try {
+      const response = await follow()
+      setIsFollow(prev => !prev)
+    } catch(err) {
+      alert("팔로우/팔로잉 실패!")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
     <Button text={isLoading ? "----" : isFollow ? "팔로잉" : "팔로우"} style={isFollow ? "default" : "blue"}handler={toggleFollow} ></Button>
-    // isFollow ? 
-    // <Button text={isLoading ? "----" : "팔로잉"} style="default" handler={toggleFollow}/> 
-    // :
-    // <Button text={isLoading ? "----" : "팔로우"} style="blue" handler={toggleFollow}/>
   )
 }
 export default FollowButton
