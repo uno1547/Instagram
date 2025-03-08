@@ -1,11 +1,13 @@
 import style from './UserInfo.module.css'
 import Button from "../Button/Button";
+import FollowButton from "../Button/FollowButton"
 
 const UserInfo = ({ userID, datas }) => {
   const {isYou, isFollowee, postNums, followers, followees, article} = datas
 
   return(
     <div className={style["flex-container"]}>
+      {/* <FollowButton/> */}
       <div className={style["image-wrapper"]}>
         <div className={style.image}></div>
       </div>
