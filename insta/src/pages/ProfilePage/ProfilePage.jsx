@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
-import UserInfo from "../components/Profile/UserInfo"
-import UserPosts from "../components/Profile/UserPosts"
-import Skeleton from "../components/Skeleton/Skeleton"
+import UserInfo from "../../components/Profile/UserInfo"
+import UserPosts from "../../components/Profile/UserPosts"
+import Skeleton from "../../components/Skeleton/Skeleton"
 import style from './ProfilePage.module.css'
+import NotFoundPage from "../NotFound/NotFoundPage"
 
 
 const ProfilePage = () => {
@@ -13,34 +14,43 @@ const ProfilePage = () => {
     서버에게 물어보자 존재하는지안하는지 res {status : 400, message : 존재하지않는 사용자} 처럼
     본인인지 제3자인지, 음 이거는 토큰껴서 물어보면 응답해줄수있겠는데, 모든 요청에 토큰을 껴서 보낸다?
 
-    정보 받아와서 존재하는 사용자면 사정보를 표시하고
-    로딩중 > 없는 사용자 > 없는 사용자인것같아요
-    로딩중 > 존재하는 사용자 > datas를 UserInfo컴포넌트에 전달, UserPossts데이터 요청 시작
+
+    최초 랜더링 > 스켈레톤 > effect > 데이터패칭시작(isLoading > false, userData > datas)
+    isLoading false > 리랜더링 > 1. userData있으면 표시, userPosts패칭시작
+    isLoading false > 리랜더링 > 2. userData없으면 NotFound페이지 표시
   */
   const {userId} = useParams()
-  const [isLoading, setLoading] = useState(true) //
+  const [isLoading, setLoading] = useState(true)
   const [userData, setUserData] = useState(null)
 
   const getProfileInfos = async () => {
     try {
+      const sleep = await new Promise((res, rej) => {
+        setTimeout(() => {
+          res()
+        }, 1000)
+      })
+      
       const response = await fetch(`http://localhost:8080/api/user/profile/${userId}`, {
         headers : {
           Authorization : `Bearer ${localStorage.getItem("access_token")}`
         }
       })
 
-      setLoading(!isLoading)
-      // 존재하지않는 사용자이거나 토큰 오류면 빠르게 리턴
       if(!response.ok) {
+        /*오류코드 생기면 처리*/
         return
       }
-
+      
       const data = await response.json() //data 준비완료
       setUserData(data)
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false)
     }
   }
+
   useEffect(() => {
     getProfileInfos()
   }, [])
@@ -70,15 +80,15 @@ const ProfilePage = () => {
         followees : 246,
         article : "유용준 스물다섯"
       }} userID = "dydwns6837"/> */}
-      <UserInfo datas={{
+      {/* <UserInfo datas={{
         isYou : false,
         isFollowee : true,
         postNums : 89,
         followers : "110.9만",
         followees : 1,
         article : `이주은 LEE JUEUN`
-      }} userID = "0724.32"/>
-      <UserInfo datas={{
+      }} userID = "0724.32"/> */}
+      {/* <UserInfo datas={{
         isYou : false,
         isFollowee : false,
         postNums : 224,
@@ -86,12 +96,10 @@ const ProfilePage = () => {
         followees : 4,
         article : "KARINA aespa"
       }} userID = "katarinabluu"/>
-      <UserPosts />
+      <UserPosts /> */}
     </div>
     ) : (
-      <>
-        <span>사용자가없어요</span>
-      </>
+      <NotFoundPage/>
     )
   )
 }
