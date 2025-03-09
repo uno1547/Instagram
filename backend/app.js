@@ -178,6 +178,49 @@ app.post('/api/user', async function(req, res) {
   })
 })
 
+//로그인
+app.post('/api/login', async function (req, res) {
+  console.log('로그인요청이 왔어요');
+  const {contact, password} = req.body
+  console.log(contact, password);
+  // 1. DB랑 비교
+  const user = database.find(user => {
+    return (user.nickName == contact) || (user.contact == contact)
+  })
+  // const user = users.find(user => user.nickName === userValue)
+  console.log(user);
+  // 2. 사용자 검증
+  if(!user) {
+    console.log('존재하지않는 사용자');
+    res.status(404).json({
+      "success" : false,
+      "message" : "존재하지않는 사용자입니다"
+    })
+    return 
+  }
+
+  if(!(await argon2.verify(user.password, password))) {
+    console.log('비번이 틀림');
+    res.status(401).json({
+      "success" : false,
+      "message" : "비밀번호가 틀려요"
+    })
+    return
+  }
+
+  // res.send({ message : "로그인완료했어요"})
+  // 3. 검증 완료된 사용자에게 토큰발급 (이후 특정api호출시 사용자 인증을 위함)
+  // const accessToken = jwt.sign({ name : user.name }, 'secretkey')
+  const accessToken = jwt.sign({ nickName : user.nickName }, 'secretkey')
+  console.log(accessToken);
+  res.json({
+    "success" : true,
+    "message" : "로그인 성공",
+    accessToken
+  })
+}) 
+
+
 // jwt토큰 포함된 요청에서 userId반환(Sidebar컴포넌트 초기화할때 사용)
 // { name : user.name } 가 payload임
 app.get('/api/user', function(req, res) {
@@ -399,44 +442,7 @@ app.post('/api/users/dup-nick', function(req, res) {
 })
 
 // jwt를 response에 담는 방법
-app.post('/api/login', async function (req, res) {
-  console.log('로그인요청이 왔어요');
-  const {contact, password} = req.body
-  console.log(contact, password);
-  // 1. DB랑 비교
-  const user = database.find(user => {
-    return (user.nickName == contact) || (user.contact == contact)
-  })
-  // const user = users.find(user => user.nickName === userValue)
-  console.log(user);
-  // 2. 사용자 검증
-  if(!user) {
-    res.status(404).json({
-      "success" : false,
-      "message" : "존재하지않는 사용자입니다"
-    })
-    return 
-  }
 
-  if(!(await argon2.verify(user.password, password))) {
-    res.status(401).json({
-      "success" : false,
-      "message" : "비밀번호가 틀려요"
-    })
-    return
-  }
-
-  // res.send({ message : "로그인완료했어요"})
-  // 3. 검증 완료된 사용자에게 토큰발급 (이후 특정api호출시 사용자 인증을 위함)
-  // const accessToken = jwt.sign({ name : user.name }, 'secretkey')
-  const accessToken = jwt.sign({ nickName : user.nickName }, 'secretkey')
-  console.log(accessToken);
-  res.json({
-    "success" : true,
-    "message" : "로그인 성공",
-    accessToken
-  })
-}) 
 
 // authorization헤더에 포함된 토큰으로 인증된 유저의 API
 app.get('/hello-response', function (req, res) {

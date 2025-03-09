@@ -38,7 +38,7 @@ function App() {
         </>        
       ) : (
         <Routes>
-          <Route path='/' element = {<LoginForm/>}></Route>
+          <Route path='/' element = {<LoginForm setIsAuth={setIsAuth}/>}></Route>
           <Route path='/signup' element = {<SignupForm/>}></Route> 
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
