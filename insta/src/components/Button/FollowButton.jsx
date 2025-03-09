@@ -5,23 +5,23 @@ import Button from "./Button";
  * handler 를 추가함
  * 
  */
-// const follow = () => {
-//   // 실제로는 서버에 팔로우 요청을하는 코드
-//   return new Promise((res, rej) => {
-//     setTimeout(() => {
-//       // rej()
-//       res()
-//     }, 2000)
-//   })
-// }
-
-const follow = async (isFollow, userID) => {
-  const response = await fetch(`/api/follow/:${userID}`, {
-    method : isFollow ? "POST" : "DELETE",
-  })
+const follow = () => {
   // 실제로는 서버에 팔로우 요청을하는 코드
-  // 해당 userID에, 요청을 보냄?
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      // rej()
+      res()
+    }, 2000)
+  })
 }
+
+// const follow = async (isFollow, userID) => {
+//   const response = await fetch(`/api/follow/:${userID}`, {
+//     method : isFollow ? "POST" : "DELETE",
+//   })
+//   // 실제로는 서버에 팔로우 요청을하는 코드
+//   // 해당 userID에, 요청을 보냄?
+// }
 
 const FollowButton = ({ isFollwee, userID }) => {
   console.log(userID);

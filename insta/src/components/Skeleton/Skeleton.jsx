@@ -1,6 +1,6 @@
 import style from './Skeleton.module.css'
 
-export default Skeleton = ({ type, width, height }) => {
+const Skeleton = ({ type, width, height }) => {
   return (
     <>
       <div 
@@ -14,3 +14,5 @@ export default Skeleton = ({ type, width, height }) => {
     </>
   )
 }
+
+export default Skeleton
