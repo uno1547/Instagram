@@ -158,20 +158,23 @@ app.post('/login', function (req, res) {
 // 회원가입
 app.post('/api/user', async function(req, res) {
   // 데이터 저장 형태는 나중에 생각해보기로
-  const { contact, password, name, nickName } = req.body
+  console.log('회원가입요청왔음');
+  const { phoneNumber, email, password, name, nickName } = req.body
   // const { name, nickName, password, email, phoneNum } = req.body
   const hashedPassword = await argon2.hash(password)
   idx = idx + 1
   // 데이터 베이스에 추가
   database.push({
     id : idx, 
+    phoneNumber,
+    email,
     name,
     nickName,
     password : hashedPassword,
-    contact
   })
   console.log(database, idx);
   // DB추가 과정이있다면 예외처리 해주면 될듯
+  console.log('데이터 베이스에 추가완료');
   res.json({
     "success" : true,
     "message" : "회원가입에 성공했습니다."
@@ -185,7 +188,7 @@ app.post('/api/login', async function (req, res) {
   console.log(contact, password);
   // 1. DB랑 비교
   const user = database.find(user => {
-    return (user.nickName == contact) || (user.contact == contact)
+    return (user.nickName == contact) || (user.contact == contact) // 이거 서버에서 알아서하니깐 닉네임으로 뚫어야함
   })
   // const user = users.find(user => user.nickName === userValue)
   console.log(user);
