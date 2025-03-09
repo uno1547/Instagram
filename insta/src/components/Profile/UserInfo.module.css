@@ -54,6 +54,10 @@
   gap: 5px;
 }
 
+.list {
+  cursor: pointer;
+}
+
 .tag {
   font-size: 20px;
   color: rgb(158, 158, 158);

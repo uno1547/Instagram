@@ -7,7 +7,7 @@ import Sidebar from './components/Sidebar/Sidebar'
 import HomePage from "./pages/HomePage";
 import SearchPage from './pages/SearchPage';
 import CreatePage from './pages/CreatePage';
-import ProfilePage from './pages/ProfilePage'
+import ProfilePage from './pages/ProfilePage/ProfilePage'
 
 import LoginForm from "./components/LoginForm/LoginForm"
 import SignupForm from './components/SignupForm/SignupForm'
@@ -26,7 +26,7 @@ function App() {
       {isAuth ? (
         // 인증된 유저들라우팅
         <>
-          <Sidebar/>
+          {/* <Sidebar/> */}
           <Routes>
             <Route path='/' element = {<HomePage/>}></Route>
             <Route path='/search' element = {<SearchPage/>}></Route>
