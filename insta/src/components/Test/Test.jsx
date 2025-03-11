@@ -5,7 +5,7 @@ import FollowButton from "../Button/FollowButton";
 import {createPortal} from "react-dom"
 import style from './Test.module.css'
 
-const List = ({handler}) => {
+const List = ({ handler }) => {
   const [data, setData] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -16,7 +16,7 @@ const List = ({handler}) => {
       }, 2000);
     })
 
-    setData("데이터가왔어요")
+    setData([1, 2, 3, 4, 5])
     setIsLoading(false)
   }
   useEffect(() => {
@@ -34,9 +34,25 @@ const List = ({handler}) => {
 
   return (
     <div className={style.list} >
-      <span>닫기</span>
-      <div>{isLoading ? "로딩중" : "로딩완료"}</div>
-      <div>{data}</div>
+      {/* <span>닫기</span> */}
+      {isLoading ? (
+        <div>스켈레톤</div>
+      ) : (
+      <>
+      {data ? 
+      (
+        <>
+        {/* <div>{"로딩완료"}</div> */}
+        <div>{data && data.map((el,idx) => {
+          return <div key={idx}>{el}</div>
+        })}</div>    
+        </>
+      ) : (
+        <div>데이터를 불러오기 실패!!</div>
+      )}
+      </>
+      )}
+
     </div>
   ) 
 }
