@@ -1,11 +1,12 @@
 import style from './UserInfo.module.css'
 import Button from "../Button/Button";
 import FollowButton from "../Button/FollowButton"
-import {createPortal} from "react-dom"
+
+import ShowList from '../List/ShowList';
 
 const UserInfo = ({ userID, datas }) => {
   const {isYou, isFollowee, postNums, followers, followees, article} = datas
-  
+
   const showFollowers = () => {
     console.log('list');
   }
@@ -26,11 +27,13 @@ const UserInfo = ({ userID, datas }) => {
             <span className={style.num}>{postNums}</span>
           </div>
           <div className={`${style.group} ${style.list}`} onClick={showFollowers}>
-            <span className={style.tag}>팔로워</span>
+            {/* <span className={style.tag}>팔로워</span> */}
+            <ShowList text = "팔로워"/>
             <span className={style.num}>{followers}</span>
           </div>
           <div className={`${style.group} ${style.list}`} onClick={showFollowers}>
-            <span className={style.tag}>팔로우</span>
+            {/* <span className={style.tag}>팔로우</span> */}
+            <ShowList text = "팔로우"/>
             <span className={style.num}>{followees}</span>
           </div>
         </div>
