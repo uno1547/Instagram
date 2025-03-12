@@ -1,10 +1,10 @@
 import style from './OverLay.module.css'
-import FollowerList from '../List/FollowerList'
+import List from '../List/List.jsx'
 
 const FollowListModal = ({ handler }) => {
   return (
     <div className={style["modal-overlay"]}>
-      <FollowerList handler = {handler}/>
+      <List handler = {handler}/>
     </div>
   )
 }
