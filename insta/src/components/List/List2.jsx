@@ -62,32 +62,45 @@ const arr2 = [
 
 const List2 = ({ handler }) => {
   console.log('랜더링!!');
-  const [data, setData] = useState(null)
+  const [data, setData] = useState(null) //최초의 List
   const [isLoading, setIsLoading] = useState(true)
   const [keyWord, setKeyWord] = useState("")
-  console.log(`랜더링 위치에서 ${data?.length} ${isLoading} ${keyWord} state`);
+
+  const [filteredData, setFilteredData] = useState([])
+  // console.log(filteredData);
+  // console.log(`랜더링 위치에서 ${data?.length} ${isLoading} ${keyWord} state`);
 
   const fetchData = async () => {
     await new Promise((res, rej) => {
       setTimeout(() => {
         res()
-      }, 2000);
+      }, 1000);
     })
 
     setData(arr2)
+    setFilteredData(arr2)
     setIsLoading(false)
-    console.log(`fetchData 위치에서 ${data?.length} ${isLoading} ${keyWord} state`);
+    // console.log(`fetchData 위치에서 ${data?.length} ${isLoading} ${keyWord} state`);
   }
   
-  const filteredFollowers = data?.filter(follower => {
-    return follower.name.includes(keyWord)
-  })
-  console.log(filteredFollowers);
+  // const filteredFollowers = data?.filter(follower => {
+  //   return follower.name.includes(keyWord)
+  // })
+  // console.log(filteredFollowers);
+
   useEffect(() => {
     console.log('effect!');
     setIsLoading(true) //얘 굳이 필요한가?>?
     fetchData()
-  }, [])
+  }, []) // 얘는 최초 마운트 시에 데이터를 한번 불러오기위한 effect
+
+  useEffect(() => {
+    if(!data) return
+    console.log('keyword변경');
+    setFilteredData(data.filter(user => {
+      return user.name.includes(keyWord)
+    }))
+  }, [keyWord])
 
   const changeHandler = e => {
     console.log(e.target.value);
@@ -114,8 +127,8 @@ const List2 = ({ handler }) => {
           <FollowListSkeleton/>
         </>
       ) : 
-      filteredFollowers.length ? (
-        filteredFollowers.map((el, idx) => {
+      filteredData.length ? (
+        filteredData.map((el, idx) => {
           // return <div>{el.name}</div>
           return <ListItem member = {el} key={idx}/>
         })
