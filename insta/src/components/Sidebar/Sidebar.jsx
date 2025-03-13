@@ -12,13 +12,13 @@ const Sidebar = () => {
 
   const getUserId = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/user/userI", {
+      const response = await fetch("http://localhost:8080/api/user/userID", {
         headers : { Authorization : `Bearer ${localStorage.getItem("access_token")}`}
       })
       console.log('어디로갔을까');
       if(!response.ok) { // 응답이 정상이 아니라면
         // setUserID('hey')
-        console.log('토큰이 없거나, 잘못되었대요');
+        alert('토큰이 없거나, 잘못되었대요');
         return
       }
       const data = await response.json() //얘 조심해야됌 response가 비정상이라면 json()을 시도하지못하게 해야함 위에서 조기리턴

@@ -29,6 +29,8 @@ function App() {
         // 인증된 유저들라우팅
         <>
           <Sidebar/>
+          <div className="inner">
+
           <Routes>
             <Route path='/' element = {<HomePage/>}></Route>
             <Route path='/search' element = {<SearchPage/>}></Route>
@@ -37,6 +39,8 @@ function App() {
             <Route path='/test' element = {<List2/>}></Route>
             <Route path='*' element = {<Navigate to="/"/>}></Route> 
           </Routes>
+
+          </div>
         </>        
       ) : (
         <Routes>

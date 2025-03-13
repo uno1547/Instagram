@@ -58,12 +58,18 @@
   padding: 0px 15px;
   /* margin: 10px; */
   overflow-y: auto;
+  text-align: center;
 }
 
 .skeletons {
   display: flex;
 }
 
+.alert {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+}
 
 ::-webkit-scrollbar {
   /* width: 8px; 스크롤바 너비 */

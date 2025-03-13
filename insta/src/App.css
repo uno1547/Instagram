@@ -3,6 +3,12 @@ body {
   margin: 0;
 }
 
+.inner {
+  padding: 20px;
+  width: 1300px ;
+  margin: auto;
+}
+
 .with-sidebar {
   margin-left: 261px;
 }
