@@ -2,3 +2,11 @@
 body {
   margin: 0;
 }
+
+.with-sidebar {
+  margin-left: 261px;
+}
+
+.no-sidebar {
+  margin: 0;
+}

@@ -13,6 +13,7 @@ import LoginForm from "./components/LoginForm/LoginForm"
 import SignupForm from './components/SignupForm/SignupForm'
 
 import Test from './components/Test/Test'
+import List2 from './components/List/List2'
 
 function App() {
   const tokenAtClient = () => {
@@ -23,16 +24,17 @@ function App() {
 
   return (
     <Router>
+      <div className= { isAuth ? 'with-sidebar' : 'no-sidebar' } >
       {isAuth ? (
         // 인증된 유저들라우팅
         <>
-          {/* <Sidebar/> */}
+          <Sidebar/>
           <Routes>
             <Route path='/' element = {<HomePage/>}></Route>
             <Route path='/search' element = {<SearchPage/>}></Route>
             <Route path='/create' element = {<CreatePage/>}></Route>
             <Route path='/:userId' element = {<ProfilePage/>}></Route>
-            <Route path='test' element = {<Test/>}></Route>
+            <Route path='/test' element = {<List2/>}></Route>
             <Route path='*' element = {<Navigate to="/"/>}></Route> 
           </Routes>
         </>        
@@ -42,7 +44,28 @@ function App() {
           <Route path='/signup' element = {<SignupForm/>}></Route> 
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-      )}
+      )}        
+      </div>
+      {/* {isAuth ? (
+        // 인증된 유저들라우팅
+        <>
+          <Sidebar/>
+          <Routes>
+            <Route path='/' element = {<HomePage/>}></Route>
+            <Route path='/search' element = {<SearchPage/>}></Route>
+            <Route path='/create' element = {<CreatePage/>}></Route>
+            <Route path='/:userId' element = {<ProfilePage/>}></Route>
+            <Route path='/test' element = {<List2/>}></Route>
+            <Route path='*' element = {<Navigate to="/"/>}></Route> 
+          </Routes>
+        </>        
+      ) : (
+        <Routes>
+          <Route path='/' element = {<LoginForm setIsAuth={setIsAuth}/>}></Route>
+          <Route path='/signup' element = {<SignupForm/>}></Route> 
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      )} */}
     </Router>  
   )
 }

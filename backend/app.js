@@ -226,7 +226,7 @@ app.post('/api/login', async function (req, res) {
 
 // jwt토큰 포함된 요청에서 userId반환(Sidebar컴포넌트 초기화할때 사용)
 // { name : user.name } 가 payload임
-app.get('/api/user', function(req, res) {
+app.get('/api/user/userID', function(req, res) {
   console.log('닉네임 요청이 왔어요');
   const token = req.header('Authorization')?.split(' ')[1];
   console.log(token);
