@@ -120,10 +120,11 @@ const List = ({ handler, toFind }) => {
   // console.log('profilePage의', userID, '여긴 List');
 
   const fetchData = async () => {
-    console.log(toFind, '보기');
+    // console.log(toFind, '보기');
     try {
       const response = await fetch(`http://localhost:8080/api/users/${userID}/${toFind}`)
       const data = await response.json()
+      // console.log(data);
       setData(data)
       // setData(arr2)
 

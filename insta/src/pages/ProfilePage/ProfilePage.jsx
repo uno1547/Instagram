@@ -13,6 +13,13 @@ import NotFoundPage from "../NotFound/NotFoundPage"
 
 
 const ProfilePage = () => {
+  console.log('사용자의 프로필 페이지!!');
+  useEffect(() => {
+    console.log('프로필페이지 마운트!!');
+    return () => {
+      console.log('프로필페이지 언마운트!!');
+    }
+  }, [])
   /*
     params로 넘어온 userId에 대해서 정보가 필요함 1) 존재하는 사용자인지아닌지 2) 존재하는 사용자면 본인인지 제3자인지 3) 제3자면 팔로우가 되있는사람인지 아닌사람인지 4)숫자와 소개글
     서버에게 물어보자 존재하는지안하는지 res {status : 400, message : 존재하지않는 사용자} 처럼
@@ -43,7 +50,7 @@ const ProfilePage = () => {
 
       if(!response.ok) {
         /*오류코드 생기면 처리*/
-        alert("닉네임 불러오는데 오류생김!")
+        // alert("닉네임 불러오는데 오류생김!")
         return
       }
       
