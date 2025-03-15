@@ -18,7 +18,8 @@ import FollowListModal from '../Modal/FollowListModal'
 
 
 const ShowList = ({ text }) => {
-  console.log('showlist');
+  // console.log('showlist');
+  const toFind = text === "팔로워" ? "followers" : "followings"
   const [isOpen, setIsOpen] = useState(false)
 
   const handler = () => {
@@ -27,7 +28,7 @@ const ShowList = ({ text }) => {
   return (
     <>
       <span className={style.tag} onClick={handler}>{text}</span>
-      {isOpen ? createPortal(<FollowListModal handler = {handler}></FollowListModal>, document.body) : null}
+      {isOpen ? createPortal(<FollowListModal handler = {handler} toFind = {toFind}/>, document.body) : null}
     </>
   )
 }
