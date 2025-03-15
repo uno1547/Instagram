@@ -35,12 +35,15 @@ const ProfilePage = () => {
   const [userData, setUserData] = useState(null)
 
   const getProfileInfos = async () => {
+    console.log('데이터 패치!!!');
+    setLoading(true) //이게 먼저 먹어서 스켈레톤이 1초가량 떠있음
+    console.log('getProfileInfos내에서 다시 로딩시작');
     try {
-      // const sleep = await new Promise((res, rej) => {
-      //   setTimeout(() => {
-      //     res()
-      //   }, 1000)
-      // })
+      const sleep = await new Promise((res, rej) => {
+        setTimeout(() => {
+          res()
+        }, 1000)
+      })
       
       const response = await fetch(`http://localhost:8080/api/users/${userID}/profile`, {
         headers : {
@@ -64,8 +67,9 @@ const ProfilePage = () => {
   }
 
   useEffect(() => {
+    console.log('바뀐 userID로 effect!!');
     getProfileInfos()
-  }, [])
+  }, [userID])
 
   return(
     isLoading ? // 로딩중일때 스켈레톤 표신

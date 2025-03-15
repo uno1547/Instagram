@@ -112,6 +112,11 @@ const followings = [
 // console.log(arr);
 
 const List = ({ handler, toFind }) => {
+  useEffect(() => {
+    return () => {
+      console.log('list 언마운트');
+    }
+  }, [])
   const [data, setData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [keyWord, setKeyWord] = useState("")

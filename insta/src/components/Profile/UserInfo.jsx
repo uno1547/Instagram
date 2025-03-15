@@ -3,11 +3,16 @@ import Button from "../Button/Button";
 import FollowButton from "../Button/FollowButton"
 
 import ShowList from '../List/ShowList';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { UserContext } from '../../context/UserContext';
 
 
 const UserInfo = ({ datas }) => {
+  useEffect(() => {
+    return () => {
+      console.log('userInfo 언마운트');
+    }
+  }, [])
   // console.log('userinfo랜더링!');
   const {isYou, isFollowee, postNums, followers, followees, article} = datas
 

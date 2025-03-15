@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
 import style from './ShowList.module.css'
@@ -18,6 +18,11 @@ import FollowListModal from '../Modal/FollowListModal'
 
 
 const ShowList = ({ text }) => {
+    useEffect(() => {
+      return () => {
+        console.log('showList 언마운트');
+      }
+    }, [])
   // console.log('showlist');
   const toFind = text === "팔로워" ? "followers" : "followings"
   const [isOpen, setIsOpen] = useState(false)

@@ -24,7 +24,7 @@ const follow = () => {
 // }
 
 const FollowButton = ({ isFollwee, userID }) => {
-  console.log(userID);
+  // console.log(userID);
   const [isFollow, setIsFollow] = useState(isFollwee)
   const [isLoading, setIsLoading] = useState(false)
 
