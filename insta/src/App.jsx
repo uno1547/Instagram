@@ -16,6 +16,7 @@ import Test from './components/Test/Test'
 import List2 from './components/List/List2'
 
 function App() {
+  // console.log('app');
   const tokenAtClient = () => {
     return localStorage.getItem("access_token")
     // 이게 서버에 요청보내고 응답 받는거라면?
@@ -35,7 +36,7 @@ function App() {
             <Route path='/' element = {<HomePage/>}></Route>
             <Route path='/search' element = {<SearchPage/>}></Route>
             <Route path='/create' element = {<CreatePage/>}></Route>
-            <Route path='/:userId' element = {<ProfilePage/>}></Route>
+            <Route path='/:userID' element = {<ProfilePage/>}></Route>
             <Route path='/test' element = {<List2/>}></Route>
             <Route path='*' element = {<Navigate to="/"/>}></Route> 
           </Routes>

@@ -20,6 +20,57 @@ const database = [
   { id : 2, name : "uno", nickName : "yuno4034", password : "$argon2id$v=19$m=65536,t=3,p=4$1J2KAfMmP2Lv2LDF6MWD7Q$woVh4pQdjniEvaKvJZP64EUTwy9sKBfE9AWIShPyVHU", contact : 'unoei@naver.com'}  
 ]
 let idx = database.length
+
+const arr2 = [
+  {
+    userID : "사람1",
+  },
+  {
+    userID : "사람2",
+  },
+  {
+    userID : "사람3",
+  },
+  {
+    userID : "사람4",
+  },
+  {
+    userID : "사람5",
+  },
+  {
+    userID : "사람6",
+  }, 
+  {
+    userID : "사람7",
+  },
+  {
+    userID : "사람8",
+  },
+  {
+    userID : "사람9",
+  },
+  {
+    userID : "사람10",
+  },
+  {
+    userID : "사람11",
+  },
+  {
+    userID : "사람12",
+  },
+  {
+    userID : "사람13",
+  },
+  {
+    userID : "사람14",
+  }, 
+  {
+    userID : "사람15",
+  },
+  {
+    userID : "사람16",
+  }
+]
 // const hased = async () => {
 
 //   const hash1 = await argon2.hash("yongjunpassword")
@@ -156,7 +207,7 @@ app.post('/login', function (req, res) {
 */
 
 // 회원가입
-app.post('/api/user', async function(req, res) {
+app.post('/api/users', async function(req, res) {
   // 데이터 저장 형태는 나중에 생각해보기로
   console.log('회원가입요청왔음');
   const { phoneNumber, email, password, name, nickName } = req.body
@@ -226,7 +277,7 @@ app.post('/api/login', async function (req, res) {
 
 // jwt토큰 포함된 요청에서 userId반환(Sidebar컴포넌트 초기화할때 사용)
 // { name : user.name } 가 payload임
-app.get('/api/user/userID', function(req, res) {
+app.get('/api/users/userID', function(req, res) {
   console.log('닉네임 요청이 왔어요');
   const token = req.header('Authorization')?.split(' ')[1];
   console.log(token);
@@ -254,7 +305,7 @@ app.get('/api/user/userID', function(req, res) {
 
 
 // 프로필 정보 조회
-app.get('/api/user/profile/:userID', (req, res) => {
+app.get('/api/users/:userID/profile', (req, res) => {
   /* 
   받은 userID, 토큰을 통해서 
   1) userID인 사용자가 존재하는지 검사 없다면 에러응답
@@ -276,7 +327,7 @@ app.get('/api/user/profile/:userID', (req, res) => {
     describe : "간단한 소개글"
   }
   */
-  const { userID } = req.params
+  const {userID} = req.params
   console.log('URL로 넘어온 userID는',userID);
 
   // API 에 인가된 사용자인지 확인을 위해 token검사
@@ -337,24 +388,44 @@ app.get('/api/user/profile/:userID', (req, res) => {
     followees,
     article : "안녕 하세요 인사말이에요"
   })
-
-  /*
-  const accessToken = jwt.sign({ nickName : user.nickName }, 'secretkey')
-  jwt.verify(accessToken, 'secretkey', (err, decoded) => { // 있다면 유효성 검사
-    if (err) return res.sendStatus(403);
-    console.log(decoded);
-    res.json({ message : `반가워요 ${decoded.name}`})
-  })
-  */
-
-  // res.json({
-  //   "message" : "ID에관한 프로필정보"
-  // })
-
 })
 
+app.get('/api/users/:userID/followers', (req, res) => {
+  // follow앤티티에서 userID이 follower인 모든 결과를 카운트
+  // 
+  const { userID } = req.params
+  console.log(`${userID}가 팔로우하는 사람은??`);
+  const followers = [
+    { "userID" : "dbdydwns"},
+    { "userID" : "팔로워2"},
+    { "userID" : "foxyongwoo"},
+    { "userID" : "팔로워4"},
+    { "userID" : "jsjinee"},
+    { "userID" : "팔로워6"},
+    { "userID" : "yunho389"},
+    { "userID" : "팔로워8"}
+  ]
+  res.json(followers)
+  return
+})
 
-
+app.get('/api/users/:userID/followings', (req, res) => {
+  // const 
+  const { userID } = req.params
+  console.log(`${userID}를 팔로잉하는 사람은??`);
+  const followings = [
+    { "userID" : "이주은"},
+    { "userID" : "강해린"},
+    { "userID" : "아이유"},
+    { "userID" : "팔로잉4"},
+    { "userID" : "팜하니"},
+    { "userID" : "김민지"},
+    { "userID" : "karinabluee"},
+    { "userID" : "팔로잉8"}
+  ]
+  res.json(followings)
+  return
+})
 
 
 

@@ -7,7 +7,7 @@ const ListItem = ({ member }) => {
     <div className={style.item}>
       <div className={style.profile}>
         <Skeleton type={"image"} width={"50px"} height={"50px"}/>
-        <span>{member.name}</span>
+        <span>{member.userID}</span>
       </div>
       <Button text= "삭제"/>
     </div>
