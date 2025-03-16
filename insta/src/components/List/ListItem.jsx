@@ -7,7 +7,7 @@ import { UserContext } from '../../context/UserContext.js'
 
 const ListItem = ({ member }) => {
   const {isYou} = useContext(UserContext)
-  console.log(isYou);
+  // console.log(isYou);
   const {userID} = member
   // console.log(userID);
   const [isUnfollowed, setIsUnfollowed] = useState(false)
@@ -29,7 +29,7 @@ const ListItem = ({ member }) => {
     })
     const data = await response.json()
     const success = data.success
-    console.log('unfollow!');
+    // console.log('unfollow!');
     if(success) { // 얘를 통해 언팔 실패하면 자연스럽게 버튼비활이안됌
       setIsUnfollowed(true)
     }

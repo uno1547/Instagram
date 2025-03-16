@@ -13,11 +13,11 @@ import NotFoundPage from "../NotFound/NotFoundPage"
 
 
 const ProfilePage = () => {
-  console.log('ProfilePage render!!');
+  // console.log('ProfilePage render!!');
   useEffect(() => {
-    console.log('ProfilePage mount!!');
+    // console.log('ProfilePage mount!!');
     return () => {
-      console.log('ProfilePage unmount!!');
+      // console.log('ProfilePage unmount!!');
     }
   }, [])
   /*
@@ -31,13 +31,13 @@ const ProfilePage = () => {
     isLoading false > 리랜더링 > 2. userData없으면 NotFound페이지 표시
   */
   const {userID} = useParams()
-  console.log('profilePage의 params 값은', userID);
+  // console.log('profilePage의 params 값은', userID);
   const [isLoading, setLoading] = useState(true)
   const [userData, setUserData] = useState(null)
 
   const getProfileInfos = async () => {
-    console.log('데이터 패치!!!');
-    console.log('getProfileInfos내에서 다시 로딩시작');
+    // console.log('데이터 패치!!!');
+    // console.log('getProfileInfos내에서 다시 로딩시작');
     try {
       const sleep = await new Promise((res, rej) => {
         setTimeout(() => {
@@ -58,17 +58,17 @@ const ProfilePage = () => {
       }
       
       const data = await response.json() //data 준비완료
-      console.log(data);
+      // console.log(data);
       setUserData(data)
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     } finally {
       setLoading(false)
     }
   }
 
   useEffect(() => {
-    console.log('바뀐 userID로 effect!!');
+    // console.log('바뀐 userID로 effect!!');
     setLoading(true) //이게 먼저 먹어서 스켈레톤이 1초가량 떠있음
     setUserData(null) // 이거 왜 넣었었지??? 이게 없으면 존재하는 프로필 > 존재하지않는 프로필 가면 이름만 바뀜, datas를 이전존재하는프로필꺼 유지되므로 초기화해줘야 데이터패칭이후, 없는 사용자 페이지띄울수있음
     getProfileInfos()

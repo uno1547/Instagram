@@ -8,10 +8,10 @@ import { UserContext } from '../../context/UserContext';
 
 
 const UserInfo = ({ datas }) => {
-  console.log('userinfo render!');
+  // console.log('userinfo render!');
   useEffect(() => {
     return () => {
-      console.log('userInfo 언마운트');
+      // console.log('userInfo 언마운트');
     }
   }, [])
   // console.log('userinfo랜더링!');
@@ -20,7 +20,7 @@ const UserInfo = ({ datas }) => {
   const {userID} = useContext(UserContext)
   // console.log('profilePage의', userID, '여긴 UserInfo');
   const showFollowers = () => {
-    console.log('list');
+    // console.log('list');
   }
   return(
     <div className={style["flex-container"]}>

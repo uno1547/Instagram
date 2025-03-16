@@ -24,9 +24,9 @@ const ShowList = ({ text }) => {
   const {userID} = useContext(UserContext)
   const navigate = useNavigate()
     useEffect(() => {
-      console.log('showList mount');
+      // console.log('showList mount');
       return () => {
-        console.log('showList unmount');
+        // console.log('showList unmount');
         // navigate(`/${userID}`)
       }
     }, [])

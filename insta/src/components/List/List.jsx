@@ -116,7 +116,7 @@ const List = ({ handler, toFind }) => {
   useEffect(() => {
     // console.log('list mount');
     return () => {
-      console.log('list unmount');
+      // console.log('list unmount');
     }
   }, [])
 
@@ -137,7 +137,7 @@ const List = ({ handler, toFind }) => {
       // setData(arr2)
 
     } catch(err) {
-
+      console.error(err)
     } finally {
       setIsLoading(false)
     }
