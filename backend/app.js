@@ -327,7 +327,7 @@ app.get('/api/users/:userID/profile', (req, res) => {
   }
   */
   const {userID} = req.params
-  console.log('URL로 넘어온 userID는',userID);
+  console.log(`${userID} 에 대한 프로필요청!!`);
 
   // API 에 인가된 사용자인지 확인을 위해 token검사
   const token = req.header('Authorization')?.split(' ')[1];
@@ -492,8 +492,43 @@ app.get('/api/users/:userID/followings', (req, res) => {
 // 특정회원 언팔로우
 app.delete('/api/users/:userID/follow', (req, res) => {
   const { userID } = req.params
-  console.log('URL로 넘어온 userID는',userID);
+  
+  // API 에 인가된 사용자인지 확인을 위해 token검사
+  const token = req.header('Authorization')?.split(' ')[1];
+  if (!token) {
+    res.status(401).json({
+      message : "토큰이 필요해요"
+    })
+    return
+  }
+  // token정보확인
+  try {
+    const decoded = jwt.verify(token, "secretkey")
+    console.log('해독된 토큰은',decoded); // 여기서 해독된정보까지 알긴해 userID인사용자 존재를 파악하기전에
+    const {nickName} = decoded
+    console.log(`${nickName}이 ${userID} 를 언팔로우한대요!!`);
+    
+  } catch(err) {
+    res.status(400).json({
+      message : "토큰이 유효하지않아요" // API접근을 자유롭게 할지말지, 정하면 될부분인가 ?하는게 좋긴할듯
+    })
+    return
+  }
+  console.log();
 
+  /*unfollow 과정*/
+
+  res.json({
+    "success" : true,
+    "message" : "언팔로우성공!"
+  })
+  return
+})
+
+// 특정 회원 팔로우
+app.post('/api/users/:userID/follow', (req, res) => {
+  const { userID } = req.params
+  
   // API 에 인가된 사용자인지 확인을 위해 token검사
   const token = req.header('Authorization')?.split(' ')[1];
   if (!token) {
@@ -512,6 +547,7 @@ app.delete('/api/users/:userID/follow', (req, res) => {
     })
     return
   }
+  console.log();
 
   /*unfollow 과정*/
 
@@ -521,7 +557,6 @@ app.delete('/api/users/:userID/follow', (req, res) => {
   })
   return
 })
-
 
 
 

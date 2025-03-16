@@ -114,7 +114,7 @@ const followings = [
 const List = ({ handler, toFind }) => {
 
   useEffect(() => {
-    console.log('list mount');
+    // console.log('list mount');
     return () => {
       console.log('list unmount');
     }

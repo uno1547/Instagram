@@ -2,9 +2,12 @@ import style from './ListItem.module.css'
 import Button from '../Button/Button'
 import Skeleton from '../Skeleton/Skeleton'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useContext, use } from 'react'
+import { UserContext } from '../../context/UserContext.js'
 
 const ListItem = ({ member }) => {
+  const {isYou} = useContext(UserContext)
+  console.log(isYou);
   const {userID} = member
   // console.log(userID);
   const [isUnfollowed, setIsUnfollowed] = useState(false)
@@ -38,7 +41,7 @@ const ListItem = ({ member }) => {
         <Skeleton type={"image"} width={"50px"} height={"50px"}/>
         <Link to= {`/${member.userID}`}>{member.userID}</Link>
       </div>
-      <Button text= "삭제" handler={unfollow} disabled={isUnfollowed}/>
+      {isYou ? <Button text= "삭제" handler={unfollow} disabled={isUnfollowed}/> : null}
     </div>
   )
 }

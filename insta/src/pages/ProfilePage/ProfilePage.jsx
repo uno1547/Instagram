@@ -31,6 +31,7 @@ const ProfilePage = () => {
     isLoading false > 리랜더링 > 2. userData없으면 NotFound페이지 표시
   */
   const {userID} = useParams()
+  console.log('profilePage의 params 값은', userID);
   const [isLoading, setLoading] = useState(true)
   const [userData, setUserData] = useState(null)
 
@@ -89,7 +90,7 @@ const ProfilePage = () => {
     </div> : // 로딩완료시 userData에 따라 랜더링
     userData ? ( // 얘 간결하게 할수있을듯? 이게 간결이구나 ㅋㅋㅋㅋ
       <>
-      <UserContext.Provider value={{userID}}>
+      <UserContext.Provider value={{userID, isYou : userData.isYou}}>
         <div className={style.inner}>
           <UserInfo datas={userData}/>
           <UserPosts />

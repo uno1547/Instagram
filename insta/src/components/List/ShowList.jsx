@@ -20,7 +20,9 @@ import { useNavigate } from 'react-router-dom'
 
 
 const ShowList = ({ text }) => {
-
+  const [isOpen, setIsOpen] = useState(false)
+  const {userID} = useContext(UserContext)
+  const navigate = useNavigate()
     useEffect(() => {
       console.log('showList mount');
       return () => {
@@ -30,7 +32,6 @@ const ShowList = ({ text }) => {
     }, [])
   // console.log('showlist');
   const toFind = text === "팔로워" ? "followers" : "followings"
-  const [isOpen, setIsOpen] = useState(false)
 
   const handler = () => {
     setIsOpen(prev => !prev)
