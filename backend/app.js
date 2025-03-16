@@ -303,7 +303,6 @@ app.get('/api/users/userID', function(req, res) {
   // console.log('검증완료');    
 })
 
-
 // 프로필 정보 조회
 app.get('/api/users/:userID/profile', (req, res) => {
   /* 
@@ -350,16 +349,58 @@ app.get('/api/users/:userID/profile', (req, res) => {
   }
 
   // 1. userID인 사용자가 존재하는지 먼저 확인후 응답
-  const isUserExist = database.some(user => user.nickName === userID)
-  if(!isUserExist) { // 존재하는 사용자가 없다면 
-    console.log('입력한 URL의 사용자는 존재하지않아요!!');
-    res.status(401).json({
-      success : false,
-      status : 401,
-      message : "해당 아이디의 사용자는 없어요",
-    })
-    return
-  }
+  // const isUserExist = database.some(user => user.nickName === userID)
+  // if(!isUserExist) { // 존재하는 사용자가 없다면 
+  //   console.log('입력한 URL의 사용자는 존재하지않아요!!');
+  //   res.status(401).json({
+  //     success : false,
+  //     status : 401,
+  //     message : "해당 아이디의 사용자는 없어요",
+  //   })
+  //   return
+  // }
+
+  const rests = [
+    {
+      userID : "yuno4034",
+      isFollowee : false,
+      postNums : 1,
+      followers : 108,
+      followees : 142,
+      article : "@yuno4034"
+    },
+    {
+      userID : "dbdydwns",
+      isFollowee : true,
+      postNums : 10,
+      followers : 290,
+      followees : 245,
+      article : "유용준 스물다섯 안녕하세요"
+    },
+    {
+      userID : "00_woowoo_",
+      isFollowee : true,
+      postNums : 2,
+      followers : 248,
+      followees : 243,
+      article : "영우 루이 집사"
+    },
+    {
+      userID : "0724.32",
+      isFollowee : true,
+      postNums : 90,
+      followers : "115.5만",
+      followees : 61,
+      article : "𝐋𝐄𝐄 𝐉𝐔𝐄𝐔𝐍 李珠珢"
+    },     {
+      userID : "katarinabluu",
+      isFollowee : false,
+      postNums : 227,
+      followers : "2410만",
+      followees : 4,
+      article : "KARINA aespa"
+    }
+  ]
 
   // 2. 토큰과 userID를 비교해서, 본인인지 아닌지 확인
   const tokenID = jwt.verify(token, "secretkey").nickName
@@ -371,22 +412,43 @@ app.get('/api/users/:userID/profile', (req, res) => {
   1) Follows테이블에서 followerId가 토큰ID이고 followeeID가 userID인 행찾기
   2) Follows테이블에서 
   */
-  const isFollowee = true // isYou가 true면 얜 무조건 false임 자기를 팔로우할순없으니까, 일단 클라에서 이 프로퍼티를 쓸까????
+  // const isFollowee = true // isYou가 true면 얜 무조건 false임 자기를 팔로우할순없으니까, 일단 클라에서 이 프로퍼티를 쓸까????
   // const isFollowee = isYou ? true : DB체크 
 
   // 4. 게시글수, 팔로워수, 팔로잉수, 설명 받기 이건 User테이블에 필드 마련해두는게 좋으려나, 
   // 아니면 요청받으면 서버가 그때 카운트해서 알려주는게 나으려나 시간이 좀더 걸릴것같긴한데
-  const [postNums, followers, followees] = [1, 108, 142]
+  // const [postNums, followers, followees] = [1, 108, 142]
 
+  const userrest = rests.find(rest => rest.userID === userID)
+  console.log(userrest);
+
+  if(!userrest) { // 없는 유저면 null반환
+    res.send(null)
+    return
+  }
+
+  // res.status(200).json({
+  //   success : true,
+  //   message : "여기 회원정보에요",
+  //   isYou,
+  //   isFollowee,
+  //   postNums,
+  //   followers,
+  //   followees,
+  //   article : "안녕 하세요 인사말이에요"
+  // })
+  const result = {
+    success : true,
+    message : "여기 회원정보에요",
+    isYou,
+    ...userrest
+  }
+  console.log(result);
   res.status(200).json({
     success : true,
     message : "여기 회원정보에요",
     isYou,
-    isFollowee,
-    postNums,
-    followers,
-    followees,
-    article : "안녕 하세요 인사말이에요"
+    ...userrest
   })
 })
 
@@ -397,13 +459,13 @@ app.get('/api/users/:userID/followers', (req, res) => {
   console.log(`${userID}가 팔로우하는 사람은??`);
   const followers = [
     { "userID" : "dbdydwns"},
-    { "userID" : "팔로워2"},
-    { "userID" : "foxyongwoo"},
-    { "userID" : "팔로워4"},
-    { "userID" : "jsjinee"},
-    { "userID" : "팔로워6"},
-    { "userID" : "yunho389"},
-    { "userID" : "팔로워8"}
+    { "userID" : "00_woowoo_"},
+    { "userID" : "0724.32"},
+    { "userID" : "katarinabluu"},
+    // { "userID" : "jsjinee"},
+    // { "userID" : "팔로워6"},
+    // { "userID" : "yunho389"},
+    // { "userID" : "팔로워8"}
   ]
   res.json(followers)
   return
@@ -427,6 +489,38 @@ app.get('/api/users/:userID/followings', (req, res) => {
   return
 })
 
+// 특정회원 언팔로우
+app.delete('/api/users/:userID/follow', (req, res) => {
+  const { userID } = req.params
+  console.log('URL로 넘어온 userID는',userID);
+
+  // API 에 인가된 사용자인지 확인을 위해 token검사
+  const token = req.header('Authorization')?.split(' ')[1];
+  if (!token) {
+    res.status(401).json({
+      message : "토큰이 필요해요"
+    })
+    return
+  }
+  // token정보확인
+  try {
+    const decoded = jwt.verify(token, "secretkey")
+    console.log('해독된 토큰은',decoded); // 여기서 해독된정보까지 알긴해 userID인사용자 존재를 파악하기전에
+  } catch(err) {
+    res.status(400).json({
+      message : "토큰이 유효하지않아요" // API접근을 자유롭게 할지말지, 정하면 될부분인가 ?하는게 좋긴할듯
+    })
+    return
+  }
+
+  /*unfollow 과정*/
+
+  res.json({
+    "success" : true,
+    "message" : "언팔로우성공!"
+  })
+  return
+})
 
 
 

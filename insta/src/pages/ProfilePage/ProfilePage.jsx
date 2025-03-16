@@ -13,11 +13,11 @@ import NotFoundPage from "../NotFound/NotFoundPage"
 
 
 const ProfilePage = () => {
-  console.log('사용자의 프로필 페이지!!');
+  console.log('ProfilePage render!!');
   useEffect(() => {
-    console.log('프로필페이지 마운트!!');
+    console.log('ProfilePage mount!!');
     return () => {
-      console.log('프로필페이지 언마운트!!');
+      console.log('ProfilePage unmount!!');
     }
   }, [])
   /*
@@ -36,7 +36,6 @@ const ProfilePage = () => {
 
   const getProfileInfos = async () => {
     console.log('데이터 패치!!!');
-    setLoading(true) //이게 먼저 먹어서 스켈레톤이 1초가량 떠있음
     console.log('getProfileInfos내에서 다시 로딩시작');
     try {
       const sleep = await new Promise((res, rej) => {
@@ -58,6 +57,7 @@ const ProfilePage = () => {
       }
       
       const data = await response.json() //data 준비완료
+      console.log(data);
       setUserData(data)
     } catch (error) {
       console.log(error);
@@ -68,8 +68,10 @@ const ProfilePage = () => {
 
   useEffect(() => {
     console.log('바뀐 userID로 effect!!');
+    setLoading(true) //이게 먼저 먹어서 스켈레톤이 1초가량 떠있음
+    setUserData(null) // 이거 왜 넣었었지??? 이게 없으면 존재하는 프로필 > 존재하지않는 프로필 가면 이름만 바뀜, datas를 이전존재하는프로필꺼 유지되므로 초기화해줘야 데이터패칭이후, 없는 사용자 페이지띄울수있음
     getProfileInfos()
-  }, [userID])
+  }, [userID]) // userID가 변하며 리렌더링을 트리거하면, isLoading, userData도 초기화 해줘야함!!!
 
   return(
     isLoading ? // 로딩중일때 스켈레톤 표신
@@ -86,43 +88,40 @@ const ProfilePage = () => {
       </div>
     </div> : // 로딩완료시 userData에 따라 랜더링
     userData ? ( // 얘 간결하게 할수있을듯? 이게 간결이구나 ㅋㅋㅋㅋ
-
+      <>
       <UserContext.Provider value={{userID}}>
         <div className={style.inner}>
           <UserInfo datas={userData}/>
+          <UserPosts />
         </div>
+        {/* 여기서부터 */}
+        {/* <UserInfo datas={{
+          isYou : false,
+          isFollowee : true,
+          postNums : 10,
+          followers : 290,
+          followees : 246,
+          article : "유용준 스물다섯"
+        }} userID = "dydwns6837"/>
+        <UserInfo datas={{
+          isYou : false,
+          isFollowee : true,
+          postNums : 89,
+          followers : "110.9만",
+          followees : 1,
+          article : `이주은 LEE JUEUN`
+        }} userID = "0724.32"/>
+        <UserInfo datas={{
+          isYou : false,
+          isFollowee : false,
+          postNums : 224,
+          followers : "2392만",
+          followees : 4,
+          article : "KARINA aespa"
+        }} userID = "katarinabluu"/> */}
+        {/* 여기까지 */}  
       </UserContext.Provider>
-      // <UserProvider userID={userId}>
-      //   <div className={style.inner}>
-      //     <UserInfo datas={userData} userID = {userId}/>
-      // {/* <UserInfo datas={{
-      //   isYou : false,
-      //   isFollowee : true,
-      //   postNums : 10,
-      //   followers : 290,
-      //   followees : 246,
-      //   article : "유용준 스물다섯"
-      // }} userID = "dydwns6837"/>
-      // <UserInfo datas={{
-      //   isYou : false,
-      //   isFollowee : true,
-      //   postNums : 89,
-      //   followers : "110.9만",
-      //   followees : 1,
-      //   article : `이주은 LEE JUEUN`
-      // }} userID = "0724.32"/>
-      // <UserInfo datas={{
-      //   isYou : false,
-      //   isFollowee : false,
-      //   postNums : 224,
-      //   followers : "2392만",
-      //   followees : 4,
-      //   article : "KARINA aespa"
-      // }} userID = "katarinabluu"/>
-      // <UserPosts /> */}
-      //   </div>
-      // </UserProvider>
-
+      </>
     ) : (
       <NotFoundPage/>
     )
