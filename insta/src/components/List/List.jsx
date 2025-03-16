@@ -112,11 +112,14 @@ const followings = [
 // console.log(arr);
 
 const List = ({ handler, toFind }) => {
+
   useEffect(() => {
+    console.log('list mount');
     return () => {
-      console.log('list 언마운트');
+      console.log('list unmount');
     }
   }, [])
+
   const [data, setData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [keyWord, setKeyWord] = useState("")
@@ -171,7 +174,7 @@ const List = ({ handler, toFind }) => {
         <span className={style.text}>팔로워</span>
         <button className={style.closeButton} onClick={e => {
           e.stopPropagation()
-          console.log('x버튼 트리거');
+          // console.log('x버튼 트리거');
           // if(e.target == e.currentTarget) handler()
           handler()
         }}>X</button>

@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { createPortal } from 'react-dom'
 
 import style from './ShowList.module.css'
 // import FollowerList from './FollowerList'
 import FollowListModal from '../Modal/FollowListModal'
-
+import { Navigate } from 'react-router-dom'
+import { UserContext } from '../../context/UserContext'
+import { useNavigate } from 'react-router-dom'
 // import style from './OverLay.module.css'
 // import style1 from './OverLay.module.css'
 
@@ -18,9 +20,12 @@ import FollowListModal from '../Modal/FollowListModal'
 
 
 const ShowList = ({ text }) => {
+
     useEffect(() => {
+      console.log('showList mount');
       return () => {
-        console.log('showList 언마운트');
+        console.log('showList unmount');
+        // navigate(`/${userID}`)
       }
     }, [])
   // console.log('showlist');

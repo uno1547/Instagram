@@ -8,6 +8,7 @@ import { UserContext } from '../../context/UserContext';
 
 
 const UserInfo = ({ datas }) => {
+  console.log('userinfo render!');
   useEffect(() => {
     return () => {
       console.log('userInfo 언마운트');
