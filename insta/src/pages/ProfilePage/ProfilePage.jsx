@@ -36,6 +36,7 @@ const ProfilePage = () => {
   const [userData, setUserData] = useState(null)
 
   const getProfileInfos = async () => {
+    setLoading(true) //이게 먼저 먹어서 스켈레톤이 1초가량 떠있음
     // console.log('데이터 패치!!!');
     // console.log('getProfileInfos내에서 다시 로딩시작');
     try {
@@ -69,7 +70,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     // console.log('바뀐 userID로 effect!!');
-    setLoading(true) //이게 먼저 먹어서 스켈레톤이 1초가량 떠있음
+    // setLoading(true) //이게 먼저 먹어서 스켈레톤이 1초가량 떠있음
     setUserData(null) // 이거 왜 넣었었지??? 이게 없으면 존재하는 프로필 > 존재하지않는 프로필 가면 이름만 바뀜, datas를 이전존재하는프로필꺼 유지되므로 초기화해줘야 데이터패칭이후, 없는 사용자 페이지띄울수있음
     getProfileInfos()
   }, [userID]) // userID가 변하며 리렌더링을 트리거하면, isLoading, userData도 초기화 해줘야함!!!
@@ -90,7 +91,7 @@ const ProfilePage = () => {
     </div> : // 로딩완료시 userData에 따라 랜더링
     userData ? ( // 얘 간결하게 할수있을듯? 이게 간결이구나 ㅋㅋㅋㅋ
       <>
-      <UserContext.Provider value={{userID, isYou : userData.isYou}}>
+      <UserContext.Provider value={{userID, isYou : userData.isYou, getProfileInfos}}>
         <div className={style.inner}>
           <UserInfo datas={userData}/>
           <UserPosts />
