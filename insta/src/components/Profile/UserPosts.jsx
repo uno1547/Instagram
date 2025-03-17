@@ -1,9 +1,14 @@
+import Posts from "./Posts";
 
-function UserPosts() {
+function UserPosts( { datas } ) {
   // console.log('userpost render!');
+  console.log(datas);
+  // console.log(posts);
   return(
     <>
-      {/* <h1>게시글들</h1> */}
+      {datas?.length ? datas.map(data => {
+        return <Posts key={data.id} content={data.context}/>
+      }) : <h1>no articles</h1>}
     </>
   )
 }

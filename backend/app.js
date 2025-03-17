@@ -543,6 +543,8 @@ app.post('/api/users/:userID/follow', (req, res) => {
   try {
     const decoded = jwt.verify(token, "secretkey")
     console.log('해독된 토큰은',decoded); // 여기서 해독된정보까지 알긴해 userID인사용자 존재를 파악하기전에
+    const {nickName} = decoded
+    console.log(`${nickName}이 ${userID} 를 팔로우한대요!!`);
   } catch(err) {
     res.status(400).json({
       message : "토큰이 유효하지않아요" // API접근을 자유롭게 할지말지, 정하면 될부분인가 ?하는게 좋긴할듯
@@ -554,12 +556,62 @@ app.post('/api/users/:userID/follow', (req, res) => {
 
   res.json({
     "success" : true,
-    "message" : "언팔로우성공!"
+    "message" : "팔로우성공!"
   })
   return
 })
 
+// 사용자의 게시글 리스트 조회
 
+const posts = [
+  { id : 1 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 1번째 글"},
+  { id : 2 , userID : "yuno4034" , imageURL : "", context : "yuno4034의 1번째 글"},
+  { id : 3 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 2번째 글"},
+  { id : 4 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 3번째 글"},
+  { id : 5 , userID : "yuno4034" , imageURL : "", context : "yuno4034의 2번째 글"},
+  { id : 6 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 4번째 글"},
+  { id : 7 , userID : "yuno4034" , imageURL : "", context : "yuno4034의 3번째 글"},
+  { id : 8 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 5번째 글"},
+  { id : 9 , userID : "yuno4034" , imageURL : "", context : "yuno4034의 4번째 글"},
+  { id : 10 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 6번째 글"}
+]
+
+// 특정 유저의 게시글 목록 불러오기 
+app.get('/api/users/:userID/posts', (req, res) => {
+  /*
+  특정 userID의 사용자가 쓴 게시글을 불러오기
+  */
+  const {userID} = req.params
+  console.log(userID);
+
+  // 토큰 검사
+  const token = req.header('Authorization')?.split(' ')[1];
+  if (!token) {
+    res.status(401).json({
+      message : "토큰이 필요해요"
+    })
+    return
+  }
+
+  try {
+    const decoded = jwt.verify(token, "secretkey")
+    console.log('해독된 토큰은',decoded); // 여기서 해독된정보까지 알긴해 userID인사용자 존재를 파악하기전에
+  } catch(err) {
+    res.status(400).json({
+      message : "토큰이 유효하지않아요" // API접근을 자유롭게 할지말지, 정하면 될부분인가 ?하는게 좋긴할듯
+    })
+    return
+  }
+
+  const userPosts = posts.filter(post => post.userID === userID)
+  res.json({
+    "success" : true,
+    "message" : `${userID}님의 게시글들이에요`,
+    "data" : {
+      userPosts
+    }
+  })
+})
 
 
 
