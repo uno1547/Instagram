@@ -1,6 +1,8 @@
+import style from "./Posts.module.css"
+
 const Posts = ({content}) => {
   return (
-    <div>{content}</div>
+    <div className={style.item}>{}</div>
   )
 }
 
