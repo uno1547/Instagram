@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { UserContext } from './context/UserContext'
 
 import './App.css'
 
@@ -16,34 +17,59 @@ import Test from './components/Test/Test'
 import List2 from './components/List/List2'
 
 function App() {
-  // console.log('app');
+  console.log('app랜더링');
   const tokenAtClient = () => {
-    return localStorage.getItem("access_token")
-    // 이게 서버에 요청보내고 응답 받는거라면?
+    const isToken = localStorage.getItem("access_token") ? true : false
+    console.log(isToken);
+    return isToken
   }
-  const [isAuth, setIsAuth] = useState(tokenAtClient())
+
+  const [isAuth, setIsAuth] = useState(tokenAtClient()) // false(nologin)
+  const [userID, setUserID] = useState(null) // null
+  console.log(isAuth, userID);
+
+  const getUserID = async () => {
+    if(!tokenAtClient()) return
+    try {
+      const response = await fetch("http://localhost:8080/api/users/userID", {
+        headers : { Authorization : `Bearer ${localStorage.getItem("access_token")}`}
+      })
+
+      if(!response.ok) {
+        // alert('토큰이 잘못되었다!')
+        return
+      }
+
+      const data = await response.json()
+      const userID = data.userID 
+      setUserID(userID)
+
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  useEffect(() => {
+    console.log('app effect!');
+    getUserID()
+  }, [isAuth])
 
   return (
     <Router>
       <div className= { isAuth ? 'with-sidebar' : 'no-sidebar' } >
       {isAuth ? (
-        // 인증된 유저들라우팅
-        <>
+        <UserContext.Provider value={{userID}}>
           <Sidebar/>
-          {/* <div className="inner"> */}
-
           <Routes>
             <Route path='/' element = {<HomePage/>}></Route>
             <Route path='/search' element = {<SearchPage/>}></Route>
             <Route path='/create' element = {<CreatePage/>}></Route>
             <Route path='/:userID' element = {<ProfilePage/>}></Route>
             <Route path='/dynamic/:param' element = {<Test/>}></Route>
-            <Route path='/test' element = {<List2/>}></Route>
+            <Route path='/test' element = {<Test/>}></Route>
             <Route path='*' element = {<Navigate to="/"/>}></Route> 
           </Routes>
-
-          {/* </div> */}
-        </>        
+        </UserContext.Provider>        
       ) : (
         <Routes>
           <Route path='/' element = {<LoginForm setIsAuth={setIsAuth}/>}></Route>
@@ -52,26 +78,6 @@ function App() {
         </Routes>
       )}        
       </div>
-      {/* {isAuth ? (
-        // 인증된 유저들라우팅
-        <>
-          <Sidebar/>
-          <Routes>
-            <Route path='/' element = {<HomePage/>}></Route>
-            <Route path='/search' element = {<SearchPage/>}></Route>
-            <Route path='/create' element = {<CreatePage/>}></Route>
-            <Route path='/:userId' element = {<ProfilePage/>}></Route>
-            <Route path='/test' element = {<List2/>}></Route>
-            <Route path='*' element = {<Navigate to="/"/>}></Route> 
-          </Routes>
-        </>        
-      ) : (
-        <Routes>
-          <Route path='/' element = {<LoginForm setIsAuth={setIsAuth}/>}></Route>
-          <Route path='/signup' element = {<SignupForm/>}></Route> 
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      )} */}
     </Router>  
   )
 }
