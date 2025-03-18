@@ -45,7 +45,7 @@ const Posts = ({content}) => {
     setIsOpen(prev => !prev)
   }
 
-  console.log('post랜더링!');
+  // console.log('post랜더링!');
   return (
     <ModalContext.Provider value={{isOpen, modalHandler}}>
       <div className={style.item} onClick={modalHandler}>{}</div>
