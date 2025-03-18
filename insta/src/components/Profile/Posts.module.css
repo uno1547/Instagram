@@ -1,6 +1,7 @@
 .item {
   /* background-color: #f4f4f4; */
   /* border: 1px solid #ddd; */
+  cursor: pointer;
   padding: 20px;
   /* text-align: center; */
   /* font-size: 20px; */

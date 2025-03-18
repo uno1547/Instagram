@@ -9,13 +9,9 @@ import { UserContext } from '../../context/UserContext';
 
 const UserInfo = ({ datas }) => {
   // console.log('userinfo render!');
-  useEffect(() => {
-    return () => {
-      // console.log('userInfo 언마운트');
-    }
-  }, [])
   // console.log('userinfo랜더링!');
   const {isYou, isFollowee, postNums, followers, followees, article} = datas
+  // const {isYou, isFollowee, postNums, followers, followees, article} = datas.data
 
   const {userID} = useContext(UserContext)
   // console.log('profilePage의', userID, '여긴 UserInfo');

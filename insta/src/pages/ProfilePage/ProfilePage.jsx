@@ -25,7 +25,7 @@ const ProfilePage = () => {
     isLoading false > 리랜더링 > 2. userData없으면 NotFound페이지 표시
   */
   const {userID} = useParams() 
-  // console.log('profilePage의 params 값은', userID);
+  console.log('profilePage의 params 값은', userID);
   const [isLoading, setLoading] = useState(true)
   const [userData, setUserData] = useState(null)
   const [userPosts, setUserPosts] = useState(null)
@@ -60,9 +60,9 @@ const ProfilePage = () => {
           Authorization : `Bearer ${localStorage.getItem("access_token")}`
         }
       }).then(response => response.ok ? response.json() : null)
-        .then(posts => setUserPosts(posts.data.userPosts))
+        .then(posts => setUserPosts(posts.data.userPosts)) // 얘 까지 완료되도 최대2초 소요
 
-      const userData = await fetchUserData
+      const userData = await fetchUserData // 1초소요
       setUserData(userData)
 
     } catch (error) {
@@ -99,6 +99,7 @@ const ProfilePage = () => {
       <UserContext.Provider value={{userID, isYou : userData.isYou, getProfileInfos}}>
         <div className = {style.inner}>
           <UserInfo datas = {userData}/>
+          {/* 이단계에서는 썸네일 url, post id가 맞을듯 간단히 섬네일만 표시 */}
           <UserPosts datas = {userPosts}/>
         </div>
         {/* 여기서부터 */}
