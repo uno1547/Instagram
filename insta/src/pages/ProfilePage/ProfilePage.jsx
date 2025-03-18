@@ -12,9 +12,9 @@ import style from './ProfilePage.module.css'
 
 
 const ProfilePage = () => {
-  console.log('profilepage 랜더링');
+  console.log('profilepage render');
   const {userID} = useParams() 
-  console.log('profilePage의 params 값은', userID);
+  // console.log('profilePage params', userID);
   const [isLoading, setLoading] = useState(true)
   const [userData, setUserData] = useState(null)
   const [userPosts, setUserPosts] = useState(null)
@@ -40,14 +40,14 @@ const ProfilePage = () => {
       // 프로필정보 도착하자마자 UserInfo랜더링
       // 던져놨던 포스트요청은 background에서 완료되면 알아서 state변경
 
-      console.log('user data 패치시작')
+      console.log('user data fetch')
       const fetchUserData = fetch(`http://localhost:8080/api/users/${userID}/profile`, {
         headers : {
           Authorization : `Bearer ${localStorage.getItem("access_token")}`
         }
       }).then(response => response.ok ? response.json() : null)
 
-      console.log('user post 패치시작')
+      console.log('user post fetch')
       const fetchUserPosts = fetch(`http://localhost:8080/api/users/${userID}/posts`, {
         headers : {
           Authorization : `Bearer ${localStorage.getItem("access_token")}`
@@ -55,22 +55,20 @@ const ProfilePage = () => {
       }).then(response => response.ok ? response.json() : null)
         .then(posts => setUserPosts(posts.data.userPosts)) // 얘 까지 완료되도 최대2초 소요
 
-      console.log('아마 두패치로그 후 바로');
+      console.log('after start fetch');
       const userData = await fetchUserData // 1초소요
-      console.log('여기는 기본정보 불러온이후!');
       setUserData(userData)
-      console.log('여기는 기본정보로 setState');
+      console.log('after userdata fetch complete');
     } catch (error) {
       console.error(error);
     } finally {
-      console.log('여기는 Finally 시작');
       setLoading(false)
-      console.log('여기는 setLoading false후 finally끝');
+      console.log('after setloading');
     }
   }
 
   useEffect(() => {
-    console.log('바뀐 userID로 effect!!');
+    console.log('effect!!');
     getProfileInfos()
     // setUserData(null) // 이거 왜 넣었었지??? 이게 없으면 존재하는 프로필 > 존재하지않는 프로필 가면 이름만 바뀜, datas를 이전존재하는프로필꺼 유지되므로 초기화해줘야 데이터패칭이후, 없는 사용자 페이지띄울수있음
   }, [userID]) // userID가 변하며 리렌더링을 트리거하면, isLoading, userData도 초기화 해줘야함!!!
