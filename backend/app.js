@@ -447,8 +447,10 @@ app.get('/api/users/:userID/profile', (req, res) => {
   res.status(200).json({
     success : true,
     message : "여기 회원정보에요",
-    isYou,
-    ...userrest
+    data : {
+      isYou,
+      ...userrest
+    }
   })
 })
 
@@ -467,7 +469,11 @@ app.get('/api/users/:userID/followers', (req, res) => {
     // { "userID" : "yunho389"},
     // { "userID" : "팔로워8"}
   ]
-  res.json(followers)
+  res.json({
+    status : 200,
+    success : true,
+    data : followers
+  })
   return
 })
 
@@ -485,7 +491,11 @@ app.get('/api/users/:userID/followings', (req, res) => {
     { "userID" : "karinabluee"},
     { "userID" : "팔로잉8"}
   ]
-  res.json(followings)
+  res.json({
+    status : 200,
+    success : true,
+    data : followings
+  })
   return
 })
 
