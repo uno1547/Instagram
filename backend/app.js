@@ -1,3 +1,6 @@
+const posts = require('./datas/posts')
+const postInfos = require('./datas/postInfos')
+
 const express = require('express')
 const cors = require('cors')
 const argon2 = require('argon2')
@@ -611,33 +614,11 @@ app.delete('/api/users/:userID/removeFollower', (req, res) => {
 
 // 사용자의 게시글 리스트 조회
 
-const posts = [
-  { id : 1 , userID : "dbdydwns" , imageURL : "https://m.cattery.co.kr/_dj/img/main_section_1_img2.jpg", context : "dbdydwns의 1번째 글"},
-  { id : 2 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 1번째 글"*/},
-  { id : 3 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 2번째 글"*/},
-  { id : 4 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 3번째 글"*/},
-  { id : 5 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 2번째 글"*/},
-  { id : 6 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 4번째 글"*/},
-  { id : 7 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 3번째 글"*/},
-  { id : 8 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 5번째 글"*/},
-  { id : 9 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 4번째 글"*/},
-  { id : 10 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 6번째 글"*/},
-  { id : 11 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 7번째 글"*/},
-  { id : 12 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 5번째 글"*/},
-  { id : 13 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 8번째 글"*/},
-  { id : 14 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 9번째 글"*/},
-  { id : 15 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 6번째 글"*/},
-  { id : 16 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 10번째 글"*/},
-  { id : 17 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 7번째 글"*/},
-  { id : 18 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 11번째 글"*/},
-  { id : 19 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 8번째 글"*/},
-  { id : 20 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 12번째 글"*/}
-]
-
 // 특정 유저의 게시글 목록 불러오기 
 app.get('/api/users/:userID/posts', (req, res) => {
   /*
-  특정 userID의 사용자가 쓴 게시글을 불러오기
+  Posts 데이터들에서 userID값들로 쿼리!!
+  각 Post데이터는 postID가지고있고, 썸네일 가짐
   */
   const {userID} = req.params
   console.log(userID);
@@ -662,6 +643,7 @@ app.get('/api/users/:userID/posts', (req, res) => {
   }
 
   const userPosts = posts.filter(post => post.userID === userID)
+  console.log(userPosts);
   res.json({
     "success" : true,
     "message" : `${userID}님의 게시글들이에요`,
@@ -669,13 +651,15 @@ app.get('/api/users/:userID/posts', (req, res) => {
   })
 })
 
+
 // 특정 게시글에 대한 정보를 불러옵니다. (댓글 좋아요 수등)
-app.get('/api/users/:userID/posts', (req, res) => {
+app.get('/api/posts/:postID', (req, res) => {
   /*
-  특정 userID의 사용자가 쓴 게시글을 불러오기
+  위에서 얻은 postID?로 다시요청
   */
-  const {userID} = req.params
-  console.log(userID);
+
+  const {postID} = req.params
+  console.log(postID, '아이디의 게시글에 대한 추가정보요청이 왔어요!!');
 
   // 토큰 검사
   const token = req.header('Authorization')?.split(' ')[1];
@@ -696,12 +680,18 @@ app.get('/api/users/:userID/posts', (req, res) => {
     return
   }
 
-  const userPosts = posts.filter(post => post.userID === userID)
+  const info = postInfos.find(postInfo => postInfo.postID == postID)
+  console.log(info);
   res.json({
     "success" : true,
-    "message" : `${userID}님의 게시글들이에요`,
-    "posts" : userPosts
+    "message" : `${postID} post에 대한 추가정보!`,
+    info
   })
+  // res.json({
+  //   "success" : true,
+  //   "message" : `${userID}님의 게시글들이에요`,
+  //   "posts" : userPosts
+  // })
 })
 
 
