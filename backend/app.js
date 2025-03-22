@@ -454,6 +454,7 @@ app.get('/api/users/:userID/profile', (req, res) => {
   })
 })
 
+// 팔로워 목록 조회
 app.get('/api/users/:userID/followers', (req, res) => {
   // follow앤티티에서 userID이 follower인 모든 결과를 카운트
   // 
@@ -476,7 +477,7 @@ app.get('/api/users/:userID/followers', (req, res) => {
   })
   return
 })
-
+// 팔로잉목록 조회
 app.get('/api/users/:userID/followings', (req, res) => {
   // const 
   const { userID } = req.params
@@ -525,7 +526,7 @@ app.delete('/api/users/:userID/follow', (req, res) => {
     })
     return
   }
-  console.log();
+  // console.log();
 
   /*unfollow 과정*/
 
@@ -571,29 +572,66 @@ app.post('/api/users/:userID/follow', (req, res) => {
   return
 })
 
+// 팔로우 리스트에서 삭제
+/*
+userID, token이 있으면 userID > token인 팔로우관계를 삭제
+*/
+app.delete('/api/users/:userID/removeFollower', (req, res) => {
+  const { userID } = req.params
+  
+  // API 에 인가된 사용자인지 확인을 위해 token검사
+  const token = req.header('Authorization')?.split(' ')[1];
+  if (!token) {
+    res.status(401).json({
+      message : "토큰이 필요해요"
+    })
+    return
+  }
+  // token정보확인
+  try {
+    const decoded = jwt.verify(token, "secretkey")
+    console.log('해독된 토큰은',decoded); // 여기서 해독된정보까지 알긴해 userID인사용자 존재를 파악하기전에
+    const {nickName} = decoded
+    console.log(`${nickName}가 ${userID} 이 자기팔로우하는게 맘에안듬`);
+  } catch(err) {
+    res.status(400).json({
+      message : "토큰이 유효하지않아요" // API접근을 자유롭게 할지말지, 정하면 될부분인가 ?하는게 좋긴할듯
+    })
+    return
+  }
+
+  /*unfollow 과정*/
+
+  res.json({
+    "success" : true,
+    "message" : "팔로우금지성공!"
+  })
+  return
+})
+
 // 사용자의 게시글 리스트 조회
 
 const posts = [
   { id : 1 , userID : "dbdydwns" , imageURL : "https://m.cattery.co.kr/_dj/img/main_section_1_img2.jpg", context : "dbdydwns의 1번째 글"},
-  { id : 2 , userID : "yuno4034" , imageURL : "", context : "yuno4034의 1번째 글"},
-  { id : 3 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 2번째 글"},
-  { id : 4 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 3번째 글"},
-  { id : 5 , userID : "yuno4034" , imageURL : "", context : "yuno4034의 2번째 글"},
-  { id : 6 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 4번째 글"},
-  { id : 7 , userID : "yuno4034" , imageURL : "", context : "yuno4034의 3번째 글"},
-  { id : 8 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 5번째 글"},
-  { id : 9 , userID : "yuno4034" , imageURL : "", context : "yuno4034의 4번째 글"},
-  { id : 10 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 6번째 글"},
-  { id : 11 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 7번째 글"},
-  { id : 12 , userID : "yuno4034" , imageURL : "", context : "yuno4034의 5번째 글"},
-  { id : 13 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 8번째 글"},
-  { id : 14 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 9번째 글"},
-  { id : 15 , userID : "yuno4034" , imageURL : "", context : "yuno4034의 6번째 글"},
-  { id : 16 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 10번째 글"},
-  { id : 17 , userID : "yuno4034" , imageURL : "", context : "yuno4034의 7번째 글"},
-  { id : 18 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 11번째 글"},
-  { id : 19 , userID : "yuno4034" , imageURL : "", context : "yuno4034의 8번째 글"},
-  { id : 20 , userID : "dbdydwns" , imageURL : "", context : "dbdydwns의 12번째 글"}
+  { id : 2 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 1번째 글"*/},
+  { id : 3 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 2번째 글"*/},
+  { id : 4 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 3번째 글"*/},
+  { id : 5 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 2번째 글"*/},
+  { id : 6 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 4번째 글"*/},
+  { id : 7 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 3번째 글"*/},
+  { id : 8 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 5번째 글"*/},
+  { id : 9 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 4번째 글"*/},
+  { id : 10 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 6번째 글"*/},
+  { id : 11 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 7번째 글"*/},
+  { id : 12 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 5번째 글"*/},
+  { id : 13 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 8번째 글"*/},
+  { id : 14 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 9번째 글"*/},
+  { id : 15 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 6번째 글"*/},
+  { id : 16 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 10번째 글"*/},
+  { id : 17 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 7번째 글"*/},
+  { id : 18 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 11번째 글"*/},
+  { id : 19 , userID : "yuno4034" , imageURL : "", /*context : "yuno4034의 8번째 글"*/},
+  { id : 20 , userID : "dbdydwns" , imageURL : "", /*context : "dbdydwns의 12번째 글"*/}
 ]
 
 // 특정 유저의 게시글 목록 불러오기 
@@ -627,9 +665,42 @@ app.get('/api/users/:userID/posts', (req, res) => {
   res.json({
     "success" : true,
     "message" : `${userID}님의 게시글들이에요`,
-    "data" : {
-      userPosts
-    }
+    "posts" : userPosts
+  })
+})
+
+// 특정 게시글에 대한 정보를 불러옵니다. (댓글 좋아요 수등)
+app.get('/api/users/:userID/posts', (req, res) => {
+  /*
+  특정 userID의 사용자가 쓴 게시글을 불러오기
+  */
+  const {userID} = req.params
+  console.log(userID);
+
+  // 토큰 검사
+  const token = req.header('Authorization')?.split(' ')[1];
+  if (!token) {
+    res.status(401).json({
+      message : "토큰이 필요해요"
+    })
+    return
+  }
+
+  try {
+    const decoded = jwt.verify(token, "secretkey")
+    console.log('해독된 토큰은',decoded); // 여기서 해독된정보까지 알긴해 userID인사용자 존재를 파악하기전에
+  } catch(err) {
+    res.status(400).json({
+      message : "토큰이 유효하지않아요" // API접근을 자유롭게 할지말지, 정하면 될부분인가 ?하는게 좋긴할듯
+    })
+    return
+  }
+
+  const userPosts = posts.filter(post => post.userID === userID)
+  res.json({
+    "success" : true,
+    "message" : `${userID}님의 게시글들이에요`,
+    "posts" : userPosts
   })
 })
 
