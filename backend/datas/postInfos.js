@@ -108,6 +108,106 @@ const postInfos = [
       { commentID: "cmt_10a", user: "katarinabluu", content: "hi" },
       { commentID: "cmt_10b", user: "0724.32", content: "좋아요~" }
     ]
+  },
+  {
+    postID: 11,
+    imageURL: "img_11lmno",
+    likes: 310,
+    isLiked: true,
+    comments: [
+      { commentID: "cmt_11a", user: "dbdydwns", content: "hi" },
+      { commentID: "cmt_11b", user: "00_woowoo_", content: "좋아요~" }
+    ]
+  },
+  {
+    postID: 12,
+    imageURL: "img_12mnop",
+    likes: 370,
+    isLiked: false,
+    comments: [
+      { commentID: "cmt_12a", user: "0724.32", content: "hi" },
+      { commentID: "cmt_12b", user: "katarinabluu", content: "좋아요~" }
+    ]
+  },
+  {
+    postID: 13,
+    imageURL: "img_13nopq",
+    likes: 195,
+    isLiked: true,
+    comments: [
+      { commentID: "cmt_13a", user: "00_woowoo_", content: "hi" },
+      { commentID: "cmt_13b", user: "dbdydwns", content: "좋아요~" }
+    ]
+  },
+  {
+    postID: 14,
+    imageURL: "img_14opqr",
+    likes: 280,
+    isLiked: false,
+    comments: [
+      { commentID: "cmt_14a", user: "katarinabluu", content: "hi" },
+      { commentID: "cmt_14b", user: "0724.32", content: "좋아요~" }
+    ]
+  },
+  {
+    postID: 15,
+    imageURL: "img_15pqrs",
+    likes: 150,
+    isLiked: true,
+    comments: [
+      { commentID: "cmt_15a", user: "dbdydwns", content: "hi" },
+      { commentID: "cmt_15b", user: "00_woowoo_", content: "좋아요~" }
+    ]
+  },
+  {
+    postID: 16,
+    imageURL: "img_16qrst",
+    likes: 275,
+    isLiked: false,
+    comments: [
+      { commentID: "cmt_16a", user: "0724.32", content: "hi" },
+      { commentID: "cmt_16b", user: "katarinabluu", content: "좋아요~" }
+    ]
+  },
+  {
+    postID: 17,
+    imageURL: "img_17rstu",
+    likes: 390,
+    isLiked: true,
+    comments: [
+      { commentID: "cmt_17a", user: "00_woowoo_", content: "hi" },
+      { commentID: "cmt_17b", user: "dbdydwns", content: "좋아요~" }
+    ]
+  },
+  {
+    postID: 18,
+    imageURL: "img_18stuv",
+    likes: 210,
+    isLiked: false,
+    comments: [
+      { commentID: "cmt_18a", user: "katarinabluu", content: "hi" },
+      { commentID: "cmt_18b", user: "0724.32", content: "좋아요~" }
+    ]
+  },
+  {
+    postID: 19,
+    imageURL: "img_19tuvw",
+    likes: 330,
+    isLiked: true,
+    comments: [
+      { commentID: "cmt_19a", user: "dbdydwns", content: "hi" },
+      { commentID: "cmt_19b", user: "00_woowoo_", content: "좋아요~" }
+    ]
+  },
+  {
+    postID: 20,
+    imageURL: "img_20uvwx",
+    likes: 290,
+    isLiked: false,
+    comments: [
+      { commentID: "cmt_20a", user: "0724.32", content: "hi" },
+      { commentID: "cmt_20b", user: "katarinabluu", content: "좋아요~" }
+    ]
   }
 ];
 

@@ -5,7 +5,7 @@ import { ModalContext } from "../../context/ModalContext"
 import { PostModalContext } from "../../context/PostModalContext"
 
 import style from "./Posts.module.css"
-import style2 from "../Modal/OverLay.module.css"
+import modalStyle from "../Modal/OverLay.module.css"
 
 // 이 위치에서 각 post의 id? 에 해당하는 정보를 요청하고 받아야함
 const Article = () => {
@@ -19,20 +19,19 @@ const Article = () => {
   console.log(postID, userID, 'contetext');
 
   const getInfos = async () => {
-    const sleep = await new Promise((res, rej) => {
-      setTimeout(() => {
-        res("댓글과 좋아요 데이터!!")
-      }, 1000);
-    })
+    // const sleep = await new Promise((res, rej) => {
+    //   setTimeout(() => {
+    //     res("댓글과 좋아요 데이터!!")
+    //   }, 1000);
+    // })
     const response = await fetch(`http://localhost:8080/api/posts/${postID}`, {
       headers : {
         Authorization : `Bearer ${localStorage.getItem("access_token")}`
       }      
     })
 
-    const data = await response.json()
-    console.log(data);
-    setInfo(data.info)
+    const responseData = await response.json()
+    setInfo(responseData.data)
     setIsLoading(false)
   }
 
@@ -44,20 +43,39 @@ const Article = () => {
 
   // console.log(isOpen, modalHandler);
   return (
-    <div className={style2["modal-overlay"]} onClick={modalHandler}>
-      <div className={style2.modal}>
+    <div className={modalStyle["modal-overlay"]} onClick={modalHandler}>
+      <div className={modalStyle["post-modal"]}>
         {isLoading ? "로딩중" : 
         <>
-          <div>{info.imageURL}</div>
-          <div>{info.context}</div>
-          {info.comments.map(comment => {
-            return (
-              <div key={comment.commentID}>
-                <span>{comment.user}</span>
-                <span>{comment.content}</span>
-              </div>
-            )
-          })}
+          <div className={modalStyle["post-image"]}>{info.imageURL}
+
+          </div>
+          <div className={modalStyle["post-content"]}>
+            <div className={`${modalStyle["display-row-container"]} .post-header`}>
+              <div>프로필 사진</div>
+              <div>{userID}</div>
+              <div>...</div>
+            </div>
+            <div className={`${modalStyle["display-row-container"]} .post-body`}>
+              <div>프로필 사진</div>
+              <div>{userID}</div>
+              <div>{info.context}</div>
+            </div>
+            <div className={`.post-comments`}>
+              {info.comments.map(comment => {
+              return (
+                <div key={comment.commentID} className={`${modalStyle["display-row-container"]} .post-comment`}>
+                  <div>프로필사진</div>
+                  <div>{comment.user}</div>
+                  <div>{comment.content}</div>
+                </div>
+              )
+            })}
+            </div>
+            <div className="post-actions"></div>
+            <div className="post-meta"></div>
+            <div className="post-comment-form"></div>
+          </div>
         </>
 
         }

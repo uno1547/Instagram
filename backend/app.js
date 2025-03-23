@@ -183,6 +183,30 @@ app.get('/home', (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 사용자 정보확인후 jwt토큰 발급 cookie방식
 /*
 app.post('/login', function (req, res) {
@@ -298,8 +322,8 @@ app.get('/api/users/userID', function(req, res) {
     // console.log(user);
     res.json({
       "success" : true,
-      "userID" : user.nickName,
-      "message" : "userid에요"
+      "message" : "userid에요",
+      "data" : user.nickName,
     })
   })
 
@@ -440,13 +464,7 @@ app.get('/api/users/:userID/profile', (req, res) => {
   //   followees,
   //   article : "안녕 하세요 인사말이에요"
   // })
-  const result = {
-    success : true,
-    message : "여기 회원정보에요",
-    isYou,
-    ...userrest
-  }
-  console.log(result);
+
   res.status(200).json({
     success : true,
     message : "여기 회원정보에요",
@@ -647,7 +665,7 @@ app.get('/api/users/:userID/posts', (req, res) => {
   res.json({
     "success" : true,
     "message" : `${userID}님의 게시글들이에요`,
-    "posts" : userPosts
+    "data" : userPosts
   })
 })
 
@@ -685,7 +703,7 @@ app.get('/api/posts/:postID', (req, res) => {
   res.json({
     "success" : true,
     "message" : `${postID} post에 대한 추가정보!`,
-    info
+    "data" : info
   })
   // res.json({
   //   "success" : true,
