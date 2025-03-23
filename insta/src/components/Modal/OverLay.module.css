@@ -15,21 +15,54 @@
 .post-modal {
   width: 1400px;
   height: 1000px;
-  background-color: blanchedalmond;
+  background-color: rgb(255, 255, 255);
   display: flex;
+}
+
+.display-row-container {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  gap: 15px;
+  margin-bottom: 10px;
+
+  /* word-wrap: break-word; */
+  word-break:break-word;
+  /* white-space: normal; */
 }
 
 .post-image {
   flex: 7;
   /* background-color: blue; */
 }
-
 .post-content {
   flex: 3;
   /* background-color: red; */
+  display: flex;
+  flex-direction: column;
 }
 
-.display-row-container {
-  display: flex;
+.post-header {
+  border-bottom: 1px solid #f1f1f1;
+}
 
+.post-header .name {
+  padding: 20px 0px;
+}
+
+.name {
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.post-body {
+  margin-bottom: 20px;
+  background-color: aliceblue;
+}
+
+
+.post-comments {
+  overflow-y: auto;
+  /* height: 60%;  flex 로 해결*/
+  flex-grow: 1;
 }

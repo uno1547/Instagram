@@ -6,6 +6,7 @@ import { PostModalContext } from "../../context/PostModalContext"
 
 import style from "./Posts.module.css"
 import modalStyle from "../Modal/OverLay.module.css"
+import Skeleton from "../Skeleton/Skeleton"
 
 // 이 위치에서 각 post의 id? 에 해당하는 정보를 요청하고 받아야함
 const Article = () => {
@@ -51,30 +52,41 @@ const Article = () => {
 
           </div>
           <div className={modalStyle["post-content"]}>
-            <div className={`${modalStyle["display-row-container"]} .post-header`}>
-              <div>프로필 사진</div>
-              <div>{userID}</div>
+            <div className={`${modalStyle["display-row-container"]} ${modalStyle["post-header"]}`}>
+              {/* <div className="hey"> */}
+                <Skeleton type={"image"} width={"40px"} height={"40px"}/>
+                {/* <div className={modalStyle["profile-img"]}>프로필 사진</div> */}
+                <div className={modalStyle.name}>{userID}</div>
+              {/* </div> */}
               <div>...</div>
             </div>
-            <div className={`${modalStyle["display-row-container"]} .post-body`}>
-              <div>프로필 사진</div>
-              <div>{userID}</div>
+            <div className={`${modalStyle["display-row-container"]} ${modalStyle["post-body"]}`}>
+              <Skeleton type={"image"} width={"40px"} height={"40px"}/>
+              {/* <div className={modalStyle["profile-img"]}>프로필 사진</div> */}
+              <div className={modalStyle.name}>{userID}</div>
               <div>{info.context}</div>
             </div>
-            <div className={`.post-comments`}>
+            <div className={modalStyle["post-comments"]}>
               {info.comments.map(comment => {
               return (
-                <div key={comment.commentID} className={`${modalStyle["display-row-container"]} .post-comment`}>
-                  <div>프로필사진</div>
-                  <div>{comment.user}</div>
+                <div key={comment.commentID} className={`${modalStyle["display-row-container"]} ${modalStyle["post-comment"]}`}>
+                  <Skeleton type={"image"} width={"40px"} height={"40px"}/>
+                  {/* <div className={modalStyle["profile-img"]}>프로필사진</div> */}
+                  <div className={modalStyle.name}>{comment.user}</div>
                   <div>{comment.content}</div>
                 </div>
               )
             })}
             </div>
-            <div className="post-actions"></div>
-            <div className="post-meta"></div>
-            <div className="post-comment-form"></div>
+            <div className="post-actions">
+            <Skeleton type={"image"} width={"40px"} height={"40px"}/>
+            </div>
+            <div className="post-meta">
+            <Skeleton type={"image"} width={"40px"} height={"40px"}/>
+            </div>
+            <div className="post-comment-form">
+            <Skeleton type={"image"} width={"40px"} height={"40px"}/>
+            </div>
           </div>
         </>
 
