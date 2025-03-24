@@ -43,14 +43,24 @@ const Article = () => {
   }
 
   useEffect(() => {
+    const handleKeyDown = e => {
+      if(e.key === "Escape") modalHandler()
+    }
+    document.addEventListener("keydown", handleKeyDown)
+    // console.log('effect!');
     console.log('article modal 마운트');
     console.log('댓글 및 좋아요 정보를 불러올게요');
     getInfos()
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown)
+    }
   }, [])
 
   // console.log(isOpen, modalHandler);
   return (
-    <div className={modalStyle["modal-overlay"]}>
+    <div className={modalStyle["modal-overlay"]}  onClick={e => {
+      if(e.target == e.currentTarget) modalHandler()
+    }}>
       <div className={modalStyle["post-modal"]}>
         {isLoading ? "로딩중" : 
         <>
