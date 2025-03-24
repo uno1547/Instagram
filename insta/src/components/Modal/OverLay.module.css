@@ -24,7 +24,7 @@
   align-items: center;
   /* justify-content: space-between; */
   gap: 15px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 
   /* word-wrap: break-word; */
   word-break:break-word;
@@ -40,29 +40,75 @@
   /* background-color: red; */
   display: flex;
   flex-direction: column;
+  /* padding: 10px; */
 }
 
 .post-header {
-  border-bottom: 1px solid #f1f1f1;
+  /* border-bottom: 1px solid #f1f1f1; */
 }
 
 .post-header .name {
-  padding: 20px 0px;
+  /* padding: 20px 0px; */
 }
 
 .name {
+  font-weight: bold;
+  padding: 20px 0px;
+
+  flex-shrink: 0;
+}
+
+.name:hover {
+  color: rgb(100, 100, 100);
   font-weight: bold;
   flex-shrink: 0;
 }
 
 .post-body {
-  margin-bottom: 20px;
-  background-color: aliceblue;
+  /* margin-bottom: 20px; */
+  /* background-color: aliceblue; */
+  /* border: 1px solid #f1f1f1; */
 }
 
+.scroll-view {
+  overflow-y: scroll;
+  flex-grow: 1;
+  border-top: 1px solid #f1f1f1;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.post-comment {
+  /* margin-bottom: 10px; */
+}
 
 .post-comments {
-  overflow-y: auto;
+  /* overflow-y: auto; */
   /* height: 60%;  flex 로 해결*/
+  /* flex-grow: 1; */
+}
+
+.post-actions {
+
+}
+
+.post-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-comment-form {
+  border-top: 1px solid #f1f1f1;;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.post-comment-form textarea {
+  /* overflow-wrap: break-word; */
+  height: 20px;
+  word-break:break-all;
+  border: none;
   flex-grow: 1;
+  resize: none;
+  outline: none;
 }
