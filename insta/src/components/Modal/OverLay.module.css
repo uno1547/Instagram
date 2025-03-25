@@ -14,7 +14,7 @@
 
 .post-modal {
   width: 1400px;
-  height: 1000px;
+  height: 800px;
   background-color: rgb(255, 255, 255);
   display: flex;
 }
@@ -40,7 +40,7 @@
   /* background-color: red; */
   display: flex;
   flex-direction: column;
-  /* padding: 10px; */
+  padding-left: 10px;
 }
 
 .post-header {
@@ -67,7 +67,7 @@
 .post-body {
   /* margin-bottom: 20px; */
   /* background-color: aliceblue; */
-  /* border: 1px solid #f1f1f1; */
+  border-bottom: 1px solid #f1f1f1;
 }
 
 .scroll-view {
@@ -91,9 +91,12 @@
 
 }
 
-.post-meta {
-  display: flex;
-  flex-direction: column;
+.post-meta span {
+  /* display: flex; */
+  /* flex-direction: column; */
+  font-size: 10px;
+  padding: 5px;
+  color: rgb(121, 121, 121);
 }
 
 .post-comment-form {

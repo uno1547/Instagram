@@ -12,6 +12,8 @@ import modalStyle from "../Modal/OverLay.module.css"
 import Skeleton from "../Skeleton/Skeleton"
 import Input from "../Input/Input"
 import Button from "../Button/Button"
+import LikeButton from "../Button/LikeButton"
+
 import { Link } from "react-router-dom"
 
 // 이 위치에서 각 post의 id? 에 해당하는 정보를 요청하고 받아야함
@@ -100,12 +102,13 @@ const Article = () => {
 
             </div>
             <div className= {modalStyle["post-actions"]}>
-              <FavoriteBorderOutlinedIcon style = {{fontSize : "30px", padding : "7px", cursor : "pointer", color : "red"}}/>
+              <LikeButton info = {info}/>
+              {/* <FavoriteBorderOutlinedIcon style = {{fontSize : "30px", padding : "7px", cursor : "pointer", color : "red"}}/> */}
               {/* <ModeCommentOutlinedIcon style = {{fontSize : "28px", padding : "7px", cursor : "pointer"}}/> */}
             {/* <Skeleton type={"image"} width={"40px"} height={"40px"}/> */}
             </div>
             <div className={modalStyle["post-meta"]}>
-              <span>{info.likes}</span>
+              {/* <span>{info.likes}</span> */}
               <span>{"2025년 3월 24일"}</span>
             {/* <Skeleton type={"image"} width={"40px"} height={"40px"}/> */}
             </div>
