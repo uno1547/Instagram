@@ -713,6 +713,60 @@ app.get('/api/posts/:postID', (req, res) => {
 })
 
 
+// 게시글에 좋아요 처리
+app.post('/api/posts/:postID/like', (req, res) => {
+  const {postID} = req.params
+  console.log(`${postID}에 대한 좋아요 토글요청이 왔네요`);
+
+  // 토큰 검사
+  const token = req.header('Authorization')?.split(' ')[1];
+  if (!token) {
+    res.status(401).json({
+      message : "토큰이 필요해요"
+    })
+    return
+  }
+
+  try {
+    const decoded = jwt.verify(token, "secretkey")
+    // console.log('해독된 토큰은',decoded); // 여기서 해독된정보까지 알긴해 userID인사용자 존재를 파악하기전에
+    console.log(`토큰 주인은 ${decoded.nickName}입니다`)
+  } catch(err) {
+    res.status(400).json({
+      message : "토큰이 유효하지않아요" // API접근을 자유롭게 할지말지, 정하면 될부분인가 ?하는게 좋긴할듯
+    })
+    return
+  }
+
+  const targetPost = postInfos.find(post => {
+    return post.postID == postID
+  })
+
+  console.log(targetPost);
+  // 좋아요 누른적이 없다면 
+  if(!targetPost.isLiked) {
+    targetPost.isLiked = true
+    targetPost.likes += 1
+  } else {
+    targetPost.isLiked = false
+    targetPost.likes -= 1
+  }
+
+  res.json({
+    "success": true,
+    "status" : "200",
+    "message": "따봉~",
+    "data": null
+  })
+})
+
+
+// 좋아요 누른 사람들 목록을 조회
+// 해당사람이 나랑 팔로우 되어있냐 아니냐 여부도 알려줘야함
+app.get('/api/posts/:postID/likes', (req, res) => {
+  const {postID} = req.params
+
+})
 
 
 
