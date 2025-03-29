@@ -171,7 +171,7 @@ const List = ({ handler, toFind }) => {
       <div className={style.head}>
         <span className={style.text}>{toFind == "followers" ? "팔로워" : "팔로잉"}</span>
         <button className={style.closeButton} onClick={e => {
-          e.stopPropagation()
+          // e.stopPropagation()
           // console.log('x버튼 트리거');
           // if(e.target == e.currentTarget) handler()
           handler()
