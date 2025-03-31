@@ -56,8 +56,10 @@ const Article = () => {
 
       // console.log(e.target, e.currentTarget);
       console.log('게시글모달창에서 keydown핸들러');
-      if(e.key === "Escape") {}
-        // modalHandler()
+      if(e.key === "Escape") {
+        modalHandler()
+
+      }
     }
     document.addEventListener("keydown", handleKeyDown)
     // console.log('effect!');

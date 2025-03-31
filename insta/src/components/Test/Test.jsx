@@ -13,18 +13,6 @@ const FirstModal = ({ modalHandler }) => {
     setSecondOpen(!secondOpen)
   }
 
-
-
-  // useEffect(() => {
-  //   console.log('firstModal mount effect');
-
-  //   document.addEventListener("keydown", firstHandleKeyDown)
-  //   return () => {
-  //     console.log('firstModal unmount effect');
-  //     document.removeEventListener("keydown", firstHandleKeyDown)
-  //   }
-  // }, [])
-
   useEffect(() => {
     const firstHandleKeyDown = e => {
       console.log('게시글에서 keydown핸들러');
