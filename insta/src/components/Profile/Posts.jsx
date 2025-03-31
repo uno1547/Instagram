@@ -26,6 +26,7 @@ const Article = () => {
   const [info, setInfo] = useState({})
   
   const {isOpen, modalHandler} = useContext(ModalContext)
+  
   const {userID} = useContext(UserContext)
   const {postID} = useContext(PostModalContext)
   // console.log(postID, userID, 'contetext');
@@ -49,6 +50,10 @@ const Article = () => {
 
   useEffect(() => {
     const handleKeyDown = e => {
+      // 이 Article의 keydown핸들러가 호출되는 시점에, 좋아요 리스트 창이 표시되어있는지
+      // 여부를 알수있다면, return 하는 식으로 제어 가능할것같음 어떻게 그걸 알수있을까
+
+
       // console.log(e.target, e.currentTarget);
       console.log('게시글모달창에서 keydown핸들러');
       if(e.key === "Escape") {}

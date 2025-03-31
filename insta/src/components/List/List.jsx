@@ -117,6 +117,7 @@ const List = ({ handler, toFind }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [keyWord, setKeyWord] = useState("")
 
+  const [dupPop, setDupPop] = useState(false)
   const {userID} = useContext(UserContext)
   // console.log('profilePage의', userID, '여긴 List');
 
@@ -147,8 +148,15 @@ const List = ({ handler, toFind }) => {
   // console.log(filteredFollowers);
 
   useEffect(() => {
+    console.log('effect!');
     const handleKeyDown = e => {
-      if(e.key === "Escape") handler()
+      if(e.key === "Escape") {
+        if(dupPop) {
+          setDupPop(false)
+        } else {
+          handler()
+        }
+      } 
     }
     document.addEventListener("keydown", handleKeyDown)
     // console.log('effect!');
@@ -157,7 +165,7 @@ const List = ({ handler, toFind }) => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown)
     }
-  }, [])
+  }, [dupPop])
 
   const changeHandler = e => {
     // console.log(e.target.value);

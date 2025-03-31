@@ -9,6 +9,7 @@ const LikeUsersModal = ({modalHandler}) => {
     modalHandler(prev => !prev)
   }
   useEffect(() => {
+    // console.log(document.)
     const handleKeyDown = e => {
       // console.log(e.target, e.currentTarget);
       console.log('좋아요 리스트 모달창에서 keydown핸들러');
@@ -16,12 +17,11 @@ const LikeUsersModal = ({modalHandler}) => {
       if(e.key === "Escape") {}
         // modalHandler()
     }
-    document.addEventListener("keydown",handleKeyDown
-      // e.stopPropagation()
-    )
+    document.addEventListener("keydown",handleKeyDown)
 
     return () => {
       console.log('좋아요 리스트 모달 닫힘!!');
+      document.removeEventListener("keydown", handleKeyDown)
     }
   }, [])
   return (

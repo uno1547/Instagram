@@ -13,12 +13,7 @@ const FirstModal = ({ modalHandler }) => {
     setSecondOpen(!secondOpen)
   }
 
-  const firstHandleKeyDown = e => {
-    console.log('게시글에서 keydown핸들러');
-    if(e.key === "Escape") {
-      modalHandler()
-    }
-  }
+
 
   // useEffect(() => {
   //   console.log('firstModal mount effect');
@@ -31,16 +26,26 @@ const FirstModal = ({ modalHandler }) => {
   // }, [])
 
   useEffect(() => {
+    const firstHandleKeyDown = e => {
+      console.log('게시글에서 keydown핸들러');
+      if(e.key === "Escape") {
+        modalHandler()
+      }
+    }
+
     console.log('secondOpen change effect!!');
-    if(secondOpen) {
-      console.log('좋아요 리스트가 열려있다! 핸들러 삭제!');
-      document.removeEventListener("keydown", firstHandleKeyDown)
-    } else {
+    
+    if(!secondOpen) {
       console.log('좋아요 리스트가 닫혀있다! 핸들러 추가!');
       document.addEventListener("keydown", firstHandleKeyDown)
     }
+    return () => {
+      console.log('게시글 effect 클린업 함수');
+      console.log('핸들러 제거!');
+      document.removeEventListener("keydown", firstHandleKeyDown);
+    }
   }, [secondOpen])
-
+  console.log('effect뒤');
   return (
     <>
       <Button text={"좋아요 리스트 열기"} handler={secondModalHandler}/>
@@ -53,6 +58,8 @@ const SecondModal = ({modalHandler}) => {
   /*
   */
   useEffect(() => {
+    console.log('좋아요 리스트 effect!!');
+
     const secondHandleKeyDown = e => {
       console.log('좋아요 리스트 에서 keydown핸들러');
       if(e.key === "Escape") {
@@ -60,7 +67,10 @@ const SecondModal = ({modalHandler}) => {
       }
     }
     document.addEventListener("keydown", secondHandleKeyDown)
+    console.log('좋아요 리스트 keydown핸들러 등록!!');
+
     return () => {
+      console.log('좋아요 리스트 언마운트! keydown핸들러 제거!!');
       document.removeEventListener("keydown", secondHandleKeyDown)
     }
   }, [])
