@@ -31,6 +31,10 @@ const Article = () => {
   const {postID} = useContext(PostModalContext)
   // console.log(postID, userID, 'contetext');
   // console.log(info);
+
+  const [isSecondOpen, setIsSecondOpen] = useState(false)
+
+
   const getInfos = async () => {
     // const sleep = await new Promise((res, rej) => {
     //   setTimeout(() => {
@@ -49,6 +53,10 @@ const Article = () => {
   }
 
   useEffect(() => {
+    getInfos()
+  }, [])
+
+  useEffect(() => {
     const handleKeyDown = e => {
       // 이 Article의 keydown핸들러가 호출되는 시점에, 좋아요 리스트 창이 표시되어있는지
       // 여부를 알수있다면, return 하는 식으로 제어 가능할것같음 어떻게 그걸 알수있을까
@@ -61,16 +69,19 @@ const Article = () => {
 
       }
     }
-    document.addEventListener("keydown", handleKeyDown)
+
+    if(!isSecondOpen) {
+      document.addEventListener("keydown", handleKeyDown)
+    }
     // console.log('effect!');
     // console.log('article modal 마운트');
     // console.log('댓글 및 좋아요 정보를 불러올게요');
-    getInfos()
+    
     return () => {
       console.log('게시글 모달창 닫힘!!');
       document.removeEventListener("keydown", handleKeyDown)
     }
-  }, [])
+  }, [isSecondOpen])
 
   // console.log(isOpen, modalHandler);
   return (
@@ -118,7 +129,7 @@ const Article = () => {
 
             </div>
             <div className= {modalStyle["post-actions"]}>
-              <LikeButton info = {info}/>
+              <LikeButton info = {info} secondOpen = {isSecondOpen} setSecondOpen = {setIsSecondOpen}/>
               {/* <FavoriteBorderOutlinedIcon style = {{fontSize : "30px", padding : "7px", cursor : "pointer", color : "red"}}/> */}
               {/* <ModeCommentOutlinedIcon style = {{fontSize : "28px", padding : "7px", cursor : "pointer"}}/> */}
             {/* <Skeleton type={"image"} width={"40px"} height={"40px"}/> */}

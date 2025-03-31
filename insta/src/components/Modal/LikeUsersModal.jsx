@@ -14,8 +14,9 @@ const LikeUsersModal = ({modalHandler}) => {
       // console.log(e.target, e.currentTarget);
       console.log('좋아요 리스트 모달창에서 keydown핸들러');
       e.stopPropagation()
-      if(e.key === "Escape") {}
-        // modalHandler()
+      if(e.key === "Escape") {
+        modalHandler(prev => !prev)
+      }
     }
     document.addEventListener("keydown",handleKeyDown)
 

@@ -9,11 +9,11 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import style from "./LikeButton.module.css"
 
-const LikeButton = ({info}) => {
+const LikeButton = ({info, secondOpen, setSecondOpen}) => {
   const [isLiked, setIsLiked] = useState(info.isLiked)
   const [likes, setLikes] = useState(info.likes)
 
-  const [isOpen, setIsOpen] = useState(false) // 얘를 ModalContext로 사용하면 다른 컴포넌트에서 이를 공유하게 되는거나?
+  // const [isOpen, setIsOpen] = useState(false) // 얘를 ModalContext로 사용하면 다른 컴포넌트에서 이를 공유하게 되는거나?
 
 
   const {postID} = useContext(PostModalContext)
@@ -37,10 +37,10 @@ const LikeButton = ({info}) => {
     }
   }
 
-  const fetchLikedUsers = () => {
-    setIsOpen(true)
-    console.log('fetch users!');
-  }
+  // const fetchLikedUsers = () => {
+  //   setSecondOpen(true)
+  //   console.log('fetch users!');
+  // }
 
   return (
     <>
@@ -48,9 +48,9 @@ const LikeButton = ({info}) => {
         <div onClick={likeHandler}>
           {isLiked ? <FavoriteRoundedIcon style={{color: "red"}}/> : <FavoriteBorderOutlinedIcon/>}
         </div>
-        <span onClick={fetchLikedUsers}>{`${likes} 명이 좋아합니다.`}</span>
+        <span onClick={() => {setSecondOpen(!secondOpen)}}>{`${likes} 명이 좋아합니다.`}</span>
       </div>
-      {isOpen ? createPortal(<LikeUsersModal modalHandler = {setIsOpen}/>, document.querySelector('#modal')) : null}
+      {secondOpen ? createPortal(<LikeUsersModal modalHandler = {setSecondOpen}/>, document.querySelector('#modal')) : null}
       {/* <div className="meta"> */}
       {/* </div> */}
     </>
