@@ -763,9 +763,32 @@ app.post('/api/posts/:postID/like', (req, res) => {
 
 // 좋아요 누른 사람들 목록을 조회
 // 해당사람이 나랑 팔로우 되어있냐 아니냐 여부도 알려줘야함
-app.get('/api/posts/:postID/likes', (req, res) => {
+app.get('/api/posts/:postID/userLikes', (req, res) => {
   const {postID} = req.params
-
+  console.log(`${postID}에 대한 좋아요 목록입니다!`);
+  res.json({
+    status : true,
+    success : true,
+    message : "따봉~",
+    data : [
+      { "userID" : "dbdydwns"},
+      { "userID" : "00_woowoo_"},
+      { "userID" : "0724.32"},
+      { "userID" : "katarinabluu"},
+      { "userID" : "dbdydwns"},
+      { "userID" : "00_woowoo_"},
+      { "userID" : "0724.32"},
+      { "userID" : "katarinabluu"},
+      { "userID" : "dbdydwns"},
+      { "userID" : "00_woowoo_"},
+      { "userID" : "0724.32"},
+      { "userID" : "katarinabluu"},
+      // { "userID" : "jsjinee"},
+      // { "userID" : "팔로워6"},
+      // { "userID" : "yunho389"},
+      // { "userID" : "팔로워8"}
+    ]
+  })
 })
 
 

@@ -147,6 +147,7 @@ const List = ({ handler, toFind }) => {
   })
   // console.log(filteredFollowers);
 
+  /// 이거 왜 dependency에 넣은건지 이해가 안감
   useEffect(() => {
     console.log('effect!');
     const handleKeyDown = e => {

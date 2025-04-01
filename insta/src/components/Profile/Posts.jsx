@@ -71,6 +71,7 @@ const Article = () => {
     }
 
     if(!isSecondOpen) {
+      console.log('게시글 keydown 핸들러 추가');
       document.addEventListener("keydown", handleKeyDown)
     }
     // console.log('effect!');
@@ -78,7 +79,7 @@ const Article = () => {
     // console.log('댓글 및 좋아요 정보를 불러올게요');
     
     return () => {
-      console.log('게시글 모달창 닫힘!!');
+      console.log('게시글 keydown 핸들러 제거');
       document.removeEventListener("keydown", handleKeyDown)
     }
   }, [isSecondOpen])
