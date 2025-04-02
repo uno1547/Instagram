@@ -158,7 +158,7 @@ const Article = () => {
 const Posts = ({ data }) => {
   console.log(data);
   const [isOpen, setIsOpen] = useState(false)
-  const [isHover, setIsHover] = useState(false)
+  // const [isHover, setIsHover] = useState(false)
   const {postID, likes, comments} = data // 여기서 명세대로면 userID가 없음
   // console.log(postID, userID);
   // (바둑판에 썸네일은 다 마운트 된 상태) 썸네일을 클릭시 게시글 모달창이 열리고, ^^
@@ -172,8 +172,10 @@ const Posts = ({ data }) => {
   return (
     <PostModalContext.Provider value={{postID}}>
       <ModalContext.Provider value={{isOpen, modalHandler}}>
-        <div className={style.item} onClick={modalHandler} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-          {isHover && <div className={style.hover}>{`${likes} ${comments}`}</div>}
+        {/* <div className={style.item} onClick={modalHandler} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}> */}
+        <div className={style.item} onClick={modalHandler}>
+          {/* {isHover && <div className={style.hover}>{`${likes} ${comments}`}</div>} */}
+          <div className={style.hover}>{`${likes} ${comments}`}</div>
         </div>
         {isOpen ? createPortal(<Article/>, document.querySelector('#modal')) : null}
       </ModalContext.Provider>
