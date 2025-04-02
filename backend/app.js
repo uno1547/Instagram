@@ -792,7 +792,34 @@ app.get('/api/posts/:postID/userLikes', (req, res) => {
 })
 
 
-
+app.post('/api/posts/:postID/new-comments', (req, res) => {
+  const token = req.header('Authorization')?.split(' ')[1];
+  if (!token) {
+    res.status(401).json({
+      message : "토큰이 필요해요"
+    })
+    return
+  }
+  let user = null
+  try {
+    const decoded = jwt.verify(token, "secretkey")
+    user = decoded.nickName
+    // console.log('해독된 토큰은',decoded); // 여기서 해독된정보까지 알긴해 userID인사용자 존재를 파악하기전에
+    console.log(`토큰 주인은 ${decoded.nickName}입니다`)
+  } catch(err) {
+    res.status(400).json({
+      message : "토큰이 유효하지않아요" // API접근을 자유롭게 할지말지, 정하면 될부분인가 ?하는게 좋긴할듯
+    })
+    return
+  }
+  const {postID} = req.params
+  const {context} = req.body
+  const info = postInfos.find(postInfo => postInfo.postID == postID)
+  info.comments.push({commentID : info.comments.length, user , context })
+  res.json({
+    "message" : "받았어요"
+  })
+})
 
 
 

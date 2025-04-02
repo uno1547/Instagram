@@ -9,6 +9,9 @@ import { UserContext } from "../../context/UserContext"
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+
 import style from "./Posts.module.css"
 import modalStyle from "../Modal/OverLay.module.css"
 import Skeleton from "../Skeleton/Skeleton"
@@ -22,9 +25,10 @@ import { Link } from "react-router-dom"
 const Article = () => {
   //  모달창 마운트 되고, 데이터 요청해서, 댓글과 좋아요 정보를 불러오고 표시한다.
   // 랜더링 > 마운트 >
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [info, setInfo] = useState({})
-  
+  const [comment, setComment] = useState("")
+
   const {isOpen, modalHandler} = useContext(ModalContext)
   
   const {userID} = useContext(UserContext)
@@ -36,6 +40,7 @@ const Article = () => {
 
 
   const getInfos = async () => {
+    setIsLoading(true)
     // const sleep = await new Promise((res, rej) => {
     //   setTimeout(() => {
     //     res("댓글과 좋아요 데이터!!")
@@ -50,6 +55,36 @@ const Article = () => {
     const responseData = await response.json()
     setInfo(responseData.data)
     setIsLoading(false)
+  }
+
+  const changeHandler = e => {
+    // console.log(e.target.value);
+    setComment(e.target.value)
+  }
+
+  const submitHandler = async e => {
+    setComment("")
+    e.preventDefault()
+    console.log('submit!');
+    console.log(comment);
+    try {
+      const response = await fetch(`http://localhost:8080/api/posts/${postID}/new-comments`, {
+        method : "POST",
+        headers : {
+          "Content-Type": "application/json",
+          Authorization : `Bearer ${localStorage.getItem("access_token")}`
+        },
+        body : JSON.stringify({ context : comment })
+      })
+
+      if(!response.ok) return
+      const {message} = await response.json()
+      console.log(message);
+
+      getInfos()
+    } catch(err) {
+      console.error(err)
+    }
   }
 
   useEffect(() => {
@@ -115,7 +150,7 @@ const Article = () => {
                 <div>{info.context}</div>
               </div>
               <div className={modalStyle["post-comments"]}>
-                {info.comments.map(comment => {
+                {info.comments?.map(comment => {
                 return (
                   <div key={comment.commentID} className={`${modalStyle["display-row-container"]} ${modalStyle["post-comment"]}`}>
                     <Skeleton type={"image"} width={"40px"} height={"40px"}/>
@@ -140,12 +175,13 @@ const Article = () => {
               <span>{info.createdAt}</span>
             {/* <Skeleton type={"image"} width={"40px"} height={"40px"}/> */}
             </div>
-            <div className={modalStyle["post-comment-form"]}>
+            <form className={modalStyle["post-comment-form"]} onSubmit={submitHandler}>
               {/* <Input placeholder={"댓글 달기..."} style= {{flexGrow : "1", border : "none"}}/> */}
-              <textarea placeholder="댓글 달기"/>
-              <Button text={"게시"} style="blue"/>
+              <textarea placeholder="댓글 달기" value={comment} onChange={changeHandler}/>
+              {/* <submi text={"게시"} style="blue" handler={null}/> */}
+              <Button type="submit" text="게시"/>
             {/* <Skeleton type={"image"} width={"40px"} height={"40px"}/> */}
-            </div>
+            </form>
           </div>
         </>
 
@@ -156,7 +192,7 @@ const Article = () => {
 }
 
 const Posts = ({ data }) => {
-  console.log(data);
+  // console.log(data);
   const [isOpen, setIsOpen] = useState(false)
   // const [isHover, setIsHover] = useState(false)
   const {postID, likes, comments} = data // 여기서 명세대로면 userID가 없음
@@ -175,7 +211,16 @@ const Posts = ({ data }) => {
         {/* <div className={style.item} onClick={modalHandler} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}> */}
         <div className={style.item} onClick={modalHandler}>
           {/* {isHover && <div className={style.hover}>{`${likes} ${comments}`}</div>} */}
-          <div className={style.hover}>{`${likes} ${comments}`}</div>
+          <div className={style.hover}>
+            <div>
+              <FavoriteBorderIcon/>
+              {likes}
+            </div>
+            <div>
+              <ChatBubbleOutlineIcon/>
+              {comments}
+            </div>
+          </div>
         </div>
         {isOpen ? createPortal(<Article/>, document.querySelector('#modal')) : null}
       </ModalContext.Provider>

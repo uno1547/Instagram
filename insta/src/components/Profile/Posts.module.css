@@ -29,7 +29,12 @@
   height: 100%;
   display: flex;
   justify-content: center;
+  gap: 10px;
   align-items: center;
+  font-size: 12px;
+}
+.hover svg {
+  vertical-align: middle;
 }
 
 .hover:hover {
