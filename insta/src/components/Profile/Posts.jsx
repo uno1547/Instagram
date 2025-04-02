@@ -63,7 +63,7 @@ const Article = () => {
 
 
       // console.log(e.target, e.currentTarget);
-      console.log('게시글모달창에서 keydown핸들러');
+      // console.log('게시글모달창에서 keydown핸들러');
       if(e.key === "Escape") {
         modalHandler()
 
@@ -71,7 +71,7 @@ const Article = () => {
     }
 
     if(!isSecondOpen) {
-      console.log('게시글 keydown 핸들러 추가');
+      // console.log('게시글 keydown 핸들러 추가');
       document.addEventListener("keydown", handleKeyDown)
     }
     // console.log('effect!');
@@ -79,7 +79,7 @@ const Article = () => {
     // console.log('댓글 및 좋아요 정보를 불러올게요');
     
     return () => {
-      console.log('게시글 keydown 핸들러 제거');
+      // console.log('게시글 keydown 핸들러 제거');
       document.removeEventListener("keydown", handleKeyDown)
     }
   }, [isSecondOpen])
@@ -87,7 +87,7 @@ const Article = () => {
   // console.log(isOpen, modalHandler);
   return (
     <div className={modalStyle["modal-overlay"]}  onClick={e => {
-      console.log('클릭이 감지됌!!');
+      // console.log('클릭이 감지됌!!');
       if(e.target == e.currentTarget) 
         modalHandler()
     }}>
@@ -156,9 +156,10 @@ const Article = () => {
 }
 
 const Posts = ({ data }) => {
-  // console.log(data);
+  console.log(data);
   const [isOpen, setIsOpen] = useState(false)
-  const {postID} = data // 여기서 명세대로면 userID가 없음
+  const [isHover, setIsHover] = useState(false)
+  const {postID, likes, comments} = data // 여기서 명세대로면 userID가 없음
   // console.log(postID, userID);
   // (바둑판에 썸네일은 다 마운트 된 상태) 썸네일을 클릭시 게시글 모달창이 열리고, ^^
 
@@ -171,7 +172,9 @@ const Posts = ({ data }) => {
   return (
     <PostModalContext.Provider value={{postID}}>
       <ModalContext.Provider value={{isOpen, modalHandler}}>
-        <div className={style.item} onClick={modalHandler}>{}</div>
+        <div className={style.item} onClick={modalHandler} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+          {isHover && <div className={style.hover}>{`${likes} ${comments}`}</div>}
+        </div>
         {isOpen ? createPortal(<Article/>, document.querySelector('#modal')) : null}
       </ModalContext.Provider>
     </PostModalContext.Provider>

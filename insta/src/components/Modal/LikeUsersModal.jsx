@@ -21,7 +21,7 @@ const LikeUsersModal = ({modalHandler}) => {
   useEffect(() => {
     const handleKeyDown = e => {
       // console.log(e.target, e.currentTarget);
-      console.log('좋아요 리스트 모달창에서 keydown핸들러');
+      // console.log('좋아요 리스트 모달창에서 keydown핸들러');
       e.stopPropagation()
       if(e.key === "Escape") {
         modalHandler(prev => !prev)
@@ -61,7 +61,7 @@ const LikeUsersModal = ({modalHandler}) => {
     fetchLikedUsers()
 
     return () => {
-      console.log('좋아요 리스트 모달 닫힘!!');
+      // console.log('좋아요 리스트 모달 닫힘!!');
       document.removeEventListener("keydown", handleKeyDown)
     }
   }, [])
@@ -97,7 +97,6 @@ const LikeUsersModal = ({modalHandler}) => {
                   </div>
                 </div>
               )
-              return <ListItem member = {el} key={idx} toFind = {toFind}/>
             })
           ):(
             <div>결과없음</div>
