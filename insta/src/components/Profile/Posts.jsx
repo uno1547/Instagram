@@ -87,6 +87,25 @@ const Article = () => {
     }
   }
 
+  const deletePost = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/posts/${postID}`, {
+        method : "DELETE", 
+        headers : {
+          Authorization : `Bearer ${localStorage.getItem("access_token")}`
+        }
+      })
+
+      if(!response.ok) return
+      const {data} = await response.json()
+      console.log(data);
+
+    } catch(err) {
+      console.error(err)
+    }
+  }
+
+
   useEffect(() => {
     getInfos()
   }, [])
@@ -139,7 +158,7 @@ const Article = () => {
                 {/* <div className={modalStyle["profile-img"]}>프로필 사진</div> */}
                 <Link to = {`/${userID}`} className={modalStyle.name}>{userID}</Link>
               {/* </div> */}
-              <div>...</div>
+              <div onClick={deletePost}>...</div>
             </div>
             <div className={modalStyle["scroll-view"]}>
               <div className={`${modalStyle["display-row-container"]} ${modalStyle["post-body"]}`}>
