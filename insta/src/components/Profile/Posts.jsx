@@ -38,7 +38,7 @@ const Article = () => {
 
   const [isSecondOpen, setIsSecondOpen] = useState(false)
 
-
+  console.log(info);
   const getInfos = async () => {
     setIsLoading(true)
     // const sleep = await new Promise((res, rej) => {
@@ -63,6 +63,7 @@ const Article = () => {
   }
 
   const submitHandler = async e => {
+
     setComment("")
     e.preventDefault()
     console.log('submit!');

@@ -3,7 +3,7 @@ const postInfos = [
     postID: 1,
     imageURL: "img_1abcd",
     likes: 78,
-    isLiked: true,
+    liked: true,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 1번의 내용!!",
     comments: [
@@ -15,7 +15,7 @@ const postInfos = [
     postID: 2,
     imageURL: "img_2bcde",
     likes: 45,
-    isLiked: false,
+    liked: false,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! 이것은 게시글 2번의 내용!! ",
     comments: [
@@ -50,7 +50,7 @@ const postInfos = [
     postID: 3,
     imageURL: "img_3cdef",
     likes: 92,
-    isLiked: true,
+    liked: true,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 3번의 내용!!",
     comments: [
@@ -62,7 +62,7 @@ const postInfos = [
     postID: 4,
     imageURL: "img_4defg",
     likes: 12,
-    isLiked: false,
+    liked: false,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 4번의 내용!!",
     comments: [
@@ -74,7 +74,7 @@ const postInfos = [
     postID: 5,
     imageURL: "img_5efgh",
     likes: 60,
-    isLiked: true,
+    liked: true,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 5번의 내용!!",
     comments: [
@@ -86,7 +86,7 @@ const postInfos = [
     postID: 6,
     imageURL: "img_6fghi",
     likes: 23,
-    isLiked: false,
+    liked: false,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 6번의 내용!!",
     comments: [
@@ -98,7 +98,7 @@ const postInfos = [
     postID: 7,
     imageURL: "img_7ghij",
     likes: 89,
-    isLiked: true,
+    liked: true,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 7번의 내용!!",
     comments: [
@@ -110,7 +110,7 @@ const postInfos = [
     postID: 8,
     imageURL: "img_8hijk",
     likes: 55,
-    isLiked: false,
+    liked: false,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 8번의 내용!!",
     comments: [
@@ -122,7 +122,7 @@ const postInfos = [
     postID: 9,
     imageURL: "img_9ijkl",
     likes: 94,
-    isLiked: true,
+    liked: true,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 9번의 내용!!",
     comments: [
@@ -134,7 +134,7 @@ const postInfos = [
     postID: 10,
     imageURL: "img_10jklm",
     likes: 67,
-    isLiked: false,
+    liked: false,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 10번의 내용!!",
     comments: [
@@ -146,7 +146,7 @@ const postInfos = [
     postID: 11,
     imageURL: "img_11lmno",
     likes: 42,
-    isLiked: true,
+    liked: true,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 11번의 내용!!",
     comments: [
@@ -158,7 +158,7 @@ const postInfos = [
     postID: 12,
     imageURL: "img_12mnop",
     likes: 58,
-    isLiked: false,
+    liked: false,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 12번의 내용!!",
     comments: [
@@ -170,7 +170,7 @@ const postInfos = [
     postID: 13,
     imageURL: "img_13nopq",
     likes: 74,
-    isLiked: true,
+    liked: true,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 13번의 내용!!",
     comments: [
@@ -182,7 +182,7 @@ const postInfos = [
     postID: 14,
     imageURL: "img_14opqr",
     likes: 39,
-    isLiked: false,
+    liked: false,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 14번의 내용!!",
     comments: [
@@ -194,7 +194,7 @@ const postInfos = [
     postID: 15,
     imageURL: "img_15pqrs",
     likes: 88,
-    isLiked: true,
+    liked: true,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 15번의 내용!!",
     comments: [
@@ -206,7 +206,7 @@ const postInfos = [
     postID: 16,
     imageURL: "img_16qrst",
     likes: 61,
-    isLiked: false,
+    liked: false,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 16번의 내용!!",
     comments: [
@@ -218,7 +218,7 @@ const postInfos = [
     postID: 17,
     imageURL: "img_17rstu",
     likes: 35,
-    isLiked: true,
+    liked: true,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 17번의 내용!!",
     comments: [
@@ -230,7 +230,7 @@ const postInfos = [
     postID: 18,
     imageURL: "img_18stuv",
     likes: 90,
-    isLiked: false,
+    liked: false,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 18번의 내용!!",
     comments: [
@@ -242,7 +242,7 @@ const postInfos = [
     postID: 19,
     imageURL: "img_19tuvw",
     likes: 29,
-    isLiked: true,
+    liked: true,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 19번의 내용!!",
     comments: [
@@ -254,7 +254,7 @@ const postInfos = [
     postID: 20,
     imageURL: "img_20uvwx",
     likes: 84,
-    isLiked: false,
+    liked: false,
     createdAt : "2024년 3월 28일",
     context : "이것은 게시글 20번의 내용!!",
     comments: [

@@ -744,11 +744,11 @@ app.post('/api/posts/:postID/like', (req, res) => {
 
   console.log(targetPost);
   // 좋아요 누른적이 없다면 
-  if(!targetPost.isLiked) {
-    targetPost.isLiked = true
+  if(!targetPost.liked) {
+    targetPost.liked = true
     targetPost.likes += 1
   } else {
-    targetPost.isLiked = false
+    targetPost.liked = false
     targetPost.likes -= 1
   }
 
@@ -771,18 +771,18 @@ app.get('/api/posts/:postID/userLikes', (req, res) => {
     success : true,
     message : "따봉~",
     data : [
-      { "userID" : "dbdydwns"},
-      { "userID" : "00_woowoo_"},
-      { "userID" : "0724.32"},
-      { "userID" : "katarinabluu"},
-      { "userID" : "dbdydwns"},
-      { "userID" : "00_woowoo_"},
-      { "userID" : "0724.32"},
-      { "userID" : "katarinabluu"},
-      { "userID" : "dbdydwns"},
-      { "userID" : "00_woowoo_"},
-      { "userID" : "0724.32"},
-      { "userID" : "katarinabluu"},
+      { "userID" : "dbdydwns", "isFollow" : false},
+      { "userID" : "00_woowoo_", "isFollow" : true},
+      { "userID" : "0724.32", "isFollow" : false},
+      { "userID" : "katarinabluu", "isFollow" : false},
+      { "userID" : "dbdydwns", "isFollow" : false},
+      { "userID" : "00_woowoo_", "isFollow" : true},
+      { "userID" : "0724.32", "isFollow" : false},
+      { "userID" : "katarinabluu", "isFollow" : true},
+      { "userID" : "dbdydwns", "isFollow" : true},
+      { "userID" : "00_woowoo_", "isFollow" : true},
+      { "userID" : "0724.32", "isFollow" : false},
+      { "userID" : "katarinabluu", "isFollow" : false},
       // { "userID" : "jsjinee"},
       // { "userID" : "팔로워6"},
       // { "userID" : "yunho389"},
