@@ -9,12 +9,16 @@
   position: absolute;
   top: 100%;
   right: 5px; 
+  font-weight: bold;
   /*부모요소의 패딩이 존재함, 그 패딩을 포함한 선부터 offset 계산이 시작되는것같음*/
 
   text-align: center;
   /* opacity: 0; */
-  background-color: white;
-  box-shadow: -5px 5px 20px 11px rgba(70, 70, 70, 0.1)
+  /* background-color: white; */
+  background-color: rgb(204, 204, 204);
+  box-shadow: -5px 5px 20px 11px rgba(70, 70, 70, 0.1);
+  border-radius: 10px;
+  border: 1px solid rgb(170, 170, 170);
 }
 
 .list.show {
@@ -23,7 +27,6 @@
 
 .list li {
   padding: 10px;
-  background-color: rgb(181, 181, 181);
   color: rgb(0, 0, 0);
   transition: 0.5s;
 }
