@@ -18,6 +18,7 @@ import Skeleton from "../Skeleton/Skeleton"
 import Input from "../Input/Input"
 import Button from "../Button/Button"
 import LikeButton from "../Button/LikeButton"
+import DropdownToggleButton from "./Dropdown"
 
 import { Link } from "react-router-dom"
 
@@ -28,13 +29,16 @@ const Article = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [info, setInfo] = useState({})
   const [comment, setComment] = useState("")
+  
 
   const {isOpen, modalHandler} = useContext(ModalContext)
   
-  const {userID} = useContext(UserContext)
+  const {userID, isYou} = useContext(UserContext) // 프로필의 userID
   const {postID} = useContext(PostModalContext)
   // console.log(postID, userID, 'contetext');
   // console.log(info);
+
+  console.log(userID, isYou);
 
   const [isSecondOpen, setIsSecondOpen] = useState(false)
 
@@ -157,9 +161,12 @@ const Article = () => {
               {/* <div className="hey"> */}
                 <Skeleton type={"image"} width={"40px"} height={"40px"}/>
                 {/* <div className={modalStyle["profile-img"]}>프로필 사진</div> */}
-                <Link to = {`/${userID}`} className={modalStyle.name}>{userID}</Link>
+                {/* <div className={modalStyle["header-name"]}> */}
+                  <Link to = {`/${userID}`} className={modalStyle.name}>{userID}</Link>
+                {/* </div> */}
               {/* </div> */}
-              <div onClick={deletePost}>...</div>
+              {/* {isYou && <div onClick={deletePost}>...</div>} */}
+              {isYou && <DropdownToggleButton/>}
             </div>
             <div className={modalStyle["scroll-view"]}>
               <div className={`${modalStyle["display-row-container"]} ${modalStyle["post-body"]}`}>

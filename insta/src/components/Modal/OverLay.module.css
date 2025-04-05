@@ -43,13 +43,13 @@
   padding-left: 10px;
 }
 
-.post-header {
-  /* border-bottom: 1px solid #f1f1f1; */
+.post-header a {
+  flex-grow: 1;
 }
 
-.post-header .name {
-  /* padding: 20px 0px; */
-}
+/* .header-name {
+  flex-grow: 1;
+} */
 
 .name {
   font-weight: bold;

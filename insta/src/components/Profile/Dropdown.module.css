@@ -1,0 +1,35 @@
+.button {
+  position: relative;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.list {
+  width: 150px;
+  position: absolute;
+  top: 100%;
+  right: 5px; 
+  /*부모요소의 패딩이 존재함, 그 패딩을 포함한 선부터 offset 계산이 시작되는것같음*/
+
+  text-align: center;
+  /* opacity: 0; */
+  background-color: white;
+  box-shadow: -5px 5px 20px 11px rgba(70, 70, 70, 0.1)
+}
+
+.list.show {
+  /* transform: translateX(-50%) translateY(0); */
+}
+
+.list li {
+  padding: 10px;
+  background-color: rgb(181, 181, 181);
+  color: rgb(0, 0, 0);
+  transition: 0.5s;
+}
+
+.list li:hover {
+  /* padding: 10px; */
+  /* background-color: rgb(146, 146, 146); */
+  color: white;
+}

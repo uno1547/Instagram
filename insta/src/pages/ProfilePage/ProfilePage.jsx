@@ -91,7 +91,7 @@ const ProfilePage = () => {
     userData ? ( // 얘 간결하게 할수있을듯? 이게 간결이구나 ㅋㅋㅋㅋ
       // userID는 과연 필요할까? UserPosts에는 쓸것같진않고 UserInfo에선 datas로 받은걸로 접근가능함(ㄴㄴ원래라면 없는게 정상임 명세대로라면 그러니 전달해주는게 맞음)
       // getProfileInfos는 왜넘기는지 모르겠네;;;
-      <UserContext.Provider value={{userID, getProfileInfos}}> 
+      <UserContext.Provider value={{userID, getProfileInfos, isYou : userData.isYou}}> 
           <UserInfo datas = {userData}/>
           {/* 이단계에서는 썸네일 url, post id가 맞을듯 간단히 섬네일만 표시 */}
           <UserPosts datas = {userPosts}/>
