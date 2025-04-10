@@ -35,6 +35,12 @@
   flex: 7;
   /* background-color: blue; */
 }
+.post-image img {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
 .post-content {
   flex: 3;
   /* background-color: red; */

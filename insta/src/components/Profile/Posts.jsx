@@ -158,8 +158,8 @@ const Article = () => {
       <div className={modalStyle["post-modal"]}>
         {isLoading ? "로딩중" : 
         <>
-          <div className={modalStyle["post-image"]}>{info.imageURL}
-
+          <div className={modalStyle["post-image"]}>
+            <img src={`${info.imageURL}`} alt={`${info.imageURL}`}/>
           </div>
           <div className={modalStyle["post-content"]}>
             <div className={`${modalStyle["display-row-container"]} ${modalStyle["post-header"]}`}>
@@ -242,6 +242,7 @@ const Posts = ({ data }) => {
       <ModalContext.Provider value={{isOpen, modalHandler}}>
         {/* <div className={style.item} onClick={modalHandler} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}> */}
         <div className={style.item} onClick={modalHandler}>
+          <img src={`${data.imageURL}`} alt={`${data.imageURL}`}/>
           {/* {isHover && <div className={style.hover}>{`${likes} ${comments}`}</div>} */}
           <div className={style.hover}>
             <div>
