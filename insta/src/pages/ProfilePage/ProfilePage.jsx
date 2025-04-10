@@ -26,6 +26,7 @@ const ProfilePage = () => {
   // console.log(userData);
   // console.log(userPosts);
   const getProfileInfos = async () => {
+    console.log('유저정보 및 게시글 들 불러오기!');
     setLoading(true)
     setUserData(null)
     // console.log('데이터 패치!!!');

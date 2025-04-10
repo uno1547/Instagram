@@ -67,9 +67,13 @@ const Article = () => {
   }
 
   const submitHandler = async e => {
-
-    setComment("")
     e.preventDefault()
+    if(comment == "") {
+      console.log('댓글을 입력하세요');
+      return
+    }
+    console.log('여기 실행?');
+    setComment("")
     console.log('submit!');
     console.log(comment);
     try {
@@ -102,7 +106,7 @@ const Article = () => {
       })
 
       if(!response.ok) return
-      const {data} = await response.json()
+      const { data } = await response.json()
       console.log(data);
 
     } catch(err) {
@@ -167,7 +171,7 @@ const Article = () => {
                 {/* </div> */}
               {/* </div> */}
               {/* {isYou && <div onClick={deletePost}>...</div>} */}
-              {isYou && <DropdownToggleButton/>}
+              {isYou && <DropdownToggleButton postID = {postID}/>}
             </div>
             <div className={modalStyle["scroll-view"]}>
               <div className={`${modalStyle["display-row-container"]} ${modalStyle["post-body"]}`}>
