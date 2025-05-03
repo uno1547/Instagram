@@ -1,0 +1,28 @@
+.input-file {
+  display: none;
+}
+
+.input-file + label {
+  display: inline-block;
+  padding: 10px;
+  background-color: #4d8cf2;
+  color: white;
+  border-radius: 5px;
+  transition: .5s;
+}
+
+.input-file + label:hover {
+  background-color: #2f67c2;
+  cursor: pointer;
+}
+
+.pallette {
+  position: relative;
+  width: 200px;
+}
+
+.pallette button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}

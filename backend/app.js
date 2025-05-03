@@ -792,7 +792,7 @@ app.get('/api/posts/:postID/userLikes', (req, res) => {
 })
 
 
-app.post('/api/posts/:postID/new-comments', (req, res) => {
+app.post('/api/posts/:postID/newComments', (req, res) => {
   const token = req.header('Authorization')?.split(' ')[1];
   if (!token) {
     res.status(401).json({

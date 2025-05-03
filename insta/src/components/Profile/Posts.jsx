@@ -77,7 +77,7 @@ const Article = () => {
     console.log('submit!');
     console.log(comment);
     try {
-      const response = await fetch(`http://localhost:8080/api/posts/${postID}/new-comments`, {
+      const response = await fetch(`http://localhost:8080/api/posts/${postID}/newComments`, {
         method : "POST",
         headers : {
           "Content-Type": "application/json",
@@ -159,7 +159,8 @@ const Article = () => {
         {isLoading ? "로딩중" : 
         <>
           <div className={modalStyle["post-image"]}>
-            <img src={`${info.imageURL}`} alt={`${info.imageURL}`}/>
+            {/* <img src={`${info.imageURL}`} alt={`${info.imageURL}`}/> */}
+            <img src={`${"https://i.namu.wiki/i/G-pdwWLAlu-hTXS-k3Os8M0nLhtQ7ALtkHJPLbwwGqkYjGzKtzCFCo1aeBDYDG6DtoZL1pCB77vxTxJGacULhA.webp"}`} alt={`${info.imageURL}`}/>
           </div>
           <div className={modalStyle["post-content"]}>
             <div className={`${modalStyle["display-row-container"]} ${modalStyle["post-header"]}`}>
@@ -242,7 +243,8 @@ const Posts = ({ data }) => {
       <ModalContext.Provider value={{isOpen, modalHandler}}>
         {/* <div className={style.item} onClick={modalHandler} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}> */}
         <div className={style.item} onClick={modalHandler}>
-          <img src={`${data.imageURL}`} alt={`${data.imageURL}`}/>
+          {/* <img src={`${data.imageURL}`} alt={`${data.imageURL}`}/> */}
+          <img src={`${"https://i.namu.wiki/i/G-pdwWLAlu-hTXS-k3Os8M0nLhtQ7ALtkHJPLbwwGqkYjGzKtzCFCo1aeBDYDG6DtoZL1pCB77vxTxJGacULhA.webp"}`} alt={`${data.imageURL}`}/>
           {/* {isHover && <div className={style.hover}>{`${likes} ${comments}`}</div>} */}
           <div className={style.hover}>
             <div>

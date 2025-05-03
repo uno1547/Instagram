@@ -35,6 +35,7 @@
   right: 0;
   margin: auto; */
   pointer-events: none;
+  z-index: -1;
 }
 
 .hover {
@@ -48,6 +49,7 @@
   align-items: center;
   font-size: 12px;
   /* pointer-events: none; */
+  /* z-index: 1; */
 }
 .hover svg {
   vertical-align: middle;
