@@ -2,7 +2,7 @@
   display: none;
 }
 
-.input-file + label {
+.btn {
   display: inline-block;
   padding: 10px;
   background-color: #4d8cf2;
@@ -11,18 +11,37 @@
   transition: .5s;
 }
 
-.input-file + label:hover {
+.btn:hover {
   background-color: #2f67c2;
   cursor: pointer;
 }
 
+.smallBtn {
+  position: absolute;
+  border-radius: 30px;
+  padding: 10px 15px;
+  bottom: 30px;
+  right: 30px;
+}
+
 .pallette {
   position: relative;
-  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed rgb(184, 222, 251);
+  border-radius: 5px;
+  width: 800px;
+  margin: auto;
+  height: 800px;
+}
+
+.pallette.active {
+  border: solid rgb(187, 187, 187);
 }
 
 .pallette button {
-  position: absolute;
+  /* position: absolute;
   top: 0px;
-  right: 0px;
+  right: 0px; */
 }

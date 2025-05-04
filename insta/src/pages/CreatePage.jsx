@@ -1,8 +1,11 @@
 import { useState } from "react";
 import style from "./CreatePage.module.css"
-function CreatePage() {
-  const [files, setFiles] = useState([])
+import CreatePallette from "../components/CreatePage/CreatePallette";
 
+function CreatePage() {
+  // console.log('ㅗㅑ');
+  const [files, setFiles] = useState([])
+  const [showPal, setShowPal] = useState(false)
   /*
     1. 최초 '사진을 선택해주세요'누르면
     2. finder표시 여기서 한개/여러개 선택 > formData에 추가
@@ -14,10 +17,11 @@ function CreatePage() {
   const fileChangeHandler = e => {
     const files = e.target.files
     if(files.length == 0) return
-    console.log(files);
+    setShowPal(true)
+    // console.log(files);
     // const arr = 3
     const arr = Array.from(files)
-    console.log(arr);
+    // console.log(arr);
     setFiles(prev => [...prev, ...arr])
 
   }
@@ -25,23 +29,39 @@ function CreatePage() {
   const removeHandler = imgIdx => {
     // console.log(idx);
     // setFiles(e => e)
+    const removed = files.filter((el, idx) => idx != imgIdx)
+    setFiles(removed)
+    /*
     setFiles(prev => prev.filter((el, idx) => idx != imgIdx))
+    */
+    // console.log(files.length);
+    if(removed.length == 0) setShowPal(false)
+    // 삭제를 계속해서 0이되면 다시 setShowPal을 바꿔서 점선으로 바꿀수있게
   }
 
   return(
     <>
-      <input type="file" accept="image/*" multiple id="file-input" onChange={fileChangeHandler}  className={style["input-file"]}/>
-      <label htmlFor="file-input">사진을 선택해주세요</label>
-      {files.map((file, idx) => {
-        const previewURL = URL.createObjectURL(file)
-        return (
-          <div key={file.name} className={style.pallette}>
-            <img src={previewURL} alt="" style={{width : "200px", height : "200px", objectFit : "cover"}}/>
-            {/* <span>{file.name}</span> */}
-            <button onClick={() => removeHandler(idx)}>삭제</button>
-          </div>
-        )
-      })}
+      <div className={ showPal ? `${style.pallette} ${style.active}` : style.pallette}>
+        <div>
+          <input type="file" accept="image/*" multiple id="file-input" onChange={fileChangeHandler}  className={style["input-file"]}/>
+          {!showPal && <label htmlFor="file-input" className={style.btn}>사진업로드</label>}
+          {/* 여기부터 */}
+          {/* {files.map((file, idx) => {
+            const previewURL = URL.createObjectURL(file)
+            return (
+              <div key={file.name}>
+                <img src={previewURL} alt="" style={{width : "200px", height : "200px", objectFit : "cover"}}/>
+                <button onClick={() => removeHandler(idx)}>삭제</button>
+              </div>
+            )
+          })} */}
+          {/* 여기까지 컴포넌트로 만들기*/}
+          {showPal && <label htmlFor="file-input" className={`${style.btn} ${style.smallBtn}`}>+</label>}
+        </div>
+        {showPal && <CreatePallette files = {files} setFiles = {setFiles} setShowPal = {setShowPal}/>}
+      </div>
+
+      {/* {showPal && <CreatePallette/>} */}
     </>
   )
 }
