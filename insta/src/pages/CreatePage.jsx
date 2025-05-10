@@ -17,6 +17,7 @@ function CreatePage() {
   */
   const fileChangeHandler = e => {
     const files = e.target.files
+    console.log(files);
     if(files.length == 0) return
     setShowPal(true)
     // console.log(files);

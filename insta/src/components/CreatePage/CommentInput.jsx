@@ -6,11 +6,14 @@ import style from "./CommentInput.module.css"
 
 import { UserContext } from "../../context/UserContext"
 import { useContext, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const CommentInput = ({ files }) => {
   const [text, setText] = useState("")
   const [textLength, setTextLength] = useState(0)
   const {curUserID} = useContext(UserContext)
+
+  const navigate = useNavigate()
   // console.log(curUserID);
   const inputHandler = e => {
     const value = e.target.value
@@ -33,9 +36,48 @@ const CommentInput = ({ files }) => {
       }, 1000);
     })
     */
+    const formData = new FormData()
+    files.forEach(file => {
+      formData.append("images", file)
+    })
+    formData.append("text", text)
+    for (let pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+
+    try {
+      const err = {"status" : 400, message : "토큰없음!"}
+      throw new Error(err.message)
+    } catch(err) {
+      console.error(err)
+    }
+    /*
+    try {
+      const response = await fetch("http://localhost:8080/api/post", {
+        method : "POST",
+        body : formData
+      })
+      if(!response.ok) {
+        const error = await response.json()
+        throw new Error(error.message)
+        // throw error.message
+        // return
+      }
+      // const result = await response.json() 여기는 응답을 사용할거 아니면 굳이 호출할 필요 X
+      // 리다이렉트
+      console.log('게시글 생성 성공!');
+      navigate(`/${curUserID}`)
+      
+    } catch(err) {
+      console.error(err.message)
+    }
+    */
+    // console.log(formData);
+    // console.log(text);
     console.log('전송완료!');
-    console.log(text);
-    console.log(files);
+    // console.log(files);
+    // console.log('게시글 생성 성공!');
+    // navigate(`/${curUserID}`)
   }
 
   return (
