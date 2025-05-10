@@ -44,14 +44,15 @@ const CommentInput = ({ files }) => {
     for (let pair of formData.entries()) {
       console.log(pair[0], pair[1]);
     }
-
+    /*
     try {
       const err = {"status" : 400, message : "토큰없음!"}
       throw new Error(err.message)
     } catch(err) {
       console.error(err)
     }
-    /*
+    */
+
     try {
       const response = await fetch("http://localhost:8080/api/post", {
         method : "POST",
@@ -71,7 +72,7 @@ const CommentInput = ({ files }) => {
     } catch(err) {
       console.error(err.message)
     }
-    */
+
     // console.log(formData);
     // console.log(text);
     console.log('전송완료!');
