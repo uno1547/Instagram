@@ -16,15 +16,6 @@ const Gallery = ({ images }) => {
     setIdx(prev => {
       return prev == 0 ? prev : prev - 1
     })
-
-    // setIdx(prev => {
-    //   if(prev == 0) {
-    //     console.log(prev, '0이었네!');
-    //     return prev
-    //   }
-    //   console.log(prev, '이전값 0아니네 감소!');
-    //   return prev - 1
-    // })
   }
 
   const nextHandler = () => {
@@ -32,23 +23,14 @@ const Gallery = ({ images }) => {
       return prev == dummyImages.length - 1 ? prev : prev + 1
       // return prev == images.length - 1 ? prev : prev + 1
     })
-
-    // setIdx(prev => {
-    //   if(prev == dummyImages.length - 1) {
-    //     console.log(prev, '맨마지막 Idx었네!');
-    //     return prev
-    //   }
-    //   console.log(prev, '이전값 0아니네 감소!');
-    //   return prev + 1
-    // })
   }
   return (
     <div className={style.gallery}>
       <img className = {style["gallery-img"]}src={dummyImages[idx]}/>
-      <button className={`${style.btn} ${style.prevBtn}`} onClick={prevHandler}>&lt;</button>
-      <button className={`${style.btn} ${style.nextBtn}`} onClick={nextHandler}>&gt;</button>
+      <button className={`${style.btn} ${style.prevBtn}`} onClick={prevHandler} disabled = {idx == 0}>&lt;</button>
+      <button className={`${style.btn} ${style.nextBtn}`} onClick={nextHandler} disabled = {idx == dummyImages.length - 1}>&gt;</button>
       <div className={style.pagination}>
-        <Dots length={dummyImages.length} imgIdx={idx}/>
+        <Dots length={dummyImages.length} imgIdx={idx} setIdx = {setIdx}/>
       </div>
     </div>
   )
