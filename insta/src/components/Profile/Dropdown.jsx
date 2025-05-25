@@ -5,7 +5,7 @@ import style from "./Dropdown.module.css"
 import { ModalContext } from "../../context/ModalContext";
 import { UserContext } from "../../context/UserContext";
 
-const DropdownList = ({setDropdown, dropRef, postID}) => {
+const DropdownList = ({setDropdown, dropRef, postID, modDatas}) => {
   const {modalHandler} = useContext(ModalContext)
   const {getProfileInfos} = useContext(UserContext)
   console.log(dropRef);
@@ -63,7 +63,7 @@ const DropdownList = ({setDropdown, dropRef, postID}) => {
   )
 }
 
-const DropdownToggleButton = ({postID}) => {
+const DropdownToggleButton = ({postID, modDatas}) => {
   const [dropdown, setDropdown] = useState(false)
   const dropdownRef = useRef(null)
 
@@ -76,7 +76,7 @@ const DropdownToggleButton = ({postID}) => {
     <>
       <div onClick={dropdownToggle} className={style.button}>
         ... 
-        {dropdown ? <DropdownList setDropdown={setDropdown} dropRef = {dropdownRef} postID = {postID}/> : null}
+        {dropdown ? <DropdownList setDropdown={setDropdown} dropRef = {dropdownRef} postID = {postID} modDatas = {modDatas}/> : null}
       </div>
     </>
   )

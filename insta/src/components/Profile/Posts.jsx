@@ -5,6 +5,7 @@ import { useContext } from "react"
 import { ModalContext } from "../../context/ModalContext"
 import { PostModalContext } from "../../context/PostModalContext"
 import { UserContext } from "../../context/UserContext"
+import { ModifyContents } from "../../context/ModifyContents"
 
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
@@ -17,6 +18,7 @@ import modalStyle from "../Modal/OverLay.module.css"
 import Skeleton from "../Skeleton/Skeleton"
 import Input from "../Input/Input"
 import Button from "../Button/Button"
+import Gallery from "./Gallery"
 import LikeButton from "../Button/LikeButton"
 import DropdownToggleButton from "./Dropdown"
 
@@ -38,11 +40,11 @@ const Article = () => {
   // console.log(postID, userID, 'contetext');
   // console.log(info);
 
-  console.log(userID, isYou);
+  // console.log(userID, isYou);
 
   const [isSecondOpen, setIsSecondOpen] = useState(false)
 
-  console.log(info);
+  // console.log(info);
   const getInfos = async () => {
     setIsLoading(true)
     // const sleep = await new Promise((res, rej) => {
@@ -160,7 +162,8 @@ const Article = () => {
         <>
           <div className={modalStyle["post-image"]}>
             {/* <img src={`${info.imageURL}`} alt={`${info.imageURL}`}/> */}
-            <img src={`${"https://i.namu.wiki/i/G-pdwWLAlu-hTXS-k3Os8M0nLhtQ7ALtkHJPLbwwGqkYjGzKtzCFCo1aeBDYDG6DtoZL1pCB77vxTxJGacULhA.webp"}`} alt={`${info.imageURL}`}/>
+            <Gallery/>
+            {/* <img src={`${"https://i.namu.wiki/i/G-pdwWLAlu-hTXS-k3Os8M0nLhtQ7ALtkHJPLbwwGqkYjGzKtzCFCo1aeBDYDG6DtoZL1pCB77vxTxJGacULhA.webp"}`} alt={`${info.imageURL}`}/> */}
           </div>
           <div className={modalStyle["post-content"]}>
             <div className={`${modalStyle["display-row-container"]} ${modalStyle["post-header"]}`}>
@@ -172,7 +175,11 @@ const Article = () => {
                 {/* </div> */}
               {/* </div> */}
               {/* {isYou && <div onClick={deletePost}>...</div>} */}
-              {isYou && <DropdownToggleButton postID = {postID}/>}
+              {isYou && 
+              // <ModifyContents.Provider value={}>
+                <DropdownToggleButton postID = {postID} modDatas = {info.imageURL}/>
+              // </ModifyContents.Provider>
+              }
             </div>
             <div className={modalStyle["scroll-view"]}>
               <div className={`${modalStyle["display-row-container"]} ${modalStyle["post-body"]}`}>
