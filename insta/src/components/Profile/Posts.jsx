@@ -179,9 +179,11 @@ const Article = () => {
               {/* {isYou && <div onClick={deletePost}>...</div>} */}
               {isYou && 
               <>
-                <ModifyContext.Provider value={info}>
-                  <DropdownToggleButton postID = {postID} modDatas = {info}/>
-                </ModifyContext.Provider>
+                {/* <UserContext.Provider value={curUser}> */}
+                  <ModifyContext.Provider value={info}>
+                    <DropdownToggleButton postID = {postID} modDatas = {info}/>
+                  </ModifyContext.Provider>
+                {/* </UserContext.Provider> */}
               </>
               }
             </div>

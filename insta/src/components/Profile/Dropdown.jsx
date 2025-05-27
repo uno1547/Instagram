@@ -82,7 +82,7 @@ const DropdownList = ({setDropdown, dropRef, postID, modDatas}) => {
         <li onClick={editHandler}>수정하기</li>
         <li onClick={deletePost}>삭제하기</li>
       </ul>
-      {isOpen ? createPortal(<ModifyModal/>, document.querySelector('#modal')) : null}
+      {isOpen ? createPortal(<ModifyModal setIsOpen = {setIsOpen}/>, document.querySelector('#modal')) : null}
       {/* createportal로 독립된 div에 놓여지지만, 여전히 구조상 부모라고 치는건가? 그래서 ModifyModal > DropdownList > DropdownToggleButton >  */}
     </div>
   )

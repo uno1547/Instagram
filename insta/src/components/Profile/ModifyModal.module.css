@@ -11,12 +11,33 @@
   justify-content: center;
   align-items: center;  
 }
+.create {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed rgb(184, 222, 251);
+  border-radius: 5px;
+  /* width: 800px; */
+  margin: auto;
+  height: 800px;
+}
 
 .modify-modal {
   width: 1400px;
   height: 800px;
   background-color: rgb(255, 255, 255);
   display: flex;
+}
+
+.modify-image {
+  flex: 7;
+}
+.modify-image img {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill; 
 }
 
 .modify-modal .deleteBtn {
@@ -36,3 +57,11 @@
 .modify-modal .deleteBtn:hover {
   background-color: rgb(85, 85, 85);
 }
+
+.modify-content {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+}
+
