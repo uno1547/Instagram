@@ -1,7 +1,12 @@
 const postInfos = [
   {
     postID: 1,
-    imageURL: "img_1abcd",
+    // images: "img_1abcd",
+    images: [
+      "https://lh5.googleusercontent.com/proxy/L-7hpYqmY-2V_IKWV89REZtjUlfVJU6plm3iyjqd9a7Dwo-Act81XCKZraUa1fv2HLCJfUk5MwY21z1MN6GUoBYmEhEMwqE0nwI2d37SVM3H",
+      "https://www.palnews.co.kr/news/photo/201801/92969_25283_5321.jpg",
+      "https://cdn.imweb.me/upload/S20210720ef466f4f488bc/8082829da5e97.jpg"
+    ],
     likes: 78,
     liked: true,
     createdAt : "2024년 3월 28일",
@@ -13,7 +18,12 @@ const postInfos = [
   },
   {
     postID: 2,
-    imageURL: "img_2bcde",
+    // images: "img_2bcde",
+    images: [
+      "https://lh5.googleusercontent.com/proxy/L-7hpYqmY-2V_IKWV89REZtjUlfVJU6plm3iyjqd9a7Dwo-Act81XCKZraUa1fv2HLCJfUk5MwY21z1MN6GUoBYmEhEMwqE0nwI2d37SVM3H",
+      "https://www.palnews.co.kr/news/photo/201801/92969_25283_5321.jpg",
+      "https://cdn.imweb.me/upload/S20210720ef466f4f488bc/8082829da5e97.jpg"
+    ],
     likes: 45,
     liked: false,
     createdAt : "2024년 3월 28일",
@@ -48,7 +58,7 @@ const postInfos = [
   },
   {
     postID: 3,
-    imageURL: "img_3cdef",
+    images: "img_3cdef",
     likes: 92,
     liked: true,
     createdAt : "2024년 3월 28일",
@@ -60,7 +70,7 @@ const postInfos = [
   },
   {
     postID: 4,
-    imageURL: "img_4defg",
+    images: "img_4defg",
     likes: 12,
     liked: false,
     createdAt : "2024년 3월 28일",
@@ -72,7 +82,7 @@ const postInfos = [
   },
   {
     postID: 5,
-    imageURL: "img_5efgh",
+    images: "img_5efgh",
     likes: 60,
     liked: true,
     createdAt : "2024년 3월 28일",
@@ -84,7 +94,7 @@ const postInfos = [
   },
   {
     postID: 6,
-    imageURL: "img_6fghi",
+    images: "img_6fghi",
     likes: 23,
     liked: false,
     createdAt : "2024년 3월 28일",
@@ -96,7 +106,11 @@ const postInfos = [
   },
   {
     postID: 7,
-    imageURL: "img_7ghij",
+    images: [
+      "https://lh3.googleusercontent.com/proxy/oWZiKvnRpxt-EiHKIy3nS61JcwnP08GajGA2o3cMh6UzA7-RrLEAoCf3FHUnKETVjwJRR_HBV2AFtFlOo8NUKffm_tEm0jm1rp2jgZUWqx7AEe6u4m8",
+      "https://blog.kakaocdn.net/dn/SJwAc/btsoxbcDgFk/Q4qw5GkAP0o0VxlMYjIJ71/img.jpg",
+      "https://cdn.imweb.me/upload/S20210720ef466f4f488bc/8082829da5e97.jpg"
+    ],
     likes: 89,
     liked: true,
     createdAt : "2024년 3월 28일",
@@ -108,7 +122,7 @@ const postInfos = [
   },
   {
     postID: 8,
-    imageURL: "img_8hijk",
+    images: "img_8hijk",
     likes: 55,
     liked: false,
     createdAt : "2024년 3월 28일",
@@ -120,7 +134,7 @@ const postInfos = [
   },
   {
     postID: 9,
-    imageURL: "img_9ijkl",
+    images: "img_9ijkl",
     likes: 94,
     liked: true,
     createdAt : "2024년 3월 28일",
@@ -132,7 +146,7 @@ const postInfos = [
   },
   {
     postID: 10,
-    imageURL: "img_10jklm",
+    images: "img_10jklm",
     likes: 67,
     liked: false,
     createdAt : "2024년 3월 28일",
@@ -144,7 +158,7 @@ const postInfos = [
   },
   {
     postID: 11,
-    imageURL: "img_11lmno",
+    images: "img_11lmno",
     likes: 42,
     liked: true,
     createdAt : "2024년 3월 28일",
@@ -156,7 +170,7 @@ const postInfos = [
   },
   {
     postID: 12,
-    imageURL: "img_12mnop",
+    images: "img_12mnop",
     likes: 58,
     liked: false,
     createdAt : "2024년 3월 28일",
@@ -168,7 +182,7 @@ const postInfos = [
   },
   {
     postID: 13,
-    imageURL: "img_13nopq",
+    images: "img_13nopq",
     likes: 74,
     liked: true,
     createdAt : "2024년 3월 28일",
@@ -180,7 +194,7 @@ const postInfos = [
   },
   {
     postID: 14,
-    imageURL: "img_14opqr",
+    images: "img_14opqr",
     likes: 39,
     liked: false,
     createdAt : "2024년 3월 28일",
@@ -192,7 +206,7 @@ const postInfos = [
   },
   {
     postID: 15,
-    imageURL: "img_15pqrs",
+    images: "img_15pqrs",
     likes: 88,
     liked: true,
     createdAt : "2024년 3월 28일",
@@ -204,7 +218,7 @@ const postInfos = [
   },
   {
     postID: 16,
-    imageURL: "img_16qrst",
+    images: "img_16qrst",
     likes: 61,
     liked: false,
     createdAt : "2024년 3월 28일",
@@ -216,7 +230,7 @@ const postInfos = [
   },
   {
     postID: 17,
-    imageURL: "img_17rstu",
+    images: "img_17rstu",
     likes: 35,
     liked: true,
     createdAt : "2024년 3월 28일",
@@ -228,7 +242,7 @@ const postInfos = [
   },
   {
     postID: 18,
-    imageURL: "img_18stuv",
+    images: "img_18stuv",
     likes: 90,
     liked: false,
     createdAt : "2024년 3월 28일",
@@ -240,7 +254,7 @@ const postInfos = [
   },
   {
     postID: 19,
-    imageURL: "img_19tuvw",
+    images: "img_19tuvw",
     likes: 29,
     liked: true,
     createdAt : "2024년 3월 28일",
@@ -252,7 +266,7 @@ const postInfos = [
   },
   {
     postID: 20,
-    imageURL: "img_20uvwx",
+    images: "img_20uvwx",
     likes: 84,
     liked: false,
     createdAt : "2024년 3월 28일",

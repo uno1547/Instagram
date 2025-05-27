@@ -1,0 +1,38 @@
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 40%);
+
+  /* 리스트창 중앙정렬 하기위함 */
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+
+.modify-modal {
+  width: 1400px;
+  height: 800px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+}
+
+.modify-modal .deleteBtn {
+  /* background-color: rgb(255, 255, 255); */
+  border: none;
+  border-radius: 30px;
+  padding: 10px 18px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .5s;
+  position: absolute;  
+  top: 10px;
+  right: 10px;
+}
+
+.modify-modal .deleteBtn:hover {
+  background-color: rgb(85, 85, 85);
+}

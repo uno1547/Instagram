@@ -8,7 +8,8 @@ import Dots from "./Dots"
 
 import style from "./Gallery.module.css"
 
-const Gallery = ({ images }) => {
+const Gallery = ({ images, children }) => {
+  // console.log(images);
   const [idx, setIdx] = useState(0)
   // console.log(idx);
 
@@ -20,18 +21,22 @@ const Gallery = ({ images }) => {
 
   const nextHandler = () => {
     setIdx(prev => {
-      return prev == dummyImages.length - 1 ? prev : prev + 1
-      // return prev == images.length - 1 ? prev : prev + 1
+      // return prev == dummyImages.length - 1 ? prev : prev + 1
+      return prev == images?.length - 1 ? prev : prev + 1
     })
   }
   return (
     <div className={style.gallery}>
-      <img className = {style["gallery-img"]}src={dummyImages[idx]}/>
+      {/* <img className = {style["gallery-img"]}src={dummyImages[idx]}/> */}
+      <img className = {style["gallery-img"]}src={images?.[idx]}/>
       <button className={`${style.btn} ${style.prevBtn}`} onClick={prevHandler} disabled = {idx == 0}>&lt;</button>
-      <button className={`${style.btn} ${style.nextBtn}`} onClick={nextHandler} disabled = {idx == dummyImages.length - 1}>&gt;</button>
+      {/* <button className={`${style.btn} ${style.nextBtn}`} onClick={nextHandler} disabled = {idx == dummyImages.length - 1}>&gt;</button> */}
+      <button className={`${style.btn} ${style.nextBtn}`} onClick={nextHandler} disabled = {idx == images?.length - 1}>&gt;</button>
       <div className={style.pagination}>
-        <Dots length={dummyImages.length} imgIdx={idx} setIdx = {setIdx}/>
+        {/* <Dots length={dummyImages.length} imgIdx={idx} setIdx = {setIdx}/> */}
+        <Dots length={images?.length} imgIdx={idx} setIdx = {setIdx}/>
       </div>
+      {children}
     </div>
   )
 }

@@ -5,7 +5,7 @@ import { useContext } from "react"
 import { ModalContext } from "../../context/ModalContext"
 import { PostModalContext } from "../../context/PostModalContext"
 import { UserContext } from "../../context/UserContext"
-import { ModifyContents } from "../../context/ModifyContents"
+import { ModifyContext } from "../../context/ModifyContext"
 
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
@@ -153,16 +153,18 @@ const Article = () => {
   return (
     <div className={modalStyle["modal-overlay"]}  onClick={e => {
       // console.log('클릭이 감지됌!!');
-      // console.log('article 모달 핸들러 트리거');
-      if(e.target == e.currentTarget) 
+      console.log('article 모달 핸들러');
+      if(e.target == e.currentTarget) {
+        console.log('article 모달 직접 클릭');
         modalHandler()
+      }
     }}>
       <div className={modalStyle["post-modal"]}>
         {isLoading ? "로딩중" : 
         <>
           <div className={modalStyle["post-image"]}>
             {/* <img src={`${info.imageURL}`} alt={`${info.imageURL}`}/> */}
-            <Gallery/>
+            <Gallery images={info.images}/>
             {/* <img src={`${"https://i.namu.wiki/i/G-pdwWLAlu-hTXS-k3Os8M0nLhtQ7ALtkHJPLbwwGqkYjGzKtzCFCo1aeBDYDG6DtoZL1pCB77vxTxJGacULhA.webp"}`} alt={`${info.imageURL}`}/> */}
           </div>
           <div className={modalStyle["post-content"]}>
@@ -176,9 +178,11 @@ const Article = () => {
               {/* </div> */}
               {/* {isYou && <div onClick={deletePost}>...</div>} */}
               {isYou && 
-              // <ModifyContents.Provider value={}>
-                <DropdownToggleButton postID = {postID} modDatas = {info.imageURL}/>
-              // </ModifyContents.Provider>
+              <>
+                <ModifyContext.Provider value={info}>
+                  <DropdownToggleButton postID = {postID} modDatas = {info}/>
+                </ModifyContext.Provider>
+              </>
               }
             </div>
             <div className={modalStyle["scroll-view"]}>
