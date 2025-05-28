@@ -153,9 +153,9 @@ const Article = () => {
   return (
     <div className={modalStyle["modal-overlay"]}  onClick={e => {
       // console.log('클릭이 감지됌!!');
-      console.log('article 모달 핸들러');
+      // console.log('article 모달 핸들러');
       if(e.target == e.currentTarget) {
-        console.log('article 모달 직접 클릭');
+        // console.log('article 모달 직접 클릭');
         modalHandler()
       }
     }}>

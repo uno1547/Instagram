@@ -12,7 +12,7 @@ const DropdownList = ({setDropdown, dropRef, postID, modDatas}) => {
   const {modalHandler} = useContext(ModalContext)
   const {getProfileInfos} = useContext(UserContext)
   // console.log(dropRef);
-  console.log('dropdown list리랜더링');
+  // console.log('dropdown list리랜더링');
 
   useEffect(() => {
     // if(!isOpen) return
@@ -23,9 +23,9 @@ const DropdownList = ({setDropdown, dropRef, postID, modDatas}) => {
       // console.log(`dropRef.current가 포함하고 있는거 ${e.target}`);
       // console.log(dropRef.current);
       // console.log(e.target);
-      console.log('document에 추가한 핸들러'); // isOpen 변경으로 인해 DropdownList 리랜더링 > 이후에 document에 단게 트리거 되는듯
+      // console.log('document에 추가한 핸들러'); // isOpen 변경으로 인해 DropdownList 리랜더링 > 이후에 document에 단게 트리거 되는듯
       if(dropRef.current && !dropRef.current.contains(e.target) && !isOpen) {
-        console.log('document 감지 외부클릭으로 리스트 닫힘!!');
+        // console.log('document 감지 외부클릭으로 리스트 닫힘!!');
         // 여기서 리스트가 닫히면서 리스트 하위컴포넌트였던 ModifyModal도 같이 닫히네;;;;;;;;;
         // 수정창을 클릭했는데 구조상 다른위치에 있는
 
@@ -93,9 +93,9 @@ const DropdownToggleButton = ({postID, modDatas}) => {
   const dropdownRef = useRef(null)
 
   const dropdownToggle = e => {
-    console.log('... 에서 감지된 클릭 핸들러 리스트');
+    // console.log('... 에서 감지된 클릭 핸들러 리스트');
     if(e.target === e.currentTarget) {
-      console.log('...를 직접클릭');
+      // console.log('...를 직접클릭');
       setDropdown(prev => !prev)
     }
   }
